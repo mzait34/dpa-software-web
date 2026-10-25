@@ -1,0 +1,538 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DPA Software</title>
+    <script type="module" crossorigin src="./assets/index-Bh_41nKt.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-CA53t1A6.css">
+  </head>
+  <body>
+    <header>
+      <div class="brand">DPA Software <span>research MVP</span></div>
+      <button id="btn-home" title="Patients">⌂ Patients</button>
+      <button id="btn-case" class="case-name" title="Patient details"><span id="case-title">—</span></button>
+      <div class="hgroup">
+        <button id="btn-plan-undo" title="Undo (Ctrl+Z)">↶ Undo</button>
+        <button id="btn-plan-redo" title="Redo (Ctrl+Shift+Z / Ctrl+Y)">↷ Redo</button>
+      </div>
+      <div class="views">
+        <button data-view="upper" title="Upper occlusal (Alt+Q)">Upper</button>
+        <button data-view="front" title="Front (Alt+1)">Front</button>
+        <button data-view="home" title="Home (Alt+H)">Home</button>
+        <button data-view="back" title="Back (Alt+2)">Back</button>
+        <button data-view="lower" title="Lower occlusal (Alt+E)">Lower</button>
+        <button data-view="right" title="Patient right (Alt+3)">Right</button>
+        <button data-view="left" title="Patient left (Alt+4)">Left</button>
+      </div>
+      <button id="btn-level" class="level" title="Show advanced options">Simple</button>
+      <button id="btn-settings" title="Settings">⚙ Settings</button>
+      <button id="btn-save" title="Download the whole case as one .dpa file">Save file</button>
+      <button id="btn-export-open" class="primary-inline">Export</button>
+    </header>
+
+    <main id="viewport">
+      <div id="occlusal-legend" class="legend" hidden></div>
+      <div id="tooth-numbers"></div>
+      <svg id="trim-draw" class="trim-draw"><polyline id="trim-path" /></svg>
+      <div id="empty" class="empty"><p>No scans in this case yet.</p></div>
+
+      <!-- ===================== left: one panel per step ===================== -->
+      <div id="left" class="float left">
+        <section class="step-panel" data-step="scans">
+          <h2>2 · Scans</h2>
+          <div id="jaw-list"></div>
+          <div class="row">
+            <label class="btn">Replace upper…<input id="file-upper" type="file" accept=".stl,.obj,.ply" hidden /></label>
+            <label class="btn">Replace lower…<input id="file-lower" type="file" accept=".stl,.obj,.ply" hidden /></label>
+          </div>
+
+          <h3>Orientation</h3>
+          <p class="muted small">Turn the case until the teeth sit on the blue occlusal plane, front teeth toward FRONT. Both arches turn together, so the bite is kept.</p>
+          <div class="row"><button id="btn-orient-auto" class="primary-inline">Auto-orient</button><button id="btn-orient-flip" title="Turn the case upside down">Flip</button></div>
+          <div class="orient-grid">
+            <span>Tilt front/back</span><button data-orient="pitch" data-deg="-2">−2°</button><button data-orient="pitch" data-deg="2">+2°</button>
+            <span>Tilt left/right</span><button data-orient="roll" data-deg="-2">−2°</button><button data-orient="roll" data-deg="2">+2°</button>
+            <span>Turn</span><button data-orient="yaw" data-deg="-5">−5°</button><button data-orient="yaw" data-deg="5">+5°</button>
+          </div>
+          <h3>Bite (upper on lower)</h3>
+          <p class="muted small">Scans exported separately, without a bite scan, are set in an approximate bite. Nudge the upper arch until the teeth meet.</p>
+          <div class="row"><button id="btn-align-arches">Set in bite</button></div>
+          <div class="orient-grid">
+            <span>Up / down</span><button data-nudge="y" data-mm="0.5">Up 0.5</button><button data-nudge="y" data-mm="-0.5">Down 0.5</button>
+            <span>Forward / back</span><button data-nudge="z" data-mm="0.5">Fwd 0.5</button><button data-nudge="z" data-mm="-0.5">Back 0.5</button>
+            <span>Left / right</span><button data-nudge="x" data-mm="0.5">→ 0.5</button><button data-nudge="x" data-mm="-0.5">← 0.5</button>
+          </div>
+
+          <h3>Trim</h3>
+          <div class="tabs mk-tabs"><button data-trimarch="upper">Upper</button><button data-trimarch="lower" class="active">Lower</button></div>
+          <div class="tabs trim-tools">
+            <button data-trimtool="plane" class="active" title="Cut everything below a level plane">Plane</button>
+            <button data-trimtool="line" title="Drag a straight line across the model">Line</button>
+            <button data-trimtool="lasso" title="Draw around the part to remove">Lasso</button>
+          </div>
+          <div data-trimpanel="plane">
+            <p class="muted small">Cut away everything below a level plane (the scan's ragged edge, tongue, palate).</p>
+            <label class="slider">Cut height <input id="trim-height" type="range" min="0" max="1" step="0.005" value="0.25" /><output></output> mm</label>
+            <div class="row"><button id="btn-trim">Apply trim</button></div>
+          </div>
+          <div data-trimpanel="line" hidden>
+            <p class="muted small">Drag a straight line across the model. The part shown in red is cut off along the line (a clean, straight cut through the whole model).</p>
+            <div class="row"><button id="btn-trim-flip">Flip side</button><button id="btn-trim-apply" class="primary-inline">Cut</button><button id="btn-trim-cancel">Cancel</button></div>
+          </div>
+          <div data-trimpanel="lasso" hidden>
+            <p class="muted small">Draw around the part to remove (hold the mouse button and draw). Red is removed, through the whole model.</p>
+            <label class="check"><input id="lasso-keep" type="checkbox" /> Keep only what is inside instead</label>
+            <div class="row"><button id="btn-lasso-apply" class="primary-inline">Remove</button><button id="btn-lasso-cancel">Cancel</button></div>
+          </div>
+
+          <h3>Base</h3>
+          <label class="slider">Base height <input id="base-depth" type="range" min="1" max="15" step="0.5" value="4" /><output></output> mm</label>
+          <label class="check"><input id="base-flat" type="checkbox" checked /> Cut the ragged edge flat first</label>
+          <div class="row"><button id="btn-base">Create base</button><button id="btn-scan-undo">Undo scan edit</button></div>
+          <div id="autosave-state" class="muted small"></div>
+        </section>
+
+        <section class="step-panel" data-step="markers" hidden>
+          <h2>3 · Segmentation</h2>
+          <div class="tabs mk-tabs">
+            <button data-mkarch="upper">Upper</button>
+            <button data-mkarch="lower">Lower</button>
+          </div>
+          <div class="choice">
+            <div>
+              <b>Automatic</b> <span class="tag">beta</span>
+              <p class="small muted">Places one marker per tooth from the crown tips. Check them: add a missing tooth with a click, remove an extra one by clicking it.</p>
+              <button id="btn-mk-auto" class="primary-inline">Auto-place markers</button>
+            </div>
+            <div>
+              <b>Manual</b>
+              <p class="small muted">Click once on the <b>occlusal surface of each tooth</b>. Click a marker again to remove it.</p>
+            </div>
+          </div>
+          <div id="mk-count" class="mk-count"></div>
+          <div class="row">
+            <button id="btn-mk-undo" title="Remove the last marker">Undo marker</button>
+            <button id="btn-mk-clear">Clear arch</button>
+          </div>
+          <p class="muted small">Next → separates the teeth from the gingiva (a few seconds).</p>
+          <div class="choice"><div>
+            <b>Teeth already separate</b>
+            <p class="small muted">For models exported with each tooth as its own part.</p>
+            <button id="btn-autonumber">Detect separated teeth</button>
+          </div></div>
+        </section>
+
+        <section class="step-panel" data-step="boundaries" hidden>
+          <h2>4 · Editing</h2>
+          <div class="tabs mk-tabs">
+            <button data-editarch="upper">Upper</button>
+            <button data-editarch="lower">Lower</button>
+          </div>
+          <p class="muted small">Select: click a tooth on the model to pick it, drag to turn the model. Brush / Eraser: drag to paint. With any tool, right-drag turns the model and Alt+click picks a tooth.</p>
+          <div class="seg-tools row">
+            <button data-tool="select" class="active" title="Click a tooth to select it, drag to turn the model (S)">Select</button>
+            <button data-tool="brush" title="Paint faces onto the chosen tooth (B)">Brush</button>
+            <button data-tool="erase" title="Paint back to gingiva (E)">Eraser</button>
+            <button data-tool="fill" title="Click a crown to grow a region until the gum margin (F)">Fill</button>
+          </div>
+          <label class="slider">Brush size <input id="brush-radius" type="range" min="0.3" max="5" step="0.1" value="1.2" /><output></output> mm</label>
+          <label class="slider adv">Fill edge angle <input id="fill-angle" type="range" min="5" max="80" step="1" value="35" /><output></output>°</label>
+          <label class="check adv"><input id="brush-protect" type="checkbox" checked /> Don't overwrite other teeth</label>
+          <div id="tooth-grid"></div>
+          <div class="row">
+            <button id="btn-undo" title="Ctrl+Z">Undo</button>
+            <button id="btn-clear-tooth">Clear tooth</button>
+            <button id="btn-holes" title="Fill small unlabeled islands inside a crown">Close holes</button>
+          </div>
+          <div class="row">
+            <button id="btn-reseg" title="Segment again from the markers (discards brush edits)">Re-run segmentation</button>
+          </div>
+        </section>
+
+        <section class="step-panel" data-step="verify" hidden>
+          <h2>5 · Tooth numbers</h2>
+          <p class="small">Check the numbers on the crowns. If a tooth is missing, click its place in the chart (✕) and the teeth behind it renumber.</p>
+          <div id="verify-chart"></div>
+          <button id="btn-build" class="primary">Accept · go to planning</button>
+        </section>
+
+        <section class="step-panel" data-step="plan" hidden>
+          <h2>6 · Planning</h2>
+          <div class="toolmenu">
+            <button data-toolpanel="staging">Staging</button>
+            <button data-toolpanel="contacts">Contacts &amp; IPR</button>
+            <button data-toolpanel="review">Review</button>
+            <button data-toolpanel="attachments">Attachments</button>
+            <button data-toolpanel="bite">Bite shift</button>
+            <button data-toolpanel="extract">Extraction &amp; pontics</button>
+            <button data-toolpanel="align">Auto alignment</button>
+            <button data-toolpanel="bolton">Bolton analysis</button>
+            <button id="btn-table-view" title="Movement of every tooth at this stage (T)">Table view</button>
+          </div>
+          <h3>Layers</h3>
+          <label class="check"><input id="show-ipr" type="checkbox" checked /> IPR pins</label>
+          <label class="check"><input id="show-numbers" type="checkbox" /> Tooth numbers</label>
+          <label class="check"><input id="show-ghost" type="checkbox" /> Initial position of moved teeth</label>
+          <label class="check"><input id="show-occlusal" type="checkbox" /> Occlusal map</label>
+          <label class="check" title="Every crown coloured by its distance to the nearest neighbouring or opposing tooth: red is a collision"><input id="show-collisions" type="checkbox" /> Collision heatmap</label>
+          <label class="check" title="Virtual roots and centres of resistance (red); the gingiva becomes see-through"><input id="show-roots" type="checkbox" /> Virtual roots &amp; CR</label>
+          <label class="check" title="Reference grid in the occlusal plane (Alt+G)"><input id="show-grid" type="checkbox" /> Grid</label>
+          <label class="check" title="Each tooth's local axes: red mesio-distal, blue vertical, green bucco-lingual (Alt+T)"><input id="show-axes" type="checkbox" /> Axes</label>
+          <label class="check" title="Every crown where it started (blue), over the current aligner (Alt+O)"><input id="show-super" type="checkbox" /> Superimposition</label>
+          <label class="check" title="Arch curves through the incisal edges and cusp tips, now (solid) and at the start (faint) (Alt+R)"><input id="show-curves" type="checkbox" /> Curves</label>
+          <label class="check" title="Cut through upper and lower at one tooth to see the bite (Alt+X)"><input id="show-section" type="checkbox" /> Cross section</label>
+          <div class="row archview">
+            <button data-arch="both" class="active">Both</button>
+            <button data-arch="upper">Upper occlusal</button>
+            <button data-arch="lower">Lower occlusal</button>
+          </div>
+        </section>
+      </div>
+
+      <!-- ===================== tool panels (planning), one at a time ===================== -->
+      <div id="tool-panel" class="float tool" hidden>
+        <section data-panel="staging">
+          <h2>Staging <button class="close" data-close>✕</button></h2>
+          <p class="muted small">Aligners needed per tooth with the limits in ⚙ Settings.</p>
+          <div id="mv-table"></div>
+        </section>
+
+        <section data-panel="contacts" hidden>
+          <h2>Contacts &amp; IPR <button class="close" data-close>✕</button></h2>
+          <div class="row">
+            <button id="btn-contacts" class="primary-inline">Measure contacts &amp; IPR</button>
+            <span id="contacts-progress" class="muted small" hidden></span>
+          </div>
+          <div class="row">
+            <button id="btn-ipr-apply">Apply suggested IPR</button>
+            <button id="btn-ipr-clear">Clear IPR</button>
+            <button id="btn-ipr-remove" title="Bring every neighbouring pair into contact (no IPR, no gaps), as ArchForm's Remove IPR/Gap">Remove IPR/Gap</button>
+          </div>
+          <div id="contacts" class="findings"></div>
+        </section>
+
+        <section data-panel="align" hidden>
+          <h2>Auto alignment <button class="close" data-close>✕</button></h2>
+          <p class="muted small">Lines the crowns up along an ideal arch curve (white), side by side from the midline, each turned to face out of the curve. Heights, tip and torque stay as planned. It sets the goal being edited.</p>
+          <div class="row" id="align-arch"><button data-alignarch="upper" class="active">Upper</button><button data-alignarch="lower">Lower</button></div>
+          <div class="row"><button id="btn-align-start" class="primary-inline">Start align</button><button id="btn-align-done">Done</button></div>
+          <div id="align-params" hidden></div>
+        </section>
+
+        <section data-panel="bolton" hidden>
+          <h2>Bolton analysis <button class="close" data-close>✕</button></h2>
+          <div id="bolton"></div>
+        </section>
+
+        <section data-panel="review" hidden>
+          <h2>Review <button class="close" data-close>✕</button></h2>
+          <div id="flags" class="findings"></div>
+          <p class="muted small">Literature-based rules of thumb (predicted vs. achieved aligner studies), not a validated prediction. Click a reference for the source.</p>
+        </section>
+
+        <section data-panel="bite" hidden>
+          <h2>Bite shift <button class="close" data-close>✕</button></h2>
+          <p class="muted small">Moves a whole arch as one block (e.g. mandibular advancement, midline or vertical correction), spread over the aligners. The occlusal map and contacts include it.</p>
+          <div class="tabs mk-tabs"><button data-bitearch="lower" class="active">Lower moves</button><button data-bitearch="upper">Upper moves</button></div>
+          <div id="bite-inputs" class="bite-grid"></div>
+          <div class="row"><button id="btn-bite-reset">Reset bite shift</button></div>
+          <p class="muted small">Opening turns about an estimated hinge axis (condyles about 60 mm behind and 35 mm above the arch centre), not a measured one.</p>
+        </section>
+
+        <section data-panel="extract" hidden>
+          <h2>Extraction &amp; pontics <button class="close" data-close>✕</button></h2>
+          <p class="muted small">Click a tooth to extract it (click again to restore). <b>P</b> puts a pontic in an empty place between two teeth: a tooth-shaped filler for the aligner, mirrored from the other side, that narrows as the space closes.</p>
+          <div id="extract-chart"></div>
+        </section>
+
+        <section data-panel="attachments" hidden>
+          <h2>Attachments <button class="close" data-close>✕</button></h2>
+          <div id="att-summary" class="small muted"></div>
+          <p class="small">Select a tooth to add or edit its attachments (tooth panel, right).</p>
+          <div class="row">
+            <label class="btn">Import shape (PLY/STL)…<input id="file-att" type="file" accept=".ply,.stl,.obj" multiple hidden /></label>
+          </div>
+        </section>
+      </div>
+
+      <!-- Upper / Lower opacity (as in ArchForm): drag to one end to show only that arch -->
+      <div id="arch-opacity" class="float opacity-pad" hidden>
+        <input id="arch-opacity-range" type="range" min="-100" max="100" value="0" step="1" title="Drag toward Upper to fade the lower arch, toward Lower to fade the upper; double-click to reset" />
+        <div class="opacity-labels"><span>Upper</span><span>Lower</span></div>
+      </div>
+
+      <!-- ===================== right: several teeth selected (Shift+click) ===================== -->
+      <div id="section-panel" class="float" hidden>
+        <div class="row">
+          <b>Cross section</b>
+          <button id="sec-prev" title="Previous tooth">◀</button>
+          <span id="sec-name"></span>
+          <button id="sec-next" title="Next tooth">▶</button>
+          <button id="sec-view" title="Look straight at the cut">View cut</button>
+          <button id="sec-flip" title="Look from the other side">Flip</button>
+          <button id="sec-close" class="close">✕</button>
+        </div>
+        <input id="sec-pos" type="range" min="0" max="1000" value="500" />
+        <div id="sec-info" class="muted small"></div>
+      </div>
+
+      <div id="multi" class="float right" hidden>
+        <h2 id="multi-name">Multi-Select</h2>
+        <p class="muted small">Moves every selected tooth along its own axes, at the goal being edited. Shift+click a tooth to add or remove it.</p>
+        <table class="multi-grid"><thead><tr><th>Movement</th><th></th><th></th><th>Step</th></tr></thead><tbody id="multi-rows"></tbody></table>
+        <div class="row"><button id="btn-multi-clear">Clear movements</button><button id="btn-multi-done">Done</button></div>
+      </div>
+
+      <!-- ===================== right: selected tooth ===================== -->
+      <div id="right" class="float right" hidden>
+        <h2 id="sel-name">Tooth</h2>
+        <div class="row">
+          <button data-gizmo="on" class="active" title="G">Arrows &amp; rings</button>
+          <button data-gizmo="off">Hide</button>
+        </div>
+        <div id="mv-inputs" class="mv-grid"></div>
+        <div id="axes-edit" class="axes-edit" hidden>
+          <p class="muted small">Turn the tooth's axes (red mesio-distal, blue long axis, green bucco-lingual) to match the crown. The tooth stays where it is; its movement numbers are measured along the new axes.</p>
+          <div class="axes-grid">
+            <span>Tip axis</span><button data-axrot="z" data-d="-1">−1°</button><button data-axrot="z" data-d="1">+1°</button>
+            <span>Torque axis</span><button data-axrot="x" data-d="-1">−1°</button><button data-axrot="x" data-d="1">+1°</button>
+            <span>Rotation axis</span><button data-axrot="y" data-d="-1">−1°</button><button data-axrot="y" data-d="1">+1°</button>
+          </div>
+          <div class="row"><button id="axes-reset" title="Undo the changes made in this session">Reset</button><button id="axes-cancel">Cancel</button><button id="axes-done" class="primary-inline">Done</button></div>
+        </div>
+        <div class="pivot-row"><span class="muted small">Pivot</span><button data-pivot="centre" title="Turn about the crown centre">Crown</button><button data-pivot="resistance" title="Turn about the estimated centre of resistance">Resistance</button><button data-pivot="incisal" title="Turn about the incisal edge / cusp tips">Incisal</button><span id="pivot-offset" class="muted small" title="Shift+↑ / Shift+↓ move the pivot toward the root / the incisal edge"></span></div>
+        <p id="goal-hint" class="muted small" hidden></p>
+        <div class="row">
+          <button id="btn-reset-tooth">Clear movements</button>
+          <button id="btn-extract-tooth" title="Take this tooth out of the plan">Extract tooth</button>
+          <button id="btn-edit-axes" title="Correct this tooth's axes: the directions its movements are measured in">Edit tooth axes</button>
+          <button id="btn-reset-all" class="adv">Reset all teeth</button>
+        </div>
+        <div id="tooth-ipr"></div>
+        <details id="root-panel">
+          <summary>Root &amp; centre of resistance</summary>
+          <div class="mv-grid">
+            <label>Root length mm<input id="root-length" type="number" step="0.5" min="6" max="25" /></label>
+            <label>CR at % of root<input id="root-cr" type="number" step="5" min="0" max="100" /></label>
+            <label title="+ moves the apex distally">Root angle M/D °<input id="root-tip" type="number" step="1" min="-30" max="30" /></label>
+            <label title="+ moves the apex lingually (palatally)">Root angle B/L °<input id="root-torque" type="number" step="1" min="-30" max="30" /></label>
+          </div>
+          <div id="root-info" class="muted small"></div>
+          <div class="row"><button id="btn-root-reset">Default root</button></div>
+        </details>
+        <details id="att-panel" open>
+          <summary>Attachments</summary>
+          <select id="att-kind" aria-label="Attachment type"></select>
+          <div class="row">
+            <button id="btn-att-auto" title="Middle of the buccal surface, clear of the gingiva">Add on buccal centre</button>
+            <button id="btn-att-place" title="Then click on a crown">Click to place…</button>
+          </div>
+          <div id="att-list"></div>
+        </details>
+        <details class="adv">
+          <summary>Edit history</summary>
+          <div id="tooth-history" class="small"></div>
+        </details>
+      </div>
+
+      <!-- ===================== bottom: steps / timeline ===================== -->
+      <div id="bottom" class="float bottom">
+        <div id="adv-staging" class="adv-staging" hidden></div>
+        <div id="goal-bar" class="goal-bar" hidden></div>
+        <div id="tl-menu" class="tl-menu" hidden></div>
+        <div id="timeline" hidden>
+          <button id="btn-play" title="Space">▶</button>
+          <input id="stage" type="range" min="0" max="0" step="1" value="0" />
+          <span id="stage-label">0 / 0</span>
+        </div>
+        <div id="stepbar">
+          <button id="btn-prev">← Back</button>
+          <ol>
+            <li data-goto="home"><span>1</span>Patient</li>
+            <li data-goto="scans"><span>2</span>Scans</li>
+            <li data-goto="markers"><span>3</span>Segmentation</li>
+            <li data-goto="boundaries"><span>4</span>Editing</li>
+            <li data-goto="verify"><span>5</span>Tooth numbers</li>
+            <li data-goto="plan"><span>6</span>Planning</li>
+          </ol>
+          <button id="btn-next" class="primary-inline">Next →</button>
+        </div>
+      </div>
+
+      <div id="table-view" hidden></div>
+    </main>
+    <footer id="status">Ready</footer>
+
+    <!-- ===================== home: patients ===================== -->
+    <div id="home" class="page">
+      <div class="home-wrap">
+        <div class="home-brand">DPA Software <span>clear aligner planning · research build</span></div>
+        <div class="home-grid">
+          <section class="card">
+            <h2>Patients</h2>
+            <input id="patient-search" type="search" placeholder="Search by name or serial number…" />
+            <div id="patient-list"></div>
+          </section>
+          <section class="card">
+            <h2>New patient</h2>
+            <div class="form-grid">
+              <label>First name<input id="np-first" autocomplete="off" /></label>
+              <label>Last name<input id="np-last" autocomplete="off" /></label>
+              <label>Serial number<input id="np-serial" autocomplete="off" /></label>
+            </div>
+            <div class="source">
+              <label class="radio"><input type="radio" name="np-source" value="models" checked /> Upload models</label>
+              <label class="radio"><input type="radio" name="np-source" value="file" /> Open .dpa case file</label>
+            </div>
+            <div id="np-models" class="row">
+              <label class="btn file-pick">Upper model (STL/PLY/OBJ)…<input id="np-upper" type="file" accept=".stl,.obj,.ply" hidden /></label>
+              <label class="btn file-pick">Lower model (STL/PLY/OBJ)…<input id="np-lower" type="file" accept=".stl,.obj,.ply" hidden /></label>
+            </div>
+            <div id="np-file" class="row" hidden>
+              <label class="btn file-pick">.dpa or ArchForm case…<input id="file-project" type="file" accept=".dpa,.orthoplan,.zip,.archform" hidden /></label>
+            </div>
+            <div id="np-picked" class="muted small"></div>
+            <button id="btn-np-create" class="primary">Create patient · Next →</button>
+            <p class="muted small">Patients are stored only in this browser (no server, no encryption). Use Save file for a backup.</p>
+            <h3>Try without a scan</h3>
+            <div class="row">
+              <button id="btn-demo-scan" title="One continuous surface, like a raw intraoral scan">Demo: raw scan</button>
+              <button id="btn-demo" title="Upper and lower in occlusion, teeth already separate">Demo: two arches</button>
+              <button id="btn-restore" hidden></button>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===================== modals ===================== -->
+    <div id="case-modal" class="modal" hidden>
+      <div class="modal-box">
+        <h2>Patient details <button class="close" id="case-close">✕</button></h2>
+        <div class="form-grid">
+          <label>First name<input id="case-firstName" /></label>
+          <label>Last name<input id="case-lastName" /></label>
+          <label>Serial number<input id="case-serial" /></label>
+          <label>Case ref.<input id="case-caseRef" /></label>
+          <label>Doctor<input id="case-doctor" /></label>
+          <label>Clinic<input id="case-clinic" /></label>
+        </div>
+        <label class="block">Status
+          <select id="case-status">
+            <option value="draft">Draft</option>
+            <option value="segmentation">Segmentation</option>
+            <option value="planning">Planning</option>
+            <option value="review">In review</option>
+            <option value="approved">Approved by clinician</option>
+          </select>
+        </label>
+        <label class="block">Notes / prescription<textarea id="case-notes" rows="3"></textarea></label>
+      </div>
+    </div>
+
+    <div id="settings-modal" class="modal" hidden>
+      <div class="modal-box wide">
+        <h2>Settings <button class="close" id="settings-close">✕</button></h2>
+        <div class="tabs settings-tabs">
+          <button data-settab="staging" class="active">Staging</button>
+          <button data-settab="contacts">Contacts &amp; IPR</button>
+          <button data-settab="overcorrection">Overcorrection</button>
+          <button data-settab="shortcuts">Shortcuts</button>
+        </div>
+        <section data-setpanel="staging">
+          <div class="muted small">Max movement per aligner</div>
+          <div id="lim-inputs" class="mv-grid three"></div>
+          <div class="row"><button id="btn-lim-reset" title="0.20 mm M/D, B/L · 0.15 mm vertical · 2° tip/rotation · 1° torque">Default limits</button></div>
+          <label class="check"><input id="stage-separate" type="checkbox" /> Stage upper and lower separately</label>
+          <label class="check" title="ArchForm's default. Without roots the centre is estimated from the gingival margin and average root length."><input id="pivot-cr" type="checkbox" checked /> Rotate about estimated centre of resistance</label>
+          <label class="check" title="Gingiva within 7 mm of a crown follows it: the margin moves with its tooth, the papilla stretches between two, the scan edge and a printed base stay still. A geometric approximation, not a tissue simulation."><input id="gum-morph" type="checkbox" checked /> Move the gingiva with the teeth (gum morphing)</label>
+          <label class="block">Mode
+            <select id="stage-mode">
+              <option value="simultaneous">Simultaneous (all teeth finish together)</option>
+              <option value="independent">Independent (max speed, stop on arrival)</option>
+            </select>
+          </label>
+        </section>
+        <section data-setpanel="contacts" hidden>
+          <div class="mv-grid">
+            <label>Contact tolerance mm<input id="ct-tol" type="number" step="0.01" min="0.01" value="0.05" /></label>
+            <label>Warn above IPR/contact mm<input id="ct-max" type="number" step="0.1" min="0.1" value="0.5" /></label>
+          </div>
+          <label class="check"><input id="ipr-close" type="checkbox" checked /> ▲▼ move teeth to close the IPR space</label>
+        </section>
+        <section data-setpanel="shortcuts" hidden>
+          <p class="muted small">As in ArchForm (its "Gamers" movement keys). On a Mac use ⌘ for Ctrl and ⌥ for Alt.</p>
+          <table class="shortcuts">
+            <tr><th>Tooth movement</th><td>Lingual / Buccal</td><td><kbd>Q / A</kbd></td></tr>
+            <tr><th></th><td>Mesial / Distal</td><td><kbd>W / S</kbd></td></tr>
+            <tr><th></th><td>Intrusion / Extrusion</td><td><kbd>E / D</kbd></td></tr>
+            <tr><th></th><td>Root tip mesial / distal</td><td><kbd>U / J</kbd></td></tr>
+            <tr><th></th><td>Root torque buccal / lingual</td><td><kbd>I / K</kbd></td></tr>
+            <tr><th></th><td>Rotation mesial / distal</td><td><kbd>O / L</kbd></td></tr>
+            <tr><th></th><td>Copy / paste a tooth's movement</td><td><kbd>Ctrl+C / Ctrl+V</kbd></td></tr>
+            <tr><th></th><td>Add a tooth to Multi-Select</td><td><kbd>Shift+click</kbd></td></tr>
+            <tr><th>Tooth</th><td>Next tooth / same tooth in the other arch</td><td><kbd>Tab / Shift+Tab</kbd></td></tr>
+            <tr><th></th><td>Deselect</td><td><kbd>Esc</kbd></td></tr>
+            <tr><th>Stage</th><td>Previous / next stage</td><td><kbd>← / →</kbd></td></tr>
+            <tr><th></th><td>First / last stage</td><td><kbd>Shift+← / Shift+→</kbd></td></tr>
+            <tr><th></th><td>Play / pause</td><td><kbd>Space</kbd></td></tr>
+            <tr><th>View</th><td>Home, Front, Back, Right, Left</td><td><kbd>Alt+H, Alt+1, Alt+2, Alt+3, Alt+4</kbd></td></tr>
+            <tr><th></th><td>Upper / lower arch</td><td><kbd>Alt+Q / Alt+E</kbd></td></tr>
+            <tr><th>Layer</th><td>Show or hide the upper / lower arch</td><td><kbd>Alt+Shift+Q / Alt+Shift+E</kbd></td></tr>
+            <tr><th></th><td>Grid, IPR, Collisions, Axes</td><td><kbd>Alt+G, Alt+P, Alt+I, Alt+T</kbd></td></tr>
+            <tr><th>Panels</th><td>Table View</td><td><kbd>T</kbd></td></tr>
+            <tr><th></th><td>Arrows & rings on / off</td><td><kbd>G</kbd></td></tr>
+            <tr><th>General</th><td>Undo / Redo</td><td><kbd>Ctrl+Z / Ctrl+Shift+Z or Ctrl+Y</kbd></td></tr>
+            <tr><th>Segmentation</th><td>Select, Fill, Brush, Erase</td><td><kbd>S, F, B, E</kbd></td></tr>
+            <tr><th></th><td>Brush size</td><td><kbd>[ / ]</kbd></td></tr>
+          </table>
+        </section>
+        <section data-setpanel="overcorrection" hidden>
+          <p class="muted small">When a planned movement reaches the threshold on that tooth group, the aligners are programmed that % further; with tiers the highest match applies. No rules by default: it is a clinical decision.</p>
+          <div id="oc-rules"></div>
+          <div class="row">
+            <button id="btn-rule-add">+ Rule</button>
+            <button id="btn-rule-example" title="Intrusion anterior ≥2 mm +10 %, ≥3 mm +20 %; tip ≥6° +10 %; canine rotation ≥16° +10 %">Load example rules</button>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <div id="export-modal" class="modal" hidden>
+      <div class="modal-box">
+        <h2>Export <button class="close" id="export-close">✕</button></h2>
+        <div class="row">
+          <button id="btn-export-all" class="primary-inline">All stages (ZIP)</button>
+          <button id="btn-export-current">Current stage STL</button>
+        </div>
+        <div class="row">
+          <button id="btn-export-csv">Movement table (CSV)</button>
+          <button id="btn-export-ipr">IPR report (CSV)</button>
+          <button id="btn-screenshot">Screenshot</button>
+        </div>
+        <label class="check"><input id="one-shell" type="checkbox" checked /> One shell: join gum, teeth and attachments into one closed surface (for printing)</label>
+        <p class="muted small">All stages re-measures contacts first and includes the IPR report; unresolved collisions are listed in it.</p>
+        <div class="row"><label class="btn">Make one shell from a file (STL/PLY/OBJ)…<input id="file-oneshell" type="file" accept=".stl,.ply,.obj" hidden /></label></div>
+        <h3>Treatment video</h3>
+        <div class="row video-views">
+          <label class="check"><input type="checkbox" data-shot="front" checked /> Front</label>
+          <label class="check"><input type="checkbox" data-shot="right" checked /> Right</label>
+          <label class="check"><input type="checkbox" data-shot="left" checked /> Left</label>
+          <label class="check"><input type="checkbox" data-shot="upper" checked /> Upper occlusal</label>
+          <label class="check"><input type="checkbox" data-shot="lower" checked /> Lower occlusal</label>
+        </div>
+        <div class="row"><button id="btn-video" class="primary-inline">Record video</button><span id="video-note" class="muted small"></span></div>
+        <h3>Training data for AI segmentation</h3>
+        <p class="muted small">Each scan with its checked tooth outlines, in the Teeth3DS format (OBJ + per-vertex FDI labels), named by the case serial, never the patient's name. Collected cases are what an AI model for this clinic's scans is trained on.</p>
+        <div class="row"><button id="btn-export-training">Export training data</button></div>
+        <h3>3D viewer for the patient</h3>
+        <p class="muted small">One HTML file with the whole plan in 3D: the patient opens it on a phone or computer (no app, works offline), plays it aligner by aligner and turns the model. Send it by WhatsApp or e-mail, or upload it to a web host to get a link.</p>
+        <div class="row"><button id="btn-viewer" class="primary-inline">Export 3D viewer</button></div>
+        <label class="check"><input id="video-name" type="checkbox" checked /> Show the patient's name (video and viewer)</label>
+      </div>
+    </div>
+
+    <div id="busy" class="modal" hidden><div class="modal-box busy-box" id="busy-text">Working…</div></div>
+  </body>
+</html>
