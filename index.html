@@ -4,8 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>DPA Software</title>
-    <script type="module" crossorigin src="./assets/index-CsHDWk7y.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-DMPbpnZ1.css">
+    <script type="module" crossorigin src="./assets/index-BSgg0D1n.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-BB_rxDb8.css">
   </head>
   <body>
     <header>
@@ -153,7 +153,9 @@
             <button data-tool="brush" title="Paint faces onto the chosen tooth (B)">Brush</button>
             <button data-tool="erase" title="Paint back to gingiva (E)">Eraser</button>
             <button data-tool="fill" title="Click a crown to grow a region until the gum margin (F)">Fill</button>
+            <button data-tool="curve" title="Drag a handle on the selected tooth's outline to move its margin (C)">Curve</button>
           </div>
+          <label class="check"><input id="show-outlines" type="checkbox" checked /> Tooth outlines</label>
           <label class="slider">Brush size <input id="brush-radius" type="range" min="0.3" max="5" step="0.1" value="1.2" /><output></output> mm</label>
           <label class="slider adv">Fill edge angle <input id="fill-angle" type="range" min="5" max="80" step="1" value="35" /><output></output>°</label>
           <label class="check adv"><input id="brush-protect" type="checkbox" checked /> Don't overwrite other teeth</label>
@@ -404,6 +406,14 @@
             <h2>Patients</h2>
             <input id="patient-search" type="search" placeholder="Search by name or serial number…" />
             <div id="patient-list"></div>
+            <div class="library">
+              <div id="library-state" class="muted small"></div>
+              <div class="row">
+                <button id="btn-library-pick">Choose shared folder…</button>
+                <button id="btn-library-sync" hidden>Sync now</button>
+                <button id="btn-library-forget" hidden>Disconnect</button>
+              </div>
+            </div>
           </section>
           <section class="card">
             <h2>New patient</h2>
