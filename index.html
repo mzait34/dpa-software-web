@@ -4,12 +4,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>DPA Software</title>
-    <script type="module" crossorigin src="./assets/index-Bh_41nKt.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-CA53t1A6.css">
+    <script type="module" crossorigin src="./assets/index-Vvs6WYJ5.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-Bs9NepIH.css">
   </head>
   <body>
     <header>
-      <div class="brand">DPA Software <span>research MVP</span></div>
+      <div class="brand"><span class="logo" id="brand-mark"></span><span>research MVP</span></div>
       <button id="btn-home" title="Patients">⌂ Patients</button>
       <button id="btn-case" class="case-name" title="Patient details"><span id="case-title">—</span></button>
       <div class="hgroup">
@@ -70,6 +70,7 @@
             <button data-trimtool="plane" class="active" title="Cut everything below a level plane">Plane</button>
             <button data-trimtool="line" title="Drag a straight line across the model">Line</button>
             <button data-trimtool="lasso" title="Draw around the part to remove">Lasso</button>
+            <button data-trimtool="curve" title="Click points around the arch; the curve follows the surface">Curve</button>
           </div>
           <div data-trimpanel="plane">
             <p class="muted small">Cut away everything below a level plane (the scan's ragged edge, tongue, palate).</p>
@@ -85,6 +86,23 @@
             <label class="check"><input id="lasso-keep" type="checkbox" /> Keep only what is inside instead</label>
             <div class="row"><button id="btn-lasso-apply" class="primary-inline">Remove</button><button id="btn-lasso-cancel">Cancel</button></div>
           </div>
+
+          <div data-trimpanel="curve" hidden>
+            <p class="muted small">Click points around the arch (drag still turns the model). The curve follows the surface and closes by itself; red is removed.</p>
+            <div class="row"><button id="btn-curve-undo">Undo point</button><button id="btn-curve-flip">Flip side</button><button id="btn-curve-apply" class="primary-inline">Cut</button><button id="btn-curve-cancel">Cancel</button></div>
+          </div>
+
+          <h3>Shape</h3>
+          <div class="tabs trim-tools">
+            <button data-brush="off" class="active" title="Brushes off">Off</button>
+            <button data-brush="sculpt" title="Drag to push the surface out; hold Alt to dig in">Sculpt</button>
+            <button data-brush="smooth" title="Drag to smooth the surface">Smooth</button>
+            <button data-brush="clean" title="Drag over a bracket or attachment to flatten it into the surface">Clean</button>
+          </div>
+          <label class="slider">Brush size <input id="scan-brush-size" type="range" min="0.5" max="6" step="0.1" value="2" /><output></output> mm</label>
+          <label class="slider">Strength <input id="scan-brush-strength" type="range" min="0.05" max="1" step="0.05" value="0.4" /><output></output></label>
+          <div class="row"><button id="btn-extrude">Extrude the border</button></div>
+          <label class="slider">Extrude by <input id="extrude-mm" type="range" min="1" max="10" step="0.5" value="3" /><output></output> mm</label>
 
           <h3>Base</h3>
           <label class="slider">Base height <input id="base-depth" type="range" min="1" max="15" step="0.5" value="4" /><output></output> mm</label>
@@ -319,7 +337,7 @@
             <label title="+ moves the apex lingually (palatally)">Root angle B/L °<input id="root-torque" type="number" step="1" min="-30" max="30" /></label>
           </div>
           <div id="root-info" class="muted small"></div>
-          <div class="row"><button id="btn-root-reset">Default root</button></div>
+          <div class="row"><button id="btn-root-reset">Default root</button><button id="btn-cr-reset" hidden>Put the CR back on the root</button></div>
         </details>
         <details id="att-panel" open>
           <summary>Attachments</summary>
@@ -367,7 +385,7 @@
     <!-- ===================== home: patients ===================== -->
     <div id="home" class="page">
       <div class="home-wrap">
-        <div class="home-brand">DPA Software <span>clear aligner planning · research build</span></div>
+        <div class="home-brand"><span class="logo" id="home-logo"></span><span>clear aligner planning · research build</span></div>
         <div class="home-grid">
           <section class="card">
             <h2>Patients</h2>
@@ -439,7 +457,15 @@
           <button data-settab="contacts">Contacts &amp; IPR</button>
           <button data-settab="overcorrection">Overcorrection</button>
           <button data-settab="shortcuts">Shortcuts</button>
+          <button data-settab="clinic">Clinic</button>
         </div>
+        <section data-setpanel="clinic" hidden>
+          <label class="block">Clinic name
+            <input id="clinic-name" type="text" placeholder="DPA · Direct Printed Aligners" />
+          </label>
+          <p class="muted small">Printed on the patient's treatment video and on the IPR report, beside the logo.</p>
+          <div id="clinic-preview" class="clinic-preview"></div>
+        </section>
         <section data-setpanel="staging">
           <div class="muted small">Max movement per aligner</div>
           <div id="lim-inputs" class="mv-grid three"></div>
@@ -505,9 +531,11 @@
         <div class="row">
           <button id="btn-export-all" class="primary-inline">All stages (ZIP)</button>
           <button id="btn-export-current">Current stage STL</button>
+          <button id="btn-export-retainer" title="The last aligner's model with the attachments left off, for printing a retainer">Retainer STL</button>
         </div>
         <div class="row">
           <button id="btn-export-csv">Movement table (CSV)</button>
+          <button id="btn-export-ipr-pdf">IPR report (PDF)</button>
           <button id="btn-export-ipr">IPR report (CSV)</button>
           <button id="btn-screenshot">Screenshot</button>
         </div>
@@ -533,6 +561,12 @@
       </div>
     </div>
 
-    <div id="busy" class="modal" hidden><div class="modal-box busy-box" id="busy-text">Working…</div></div>
+    <div id="busy" class="modal" hidden>
+      <div class="modal-box busy-box">
+        <span class="logo" id="busy-logo"></span>
+        <div class="busy-bar"><i></i></div>
+        <div id="busy-text">Working…</div>
+      </div>
+    </div>
   </body>
 </html>
