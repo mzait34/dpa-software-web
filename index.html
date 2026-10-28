@@ -4,8 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>DPA Software</title>
-    <script type="module" crossorigin src="./assets/index-Vvs6WYJ5.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-Bs9NepIH.css">
+    <script type="module" crossorigin src="./assets/index-CsHDWk7y.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-DMPbpnZ1.css">
   </head>
   <body>
     <header>
@@ -186,6 +186,7 @@
             <button data-toolpanel="extract">Extraction &amp; pontics</button>
             <button data-toolpanel="align">Auto alignment</button>
             <button data-toolpanel="bolton">Bolton analysis</button>
+            <button data-toolpanel="aux">Elastics &amp; buttons</button>
             <button id="btn-table-view" title="Movement of every tooth at this stage (T)">Table view</button>
           </div>
           <h3>Layers</h3>
@@ -262,6 +263,18 @@
           <h2>Extraction &amp; pontics <button class="close" data-close>✕</button></h2>
           <p class="muted small">Click a tooth to extract it (click again to restore). <b>P</b> puts a pontic in an empty place between two teeth: a tooth-shaped filler for the aligner, mirrored from the other side, that narrows as the space closes.</p>
           <div id="extract-chart"></div>
+        </section>
+
+        <section data-panel="aux" hidden>
+          <h2>Elastics &amp; buttons <button class="close" data-close>✕</button></h2>
+          <p class="muted small">Click to add, then click the model: once for a button or a miniscrew, twice for an elastic. Each part goes on at the aligner shown and stays until the one you set. Right-clicking an aligner on the timeline adds one from there.</p>
+          <div class="row">
+            <button data-auxadd="button">Add button</button>
+            <button data-auxadd="miniscrew">Add miniscrew</button>
+            <button data-auxadd="elastic">Add elastic</button>
+          </div>
+          <div id="aux-placing" class="muted small"></div>
+          <div id="aux-list"></div>
         </section>
 
         <section data-panel="attachments" hidden>
@@ -460,6 +473,7 @@
           <button data-settab="clinic">Clinic</button>
         </div>
         <section data-setpanel="clinic" hidden>
+          <label class="check" title="Orbit keeps the arches upright and zooms toward the pointer; trackball lets the model tumble freely."><input id="nav-trackball" type="checkbox" /> Free-tumble navigation (trackball) instead of orbit</label>
           <label class="block">Clinic name
             <input id="clinic-name" type="text" placeholder="DPA · Direct Printed Aligners" />
           </label>
