@@ -4,8 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>DPA Software</title>
-    <script type="module" crossorigin src="./assets/index-D15s8N_y.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-D_OFU9wj.css">
+    <script type="module" crossorigin src="./assets/index-D-d9zp4n.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-xkNZUwTn.css">
   </head>
   <body>
     <header>
@@ -188,6 +188,7 @@
             <button data-toolpanel="extract">Extraction &amp; pontics</button>
             <button data-toolpanel="align">Auto alignment</button>
             <button data-toolpanel="bolton">Bolton analysis</button>
+            <button data-toolpanel="analysis">Arch analysis</button>
             <button data-toolpanel="aux">Elastics &amp; buttons</button>
             <button id="btn-table-view" title="Movement of every tooth at this stage (T)">Table view</button>
           </div>
@@ -265,6 +266,12 @@
           <h2>Extraction &amp; pontics <button class="close" data-close>✕</button></h2>
           <p class="muted small">Click a tooth to extract it (click again to restore). <b>P</b> puts a pontic in an empty place between two teeth: a tooth-shaped filler for the aligner, mirrored from the other side, that narrows as the space closes.</p>
           <div id="extract-chart"></div>
+        </section>
+
+        <section data-panel="analysis" hidden>
+          <h2>Arch analysis <button class="close" data-close>✕</button></h2>
+          <p class="muted small">Measured from the crowns at the first aligner: how the incisors meet, how wide the arch is, the room it is short of, and Pont's guide.</p>
+          <div id="analysis"></div>
         </section>
 
         <section data-panel="aux" hidden>
@@ -469,6 +476,10 @@
           </select>
         </label>
         <label class="block">Notes / prescription<textarea id="case-notes" rows="3"></textarea></label>
+        <h3>Clinical photographs</h3>
+        <p class="muted small">The face and intraoral views. They travel with the case and appear in the patient's viewer. Each is scaled to 1600 px and saved as JPEG.</p>
+        <div class="row"><label class="btn">Add photographs…<input id="file-photos" type="file" accept="image/*" multiple hidden /></label></div>
+        <div id="photo-strip"></div>
       </div>
     </div>
 
