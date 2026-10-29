@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>DPA Software</title>
-    <script type="module" crossorigin src="./assets/index-D-d9zp4n.js"></script>
+    <script type="module" crossorigin src="./assets/index-DK8BbHAz.js"></script>
     <link rel="stylesheet" crossorigin href="./assets/index-xkNZUwTn.css">
   </head>
   <body>
@@ -117,6 +117,10 @@
             <button data-mkarch="upper">Upper</button>
             <button data-mkarch="lower">Lower</button>
           </div>
+          <div class="row auto-seg">
+            <button id="btn-auto-segment" class="primary" title="Finds the teeth on both arches and draws their outlines">⚡ Auto-segment both arches</button>
+          </div>
+          <p class="muted small">One click: finds every tooth, draws its outline, and opens Editing so you can check the result. Everything below is for correcting it by hand.</p>
           <div class="choice">
             <div>
               <b>Automatic</b> <span class="tag">beta</span>
@@ -492,6 +496,7 @@
           <button data-settab="overcorrection">Overcorrection</button>
           <button data-settab="shortcuts">Shortcuts</button>
           <button data-settab="clinic">Clinic</button>
+          <button data-settab="learning">Learning</button>
         </div>
         <section data-setpanel="clinic" hidden>
           <label class="check" title="Orbit keeps the arches upright and zooms toward the pointer; trackball lets the model tumble freely."><input id="nav-trackball" type="checkbox" /> Free-tumble navigation (trackball) instead of orbit</label>
@@ -500,6 +505,16 @@
           </label>
           <p class="muted small">Printed on the patient's treatment video and on the IPR report, beside the logo.</p>
           <div id="clinic-preview" class="clinic-preview"></div>
+        </section>
+        <section data-setpanel="learning" hidden>
+          <p class="muted small">Every case you check and accept teaches the segmentation where a crown ends on <b>your</b> scanner. Only the shape measurements of a few thousand triangles are kept, under a one-way id: no scan, no name, no serial number, and nothing leaves this browser.</p>
+          <div id="learn-state" class="findings"></div>
+          <div class="row">
+            <button id="btn-learn-train" class="primary-inline">Train on the collected cases</button>
+            <button id="btn-learn-forget">Delete the collected data</button>
+          </div>
+          <label class="check"><input id="learn-collect" type="checkbox" checked /> Collect from each accepted case</label>
+          <p class="muted small">The model is used on a new scan only while it beats the plain geometry on cases it was not trained on, so a half-trained one cannot make the segmentation worse.</p>
         </section>
         <section data-setpanel="staging">
           <div class="muted small">Max movement per aligner</div>
