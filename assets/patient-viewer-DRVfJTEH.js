@@ -3938,6 +3938,12 @@ table.findings tr.marked td.v { color: #c62828; }
   #who { font-size: 10px; }
   #sheets { right: 8px; left: 8px; width: auto; bottom: 104px; top: 130px; }
   #views { margin-top: 48px; }
+  /* On a phone the row of tools is wider than the screen; it wraps rather than
+     running off the edge, where the last tool was cut in half. */
+  #tools { flex-wrap: wrap; justify-content: center; overflow-x: visible; row-gap: 2px; }
+  #tools button { padding: 4px 8px; }
+  /* The note sits above the play bar rather than behind it. */
+  #disclaimer { left: 8px; right: 8px; max-width: none; bottom: 126px; text-align: center; }
 }
 \`;async function Yf(i){const t=atob(i.trim()),e=new Uint8Array(t.length);for(let s=0;s<t.length;s++)e[s]=t.charCodeAt(s);const n=new Blob([e]).stream().pipeThrough(new DecompressionStream("gzip"));return new Response(n).arrayBuffer()}async function jf(){var F,K,et,Y,Mt,ut,_t,Gt;const i=JSON.parse(document.getElementById("case-meta").textContent),t=document.getElementById("case-data").textContent,e=document.createElement("style");e.textContent=qf,document.head.appendChild(e);const n=((F=document.getElementById("brand-logo"))==null?void 0:F.innerHTML)??"",s=i.patient;document.body.innerHTML=\`
     <div id="app">
