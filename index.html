@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>DPA Software</title>
-    <script type="module" crossorigin src="./assets/index-BXUpmznJ.js"></script>
+    <script type="module" crossorigin src="./assets/index-MvcpeOa9.js"></script>
     <link rel="stylesheet" crossorigin href="./assets/index-DlXIDpdK.css">
   </head>
   <body>
@@ -518,6 +518,16 @@
           </label>
           <p class="muted small">Printed on the patient's treatment video and on the IPR report, beside the logo.</p>
           <div id="clinic-preview" class="clinic-preview"></div>
+          <h3>Sending a viewer as a link</h3>
+          <p class="muted small">To send a link instead of a file, the viewer has to be put on a web page of the clinic's own. Give a GitHub repository with Pages turned on, and a token that may write to it. Both stay in this browser and are never sent anywhere but GitHub.</p>
+          <label class="block">Repository
+            <input id="pages-repo" type="text" placeholder="clinic/patient-viewers" autocomplete="off" />
+          </label>
+          <label class="block">Token
+            <input id="pages-token" type="password" placeholder="github_pat_…" autocomplete="off" />
+          </label>
+          <p class="muted small" id="pages-state"></p>
+          <p class="muted small"><b>Anyone who has the link can open it.</b> Each viewer gets its own long, random address that says nothing about the patient, and asks search engines to leave it alone — but a link that is passed on works for whoever receives it. Send it the way you would send the file.</p>
         </section>
         <section data-setpanel="learning" hidden>
           <p class="muted small">Every case you check and accept teaches the segmentation where a crown ends on <b>your</b> scanner. Only the shape measurements of a few thousand triangles are kept, under a one-way id: no scan, no name, no serial number, and nothing leaves this browser.</p>
@@ -619,7 +629,8 @@
         <div class="row"><button id="btn-export-training">Export training data</button></div>
         <h3>3D viewer for the patient</h3>
         <p class="muted small">One HTML file with the whole plan in 3D: the patient opens it on a phone or computer (no app, works offline), plays it aligner by aligner and turns the model. Send it by WhatsApp or e-mail, or upload it to a web host to get a link.</p>
-        <div class="row"><button id="btn-viewer" class="primary-inline">Export 3D viewer</button></div>
+        <div class="row"><button id="btn-viewer" class="primary-inline">Export 3D viewer</button><button id="btn-viewer-link">Create a link</button></div>
+        <p class="muted small" id="viewer-link-out"></p>
         <label class="check"><input id="video-name" type="checkbox" checked /> Show the patient's name (video and viewer)</label>
       </div>
     </div>
