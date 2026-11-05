@@ -3856,10 +3856,13 @@ html, body { margin: 0; height: 100%; background: var(--bg); overflow: hidden; }
 
 /* Who this is for, over the model, as the clinic's own planner prints it. */
 /* Over the grey stage, not over the page: these go light. */
-#who { position: absolute; top: 64px; left: 14px; font-size: 11px; line-height: 1.5; color: rgba(255, 255, 255, 0.78); pointer-events: none; }
+/* Clear of the mark above it, which is 64px tall from 12px down. */
+#who { position: absolute; top: 88px; left: 14px; font-size: 11px; line-height: 1.5; color: rgba(255, 255, 255, 0.78); pointer-events: none; }
 #who b { display: block; font-size: 13px; color: #fff; }
 #brand { position: absolute; top: 12px; left: 14px; pointer-events: none; }
-#brand svg { height: 38px; width: auto; color: #fff; display: block; opacity: 0.95; }
+/* The clinic's mark, in its orange. The SVG draws in currentColor. */
+#brand svg { height: 64px; width: auto; color: #f97316; display: block; opacity: 1; }
+
 #disclaimer { position: absolute; left: 14px; bottom: 10px; font-size: 10px; line-height: 1.4; color: rgba(255, 255, 255, 0.7); max-width: 190px; margin: 0; pointer-events: none; }
 
 /* A reduction, written on the contact it belongs to. */
@@ -3938,7 +3941,9 @@ table.findings tr.marked td.v { color: #c62828; }
 #photos img.big { position: fixed; inset: 5vh 5vw; height: 90vh; width: 90vw; object-fit: contain; background: rgba(14, 21, 33, 0.92); z-index: 9; cursor: zoom-out; padding: 10px; }
 #loading { position: absolute; inset: 0; display: grid; place-items: center; color: var(--muted); font-size: 13px; }
 @media (max-width: 620px) {
-  #who { font-size: 10px; }
+  /* A smaller mark on a phone, so the name still clears it. */
+  #brand svg { height: 46px; }
+  #who { font-size: 10px; top: 68px; }
   #sheets { right: 8px; left: 8px; width: auto; bottom: 104px; top: 130px; }
   /* On a phone the row of tools is wider than the screen; it wraps rather than
      running off the edge, where the last tool was cut in half. */
