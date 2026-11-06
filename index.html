@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>DPA Software</title>
-    <script type="module" crossorigin src="./assets/index-DPSmachN.js"></script>
+    <script type="module" crossorigin src="./assets/index-BERKDjMn.js"></script>
     <link rel="stylesheet" crossorigin href="./assets/index-BC4Mq7cf.css">
   </head>
   <body>
@@ -623,9 +623,11 @@
           <button id="btn-screenshot">Screenshot</button>
         </div>
         <label class="check"><input id="one-shell" type="checkbox" checked /> One shell: join gum, teeth and attachments into one closed surface (for printing)</label>
+        <label class="check"><input id="base-on" type="checkbox" checked /> Give the model a flat base
+          <input id="base-mm" type="number" min="1" max="20" step="0.5" value="4" style="width: 5em" /> mm deep</label>
         <label class="check"><input id="hollow-on" type="checkbox" /> Hollow the model, leaving a wall of
           <input id="hollow-wall" type="number" min="0.5" max="5" step="0.1" value="1.5" style="width: 5em" /> mm</label>
-        <p class="muted small" id="hollow-note">Empties the inside of a printed model to save resin. It needs One shell, which is what gives the model an inside. Anywhere the model is thinner than twice the wall stays solid. <b>Give the model a drain hole in your printing software</b>, or the resin is sealed in.</p>
+        <p class="muted small" id="hollow-note">The base closes the model off at a flat plane it can be printed standing on. It is built here, at export, so the segmentation is untouched — unlike Create base in Scans, which changes the scan itself. Hollowing then empties the inside to save resin; without a base there is nothing to empty but the wall, and the model comes out a shell. Both need One shell, which is what joins the parts into one surface. Anywhere the model is thinner than twice the wall stays solid. <b>Give the model a drain hole in your printing software</b>, or the resin is sealed in.</p>
         <p class="muted small">All stages re-measures contacts first and includes the IPR report; unresolved collisions are listed in it.</p>
         <div class="row"><label class="btn">Make one shell from a file (STL/PLY/OBJ)…<input id="file-oneshell" type="file" accept=".stl,.ply,.obj" hidden /></label></div>
         <h3>Treatment video</h3>
