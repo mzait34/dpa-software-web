@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>DPA Software</title>
-    <script type="module" crossorigin src="./assets/index-CtSwujvl.js"></script>
+    <script type="module" crossorigin src="./assets/index-J_fO-eas.js"></script>
     <link rel="stylesheet" crossorigin href="./assets/index-BC4Mq7cf.css">
   </head>
   <body>
@@ -541,6 +541,11 @@
         </section>
         <section data-setpanel="learning" hidden>
           <p class="muted small">Every case you check and accept teaches the segmentation where a crown ends on <b>your</b> scanner. Only the shape measurements of a few thousand triangles are kept, under a one-way id: no scan, no name, no serial number, and nothing leaves this browser.</p>
+          <div id="net-state" class="findings"></div>
+          <div class="row">
+            <label class="btn" title="A .bin file of trained weights, made by tools/toothnet">Load a segmentation network…<input id="net-file" type="file" accept=".bin" hidden /></label>
+            <button id="btn-net-remove" hidden>Remove the loaded network</button>
+          </div>
           <div id="learn-state" class="findings"></div>
           <div class="row">
             <button id="btn-learn-train" class="primary-inline">Train on the collected cases</button>
