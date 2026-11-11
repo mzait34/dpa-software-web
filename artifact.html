@@ -1,5 +1,5 @@
 <title>DPA Software</title>
-<link rel="stylesheet" href="./assets/index-DQEEge1J.css">
+<link rel="stylesheet" href="./assets/index-CNeMePsw.css">
 <header>
       <div class="brand"><span class="logo" id="brand-mark"></span><span>research MVP</span></div>
       <button id="btn-home" title="Patients">⌂ Patients</button>
@@ -198,6 +198,7 @@
             <button data-toolpanel="bolton" data-icon="Σ">Bolton</button>
             <button data-toolpanel="analysis" data-icon="⟷">Arch analysis</button>
             <button data-toolpanel="aux" data-icon="∞">Elastics</button>
+            <button data-toolpanel="tracking" data-icon="◎" title="Lay a follow-up scan on the plan and see which teeth are where they should be">Progress check</button>
             <button id="btn-table-view" data-icon="☷" title="Movement of every tooth at this stage (T)">Table view</button>
           </div>
           <details class="drawer" id="layers-drawer"><summary>Layers</summary>
@@ -284,6 +285,22 @@
           <div id="analysis"></div>
         </section>
 
+        <section data-panel="tracking" hidden>
+          <h2>Progress check <button class="close" data-close>✕</button></h2>
+          <p class="muted small">Load a scan taken during treatment and say which aligner the patient is wearing. The scan is laid on the plan at that aligner, and each tooth is measured against where the plan has it.</p>
+          <div class="row">
+            <label class="btn">Upper scan…<input id="track-upper" type="file" accept=".stl,.obj,.ply" hidden /></label>
+            <label class="btn">Lower scan…<input id="track-lower" type="file" accept=".stl,.obj,.ply" hidden /></label>
+          </div>
+          <div id="track-files" class="muted small"></div>
+          <label class="inline">Wearing aligner <input id="track-stage" type="number" min="0" step="1" value="0" /></label>
+          <div class="row">
+            <button id="btn-track-run" class="primary-inline">Compare with the plan</button>
+            <button id="btn-track-clear">Clear</button>
+          </div>
+          <label class="check"><input id="track-show" type="checkbox" checked /> Show the scan over the plan</label>
+          <div id="track-results"></div>
+        </section>
         <section data-panel="aux" hidden>
           <h2>Elastics &amp; buttons <button class="close" data-close>✕</button></h2>
           <p class="muted small">Click to add, then click the model: once for a button or a miniscrew, twice for an elastic. Each part goes on at the aligner shown and stays until the one you set. Right-clicking an aligner on the timeline adds one from there.</p>
@@ -659,4 +676,4 @@
         <div id="busy-steps" hidden></div>
       </div>
     </div>
-<script type="module" src="./assets/index-DluOE1js.js"></script>
+<script type="module" src="./assets/index-qpVOLo3r.js"></script>
