@@ -4,26 +4,29 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>DPA Software</title>
-    <script type="module" crossorigin src="./assets/index-qpVOLo3r.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-CNeMePsw.css">
+    <script type="module" crossorigin src="./assets/index-hJGihA_h.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-BEP0w--8.css">
   </head>
   <body>
     <header>
-      <div class="brand"><span class="logo" id="brand-mark"></span><span>research MVP</span></div>
+      <div class="brand"><span class="logo" id="brand-mark"></span></div>
       <button id="btn-home" title="Patients">⌂ Patients</button>
       <button id="btn-case" class="case-name" title="Patient details"><span id="case-title">—</span></button>
       <div class="hgroup">
         <button id="btn-plan-undo" title="Undo (Ctrl+Z)">↶ Undo</button>
         <button id="btn-plan-redo" title="Redo (Ctrl+Shift+Z / Ctrl+Y)">↷ Redo</button>
       </div>
-      <div class="views">
-        <button data-view="upper" title="Upper occlusal (Alt+Q)">Upper</button>
-        <button data-view="front" title="Front (Alt+1)">Front</button>
-        <button data-view="home" title="Home (Alt+H)">Home</button>
-        <button data-view="back" title="Back (Alt+2)">Back</button>
-        <button data-view="lower" title="Lower occlusal (Alt+E)">Lower</button>
-        <button data-view="right" title="Patient right (Alt+3)">Right</button>
-        <button data-view="left" title="Patient left (Alt+4)">Left</button>
+      <div id="stepbar">
+        <button id="btn-prev">← Back</button>
+        <ol>
+          <li data-goto="home"><span>1</span>Patient</li>
+          <li data-goto="scans"><span>2</span>Scans</li>
+          <li data-goto="markers"><span>3</span>Segmentation</li>
+          <li data-goto="boundaries"><span>4</span>Editing</li>
+          <li data-goto="verify"><span>5</span>Tooth numbers</li>
+          <li data-goto="plan"><span>6</span>Planning</li>
+        </ol>
+        <button id="btn-next" class="primary-inline">Next →</button>
       </div>
       <button id="btn-level" class="level" title="Show advanced options">Simple</button>
       <button id="btn-settings" title="Settings">⚙ Settings</button>
@@ -196,37 +199,21 @@
         <section class="step-panel" data-step="plan" hidden>
           <h2>6 · Planning</h2>
           <div class="toolmenu">
-            <button data-toolpanel="staging" data-icon="▦">Staging</button>
-            <button data-toolpanel="contacts" data-icon="◇">Contacts &amp; IPR</button>
-            <button data-toolpanel="review" data-icon="✓">Review</button>
-            <button data-toolpanel="attachments" data-icon="■">Attachments</button>
-            <button data-toolpanel="bite" data-icon="⇵">Bite shift</button>
-            <button data-toolpanel="extract" data-icon="✕">Extraction</button>
-            <button data-toolpanel="align" data-icon="⌒">Auto align</button>
-            <button data-toolpanel="bolton" data-icon="Σ">Bolton</button>
-            <button data-toolpanel="analysis" data-icon="⟷">Arch analysis</button>
-            <button data-toolpanel="aux" data-icon="∞">Elastics</button>
-            <button data-toolpanel="tracking" data-icon="◎" title="Lay a follow-up scan on the plan and see which teeth are where they should be">Progress check</button>
-            <button id="btn-table-view" data-icon="☷" title="Movement of every tooth at this stage (T)">Table view</button>
-          </div>
-          <details class="drawer" id="layers-drawer"><summary>Layers</summary>
-          <label class="check"><input id="show-ipr" type="checkbox" checked /> IPR pins</label>
-          <label class="check"><input id="show-numbers" type="checkbox" /> Tooth numbers</label>
-          <label class="check"><input id="show-ghost" type="checkbox" /> Initial position of moved teeth</label>
-          <label class="check"><input id="show-occlusal" type="checkbox" /> Occlusal map</label>
-          <label class="check" title="Every crown coloured by its distance to the nearest neighbouring or opposing tooth: red is a collision"><input id="show-collisions" type="checkbox" /> Collision heatmap</label>
-          <label class="check" title="Virtual roots and centres of resistance (red); the gingiva becomes see-through"><input id="show-roots" type="checkbox" /> Virtual roots &amp; CR</label>
-          <label class="check" title="The aligner number, raised on a back tooth of each printed model; drag it to move it"><input id="show-stamp" type="checkbox" checked /> Number on the printed model</label>
-          <label class="check" title="Reference grid in the occlusal plane (Alt+G)"><input id="show-grid" type="checkbox" /> Grid</label>
-          <label class="check" title="Each tooth's local axes: red mesio-distal, blue vertical, green bucco-lingual (Alt+T)"><input id="show-axes" type="checkbox" /> Axes</label>
-          <label class="check" title="Every crown where it started (blue), over the current aligner (Alt+O)"><input id="show-super" type="checkbox" /> Superimposition</label>
-          <label class="check" title="Arch curves through the incisal edges and cusp tips, now (solid) and at the start (faint) (Alt+R)"><input id="show-curves" type="checkbox" /> Curves</label>
-          <label class="check" title="Cut through upper and lower at one tooth to see the bite (Alt+X)"><input id="show-section" type="checkbox" /> Cross section</label>
-          </details>
-          <div class="row archview">
-            <button data-arch="both" class="active">Both</button>
-            <button data-arch="upper">Upper occlusal</button>
-            <button data-arch="lower">Lower occlusal</button>
+            <h6>Plan</h6>
+            <button data-toolpanel="staging"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="14" width="4" height="7" rx="1"/><rect x="10" y="9" width="4" height="12" rx="1"/><rect x="17" y="4" width="4" height="17" rx="1"/></svg><span>Staging</span></button>
+            <button data-toolpanel="align"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 18c0-8 3.5-12 8-12s8 4 8 12"/><circle cx="6" cy="13" r="1.3"/><circle cx="12" cy="6.5" r="1.3"/><circle cx="18" cy="13" r="1.3"/></svg><span>Auto align</span></button>
+            <button data-toolpanel="bite"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9c3-3 13-3 16 0M4 15c3 3 13 3 16 0"/><path d="M9 12h6M13 10l2 2-2 2"/></svg><span>Bite shift</span></button>
+            <button id="btn-table-view" title="Movement of every tooth at this stage (T)"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M3 15h18M9 4v16"/></svg><span>Table view</span></button>
+            <h6>Teeth</h6>
+            <button data-toolpanel="attachments"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3c3-1.5 7-1.5 10 0 2 4 2 9 0 14-1 3-2.5 4-5 4s-4-1-5-4C5 12 5 7 7 3z"/><rect x="10" y="8" width="4" height="5" rx="1" fill="currentColor" stroke="none"/></svg><span>Attachments</span></button>
+            <button data-toolpanel="contacts"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4v16M20 4v16"/><path d="M8 12h8M8 12l3-3M8 12l3 3M16 12l-3-3M16 12l-3 3"/></svg><span>Contacts &amp; IPR</span></button>
+            <button data-toolpanel="extract"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 4c2.5-1 5.5-1 8 0 1.5 4 1 8 0 11-.8 2-1.8 5-4 5s-3.2-3-4-5C7 12 6.5 8 8 4z"/><path d="M9.5 9l5 5M14.5 9l-5 5"/></svg><span>Extraction</span></button>
+            <button data-toolpanel="aux"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="7" cy="12" r="3.5"/><circle cx="17" cy="12" r="3.5"/></svg><span>Elastics</span></button>
+            <h6>Check</h6>
+            <button data-toolpanel="review"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12l5 5L20 6"/></svg><span>Review</span></button>
+            <button data-toolpanel="tracking" title="Lay a follow-up scan on the plan and see which teeth are where they should be"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg><span>Progress check</span></button>
+            <button data-toolpanel="bolton"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 5H7l6 7-6 7h10"/></svg><span>Bolton</span></button>
+            <button data-toolpanel="analysis"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19c0-9 3.5-14 8-14s8 5 8 14"/><path d="M7 19h10" stroke-dasharray="2 2"/></svg><span>Arch analysis</span></button>
           </div>
         </section>
       </div>
@@ -418,6 +405,39 @@
       </div>
 
       <!-- ===================== bottom: steps / timeline ===================== -->
+      <div id="layers" class="float">
+          <div class="row archview seg">
+            <button data-arch="both" class="active">Both</button>
+            <button data-arch="upper">Upper occlusal</button>
+            <button data-arch="lower">Lower occlusal</button>
+          </div>
+          <details class="drawer" id="layers-drawer"><summary>Layers</summary>
+          <label class="check"><input id="show-ipr" type="checkbox" checked /> IPR pins</label>
+          <label class="check"><input id="show-numbers" type="checkbox" /> Tooth numbers</label>
+          <label class="check"><input id="show-ghost" type="checkbox" /> Initial position of moved teeth</label>
+          <label class="check"><input id="show-occlusal" type="checkbox" /> Occlusal map</label>
+          <label class="check" title="Every crown coloured by its distance to the nearest neighbouring or opposing tooth: red is a collision"><input id="show-collisions" type="checkbox" /> Collision heatmap</label>
+          <label class="check" title="Virtual roots and centres of resistance (red); the gingiva becomes see-through"><input id="show-roots" type="checkbox" /> Virtual roots &amp; CR</label>
+          <label class="check" title="The aligner number, raised on a back tooth of each printed model; drag it to move it"><input id="show-stamp" type="checkbox" checked /> Number on the printed model</label>
+          <label class="check" title="Reference grid in the occlusal plane (Alt+G)"><input id="show-grid" type="checkbox" /> Grid</label>
+          <label class="check" title="Each tooth's local axes: red mesio-distal, blue vertical, green bucco-lingual (Alt+T)"><input id="show-axes" type="checkbox" /> Axes</label>
+          <label class="check" title="Every crown where it started (blue), over the current aligner (Alt+O)"><input id="show-super" type="checkbox" /> Superimposition</label>
+          <label class="check" title="Arch curves through the incisal edges and cusp tips, now (solid) and at the start (faint) (Alt+R)"><input id="show-curves" type="checkbox" /> Curves</label>
+          <label class="check" title="Cut through upper and lower at one tooth to see the bite (Alt+X)"><input id="show-section" type="checkbox" /> Cross section</label>
+          </details>
+      </div>
+      <div id="viewpad" class="float">
+        <div class="cube" id="view-cube" title="Click a face to look from that side"><div><s data-face="front">Front</s><s data-face="back">Back</s><s data-face="left">L</s><s data-face="right">R</s><s data-face="lower">Lower</s><s data-face="upper">Upper</s></div></div>
+        <div class="views">
+        <button data-view="upper" title="Upper occlusal (Alt+Q)">Upper</button>
+        <button data-view="front" title="Front (Alt+1)">Front</button>
+        <button data-view="home" title="Home (Alt+H)">Home</button>
+        <button data-view="back" title="Back (Alt+2)">Back</button>
+        <button data-view="lower" title="Lower occlusal (Alt+E)">Lower</button>
+        <button data-view="right" title="Patient right (Alt+3)">Right</button>
+        <button data-view="left" title="Patient left (Alt+4)">Left</button>
+        </div>
+      </div>
       <div id="bottom" class="float bottom">
         <div id="adv-staging" class="adv-staging" hidden></div>
         <div id="goal-bar" class="goal-bar" hidden></div>
@@ -426,18 +446,6 @@
           <button id="btn-play" class="play" aria-pressed="false" title="Play the treatment (Space, when nothing else is in focus)">▶</button>
           <input id="stage" type="range" min="0" max="0" step="1" value="0" />
           <span id="stage-label">0 / 0</span>
-        </div>
-        <div id="stepbar">
-          <button id="btn-prev">← Back</button>
-          <ol>
-            <li data-goto="home"><span>1</span>Patient</li>
-            <li data-goto="scans"><span>2</span>Scans</li>
-            <li data-goto="markers"><span>3</span>Segmentation</li>
-            <li data-goto="boundaries"><span>4</span>Editing</li>
-            <li data-goto="verify"><span>5</span>Tooth numbers</li>
-            <li data-goto="plan"><span>6</span>Planning</li>
-          </ol>
-          <button id="btn-next" class="primary-inline">Next →</button>
         </div>
       </div>
 
