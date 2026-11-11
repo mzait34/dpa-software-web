@@ -4,8 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>DPA Software</title>
-    <script type="module" crossorigin src="./assets/index-BpVmONFk.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-BC4Mq7cf.css">
+    <script type="module" crossorigin src="./assets/index-DluOE1js.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-DQEEge1J.css">
   </head>
   <body>
     <header>
@@ -348,11 +348,13 @@
       <!-- ===================== right: selected tooth ===================== -->
       <div id="right" class="float right" hidden>
         <h2 id="sel-name">Tooth</h2>
-        <div class="row">
-          <button data-gizmo="on" class="active" title="G">Arrows &amp; rings</button>
-          <button data-gizmo="off">Hide</button>
+        <div class="sel-sub"><span id="sel-sub" class="muted small"></span><span id="sel-badge" class="badge" hidden></span></div>
+        <div class="row between">
+          <div class="seg"><button data-gizmo="on" class="active" title="G">Arrows on model</button><button data-gizmo="off">Hide</button></div>
+          <div class="seg" id="mv-stepsize" title="How far one press of − or + moves the tooth"><button data-mvstep="fine">Fine</button><button data-mvstep="normal" class="active">Normal</button><button data-mvstep="coarse">Coarse</button></div>
         </div>
-        <div id="mv-inputs" class="mv-grid"></div>
+        <div id="mv-inputs" class="mvx-list"></div>
+        <div id="mv-flags"></div>
         <div id="mv-now" class="mv-now" hidden></div>
         <div id="axes-edit" class="axes-edit" hidden>
           <p class="muted small">Turn the tooth's axes (red mesio-distal, blue long axis, green bucco-lingual) to match the crown. The tooth stays where it is; its movement numbers are measured along the new axes.</p>
@@ -365,12 +367,6 @@
         </div>
         <div class="pivot-row"><span class="muted small">Pivot</span><button data-pivot="centre" title="Turn about the crown centre">Crown</button><button data-pivot="resistance" title="Turn about the estimated centre of resistance">Resistance</button><button data-pivot="incisal" title="Turn about the incisal edge / cusp tips">Incisal</button><span id="pivot-offset" class="muted small" title="Shift+↑ / Shift+↓ move the pivot toward the root / the incisal edge"></span></div>
         <p id="goal-hint" class="goal-hint small" hidden></p>
-        <div class="row">
-          <button id="btn-reset-tooth">Clear movements</button>
-          <button id="btn-extract-tooth" title="Take this tooth out of the plan">Extract tooth</button>
-          <button id="btn-edit-axes" title="Correct this tooth's axes: the directions its movements are measured in">Edit tooth axes</button>
-          <button id="btn-reset-all" class="adv">Reset all teeth</button>
-        </div>
         <div id="tooth-ipr"></div>
         <details id="root-panel">
           <summary>Root &amp; centre of resistance</summary>
@@ -396,6 +392,12 @@
           <summary>Edit history</summary>
           <div id="tooth-history" class="small"></div>
         </details>
+        <div class="row tooth-actions">
+          <button id="btn-reset-tooth">Clear movements</button>
+          <button id="btn-extract-tooth" title="Take this tooth out of the plan">Extract tooth</button>
+          <button id="btn-edit-axes" title="Correct this tooth's axes: the directions its movements are measured in">Edit tooth axes</button>
+          <button id="btn-reset-all" class="adv">Reset all teeth</button>
+        </div>
       </div>
 
       <!-- ===================== bottom: steps / timeline ===================== -->
@@ -517,6 +519,8 @@
           <button data-settab="learning">Learning</button>
         </div>
         <section data-setpanel="clinic" hidden>
+          <div class="muted small">Appearance</div>
+          <div class="row"><button data-theme-pick="light" class="active">Light</button><button data-theme-pick="dark">Dark</button></div>
           <label class="check" title="Orbit keeps the arches upright and zooms toward the pointer; trackball lets the model tumble freely."><input id="nav-trackball" type="checkbox" /> Free-tumble navigation (trackball) instead of orbit</label>
           <label class="block">Clinic name
             <input id="clinic-name" type="text" placeholder="DPA · Direct Printed Aligners" />
