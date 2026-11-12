@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>DPA Software</title>
-    <script type="module" crossorigin src="./assets/index-BYa57fI9.js"></script>
+    <script type="module" crossorigin src="./assets/index-CXznBB1D.js"></script>
     <link rel="stylesheet" crossorigin href="./assets/index-DVfI0DAV.css">
   </head>
   <body>
@@ -584,7 +584,12 @@
           </div>
           <div id="learn-state" class="findings"></div>
           <div class="row">
-            <button id="btn-learn-train" class="primary-inline">Train on the collected cases</button>
+            <button id="btn-net-teach" class="primary-inline" title="Every case in your patient list, as you checked it, is used to make the network better at reading your own scans">Teach the network from my cases</button>
+            <button id="btn-net-revert" hidden title="Go back to the network the app came with">Undo the teaching</button>
+          </div>
+          <div id="teach-state" class="findings"></div>
+          <div class="row">
+            <button id="btn-learn-train">Train on the collected cases</button>
             <button id="btn-learn-forget">Delete the collected data</button>
           </div>
           <label class="check"><input id="learn-collect" type="checkbox" checked /> Collect from each accepted case</label>
