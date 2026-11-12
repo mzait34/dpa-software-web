@@ -4,8 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>DPA Software</title>
-    <script type="module" crossorigin src="./assets/index-DTIGz5pc.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-QdI8UbXF.css">
+    <script type="module" crossorigin src="./assets/index-BYa57fI9.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-DVfI0DAV.css">
   </head>
   <body>
     <header>
@@ -165,6 +165,7 @@
             <button data-tool="brush" title="Paint faces onto the chosen tooth (B)">Brush</button>
             <button data-tool="erase" title="Paint back to gingiva (E)">Eraser</button>
             <button data-tool="fill" title="Click a crown to grow a region until the gum margin (F)">Fill</button>
+            <button data-tool="split" title="Two teeth segmented as one: click the groove between them to cut the tooth in two (K)">Split</button>
             <button data-tool="curve" title="Drag the circle along the selected tooth's margin to push it in or out (C)">Sculpt</button>
             <button data-tool="smooth" title="Hold the circle over a ragged part of the margin to even it out (M)">Smooth</button>
           </div>
@@ -289,11 +290,17 @@
           </div>
           <div id="track-files" class="muted small"></div>
           <label class="inline">Wearing aligner <input id="track-stage" type="number" min="0" step="1" value="0" /></label>
+          <label class="check"><input id="track-auto" type="checkbox" checked /> Work out which aligner from the scan</label>
+          <label class="check"><input id="track-back" type="checkbox" /> Lay the scan on the back teeth only</label>
           <div class="row">
             <button id="btn-track-run" class="primary-inline">Compare with the plan</button>
             <button id="btn-track-clear">Clear</button>
           </div>
           <label class="check"><input id="track-show" type="checkbox" checked /> Show the scan over the plan</label>
+          <div class="row">
+            <button id="btn-track-pdf">Save the report…</button>
+            <button id="btn-track-csv">Save the numbers…</button>
+          </div>
           <div id="track-results"></div>
         </section>
         <section data-panel="aux" hidden>
@@ -645,6 +652,7 @@
     <div id="export-modal" class="modal" hidden>
       <div class="modal-box">
         <h2>Export <button class="close" id="export-close">✕</button></h2>
+        <div id="preflight" class="preflight"></div>
         <div class="row">
           <button id="btn-export-all" class="primary-inline">All stages (ZIP)</button>
           <button id="btn-export-current">Current stage STL</button>
