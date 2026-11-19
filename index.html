@@ -4,8 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>DPA Software</title>
-    <script type="module" crossorigin src="./assets/index-CcDXodfh.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-B5c0q9T6.css">
+    <script type="module" crossorigin src="./assets/index-C2ffsr6L.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-DozkvhpG.css">
   </head>
   <body>
     <header>
@@ -37,6 +37,48 @@
     <main id="viewport">
       <div id="occlusal-legend" class="legend" hidden></div>
       <div id="force-panel" class="legend force-panel" hidden></div>
+      <div id="aligner-studio" class="float aligner-studio" hidden>
+        <h2>Aligners <span class="muted small">direct print</span><button class="close" id="aligner-close" aria-label="Close">✕</button></h2>
+        <p class="muted small">The aligner itself, for printing directly (Graphy TA-28 / TC-85 and similar): one closed, smooth surface per aligner, made from the cast of that aligner's stage. Aligner <i>n</i> is the shape of stage <i>n</i>.</p>
+        <div class="dpa-grid">
+          <label>Thickness <span><input id="dpa-thick" type="number" min="0.3" max="1.5" step="0.05" value="0.5" /> mm</span></label>
+          <label>Offset from the teeth <span><input id="dpa-offset" type="number" min="0" max="0.3" step="0.01" value="0.04" /> mm</span></label>
+          <label>Trimline over the gum <span><input id="dpa-trim" type="number" min="0" max="6" step="0.25" value="3" /> mm</span></label>
+          <label>Mesh <select id="dpa-res"><option value="0.15">Standard (0.15 mm)</option><option value="0.12">Fine (0.12 mm)</option><option value="0.1">Finest (0.10 mm, slow)</option><option value="0.25">Draft (0.25 mm)</option></select></label>
+        </div>
+        <details class="dpa-more" open><summary>Thickness from the forces</summary>
+          <label class="check"><input id="dpa-smart" type="checkbox" checked /> Thicker where the aligner pushes (the surface each movement is pushed on: mesial of a tooth moving distally, occlusal for an intrusion, the leading faces of a turn), up to
+            <input id="dpa-push" type="number" min="0" max="0.6" step="0.05" value="0.25" style="width: 4.5em" /> mm more</label>
+          <label class="check"><input id="dpa-anchor-on" type="checkbox" checked /> Thicker over anchor teeth (still while a neighbour moves) by
+            <input id="dpa-anchor" type="number" min="0" max="0.6" step="0.05" value="0.15" style="width: 4.5em" /> mm</label>
+        </details>
+        <details class="dpa-more" open><summary>Pressure points</summary>
+          <label class="check"><input id="dpa-press" type="checkbox" checked /> On teeth turning on this aligner (rotation ≥
+            <input id="dpa-press-min" type="number" min="0" max="5" step="0.1" value="0.2" style="width: 4em" />°): two points pressing the faces that turn it, depth
+            <input id="dpa-press-depth" type="number" min="0.05" max="0.6" step="0.05" value="0.3" style="width: 4.5em" /> mm (light pressure)</label>
+        </details>
+        <details class="dpa-more" open><summary>Buttons, hooks and appliances</summary>
+          <label class="check"><input id="dpa-cutouts" type="checkbox" checked /> Cut out round bonded buttons (from the plan's buttons)</label>
+          <label class="check"><input id="dpa-hooks" type="checkbox" checked /> Precision hooks where an elastic is on a tooth with no button</label>
+          <label class="block">Bars (space maintainer / regainer), tooth to tooth across the gap <input id="dpa-bars" type="text" placeholder="e.g. 14-16, 34-36" /></label>
+          <label class="block">Bite blocks (twin block / posterior bite plane) on teeth <input id="dpa-blocks" type="text" placeholder="e.g. 16, 17, 26, 27" /> raised
+            <input id="dpa-block-h" type="number" min="0.5" max="8" step="0.5" value="2" style="width: 4.5em" /> mm above the cusps</label>
+          <label class="check"><input id="dpa-plate" type="checkbox" /> Palatal plate joining both sides (expander body: the arch widens with the plan's stages),
+            <input id="dpa-plate-t" type="number" min="0.8" max="3" step="0.1" value="1.5" style="width: 4.5em" /> mm thick</label>
+        </details>
+        <div class="dpa-grid">
+          <label>Aligner <span><input id="dpa-stage" type="number" min="1" step="1" value="1" /> <span id="dpa-of" class="muted"></span></span></label>
+          <label>Arch <select id="dpa-arch"><option value="both">Both</option><option value="upper">Upper</option><option value="lower">Lower</option></select></label>
+        </div>
+        <div class="row">
+          <button id="btn-dpa-preview" title="Make this aligner and show it over its model">Preview</button>
+          <button id="btn-dpa-clear" hidden>Hide preview</button>
+          <button id="btn-dpa-export" class="primary-inline">Export all aligners (STL ZIP)</button>
+        </div>
+        <p class="muted small" id="dpa-note"></p>
+        <table id="dpa-quality" class="dpa-quality"></table>
+      </div>
+
       <div id="tooth-numbers"></div>
       <svg id="trim-draw" class="trim-draw"><polyline id="trim-path" /></svg>
       <div id="empty" class="empty"><p>No scans in this case yet.</p></div>
@@ -703,6 +745,9 @@
         <p class="muted small" id="hollow-note">The base closes the model off at a flat plane it can be printed standing on. It is built here, at export, so the segmentation is untouched — unlike Create base in Scans, which changes the scan itself. Hollowing then empties the inside to save resin and opens it through the base, the way a lab's model builder does, so the resin drains out and nothing is sealed in. Without a base there is nothing to empty but the wall, and the model comes out a shell. Both need One shell, which is what joins the parts into one surface. Anywhere the model is thinner than twice the wall stays solid.</p>
         <p class="muted small">All stages re-measures contacts first and includes the IPR report; unresolved collisions are listed in it.</p>
         <div class="row"><label class="btn">Make one shell from a file (STL/PLY/OBJ)…<input id="file-oneshell" type="file" accept=".stl,.ply,.obj" hidden /></label></div>
+        <h3>Direct-print aligners</h3>
+        <p class="muted small">The aligner shells themselves, for printing directly: thickness, offset, trimline, pressure points, buttons, hooks and appliances.</p>
+        <div class="row"><button id="btn-open-aligners" class="primary-inline">Open the Aligners module</button></div>
         <h3>Treatment video</h3>
         <div class="row video-views">
           <label class="check"><input type="checkbox" data-shot="front" checked /> Front</label>
