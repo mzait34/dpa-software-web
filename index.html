@@ -4,8 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>DPA Software</title>
-    <script type="module" crossorigin src="./assets/index-BEoccUFs.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-lHkCTKMJ.css">
+    <script type="module" crossorigin src="./assets/index-Cy8HkzEL.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-OTq4YbGr.css">
   </head>
   <body>
     <header>
@@ -78,6 +78,13 @@
           <button id="btn-dpa-export" class="primary-inline">Export all aligners (STL ZIP)</button>
         </div>
         <p class="muted small" id="dpa-note"></p>
+        <label class="check"><input id="dpa-colour" type="checkbox" checked /> Colour the preview by why it is thick there</label>
+        <div class="dpa-legend">
+          <span><i style="background:#bfe3ff"></i>Base thickness</span>
+          <span><i style="background:linear-gradient(90deg,#ffd34d,#ff7a1a,#d8343d)"></i>Thicker where it pushes (more = redder)</span>
+          <span><i style="background:#3fb37f"></i>Anchor tooth</span>
+          <span><i style="background:#8e5bd8"></i>Pressure point (into the tooth)</span>
+        </div>
         <table id="dpa-quality" class="dpa-quality"></table>
       </div>
 
