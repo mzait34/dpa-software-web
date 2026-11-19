@@ -4,8 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>DPA Software</title>
-    <script type="module" crossorigin src="./assets/index-CE1Hs3zW.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-DVfI0DAV.css">
+    <script type="module" crossorigin src="./assets/index-Dr5tcNBO.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-B5c0q9T6.css">
   </head>
   <body>
     <header>
@@ -36,6 +36,7 @@
 
     <main id="viewport">
       <div id="occlusal-legend" class="legend" hidden></div>
+      <div id="force-panel" class="legend force-panel" hidden></div>
       <div id="tooth-numbers"></div>
       <svg id="trim-draw" class="trim-draw"><polyline id="trim-path" /></svg>
       <div id="empty" class="empty"><p>No scans in this case yet.</p></div>
@@ -425,6 +426,7 @@
           <label class="check"><input id="show-ghost" type="checkbox" /> Initial position of moved teeth</label>
           <label class="check"><input id="show-occlusal" type="checkbox" /> Occlusal map</label>
           <label class="check" title="Every crown coloured by its distance to the nearest neighbouring or opposing tooth: red is a collision"><input id="show-collisions" type="checkbox" /> Collision heatmap</label>
+          <label class="check" title="What the next aligner pushes on each tooth with: pressure on the crown, an arrow for the force, and warnings where a planned movement gets no grip (Alt+F)"><input id="show-forces" type="checkbox" /> Aligner forces</label>
           <label class="check" title="Virtual roots and centres of resistance (red); the gingiva becomes see-through"><input id="show-roots" type="checkbox" /> Virtual roots &amp; CR</label>
           <label class="check" title="The aligner number, raised on a back tooth of each printed model; drag it to move it"><input id="show-stamp" type="checkbox" checked /> Number on the printed model</label>
           <label class="check" title="Reference grid in the occlusal plane (Alt+G)"><input id="show-grid" type="checkbox" /> Grid</label>
@@ -540,6 +542,27 @@
       </div>
     </div>
 
+    <div id="face-modal" class="modal" hidden>
+      <div class="modal-box face-box" role="dialog" aria-modal="true" aria-labelledby="face-title">
+        <h2 id="face-title">Face analysis <span id="face-photo-name" class="muted"></span><button class="close" id="face-close" aria-label="Close">✕</button></h2>
+        <div class="face-layout">
+          <div class="face-stage"><canvas id="face-canvas"></canvas></div>
+          <div class="face-side">
+            <div class="row seg" id="face-views">
+              <button data-fview="smile" title="Front, smiling: midlines, cant, smile arc, corridors, face heights">Smile</button>
+              <button data-fview="rest" title="Front, lips at rest: incisor display, face heights, midlines">At rest</button>
+              <button data-fview="profile" title="Side view: E-line, nasolabial angle, convexity">Profile</button>
+            </div>
+            <div class="row"><button id="face-detect" title="Find the face again with the network and start the points over">Detect again</button><button id="face-whole">Whole photograph</button></div>
+            <p id="face-status" class="muted small"></p>
+            <table id="face-table" class="face-findings"></table>
+            <p class="muted small" id="face-help">Drag any point to correct it. Orange points are found on the face; teal points are the teeth and are placed by you.</p>
+            <ol id="face-points" class="face-points"></ol>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div id="settings-modal" class="modal" hidden>
       <div class="modal-box wide">
         <h2>Settings <button class="close" id="settings-close">✕</button></h2>
@@ -637,7 +660,7 @@
             <tr><th>View</th><td>Home, Front, Back, Right, Left</td><td><kbd>Alt+H, Alt+1, Alt+2, Alt+3, Alt+4</kbd></td></tr>
             <tr><th></th><td>Upper / lower arch</td><td><kbd>Alt+Q / Alt+E</kbd></td></tr>
             <tr><th>Layer</th><td>Show or hide the upper / lower arch</td><td><kbd>Alt+Shift+Q / Alt+Shift+E</kbd></td></tr>
-            <tr><th></th><td>Grid, IPR, Collisions, Axes</td><td><kbd>Alt+G, Alt+P, Alt+I, Alt+T</kbd></td></tr>
+            <tr><th></th><td>Aligner forces, Grid, IPR, Collisions, Axes</td><td><kbd>Alt+F, Alt+G, Alt+P, Alt+I, Alt+T</kbd></td></tr>
             <tr><th>Panels</th><td>Table View</td><td><kbd>T</kbd></td></tr>
             <tr><th></th><td>Arrows & rings on / off</td><td><kbd>G</kbd></td></tr>
             <tr><th>General</th><td>Undo / Redo</td><td><kbd>Ctrl+Z / Ctrl+Shift+Z or Ctrl+Y</kbd></td></tr>
