@@ -4,8 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>DPA Software</title>
-    <script type="module" crossorigin src="./assets/index-C2ffsr6L.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-DozkvhpG.css">
+    <script type="module" crossorigin src="./assets/index-BEoccUFs.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-lHkCTKMJ.css">
   </head>
   <body>
     <header>
@@ -44,6 +44,8 @@
           <label>Thickness <span><input id="dpa-thick" type="number" min="0.3" max="1.5" step="0.05" value="0.5" /> mm</span></label>
           <label>Offset from the teeth <span><input id="dpa-offset" type="number" min="0" max="0.3" step="0.01" value="0.04" /> mm</span></label>
           <label>Trimline over the gum <span><input id="dpa-trim" type="number" min="0" max="6" step="0.25" value="3" /> mm</span></label>
+          <label>Trimline <select id="dpa-trimtype"><option value="straight" selected>Straight</option><option value="scalloped">Scalloped (follows the gum)</option></select></label>
+          <label>Number on the aligner <select id="dpa-label"><option value="1" selected>Raised on a molar</option><option value="0">None</option></select></label>
           <label>Mesh <select id="dpa-res"><option value="0.15">Standard (0.15 mm)</option><option value="0.12">Fine (0.12 mm)</option><option value="0.1">Finest (0.10 mm, slow)</option><option value="0.25">Draft (0.25 mm)</option></select></label>
         </div>
         <details class="dpa-more" open><summary>Thickness from the forces</summary>
