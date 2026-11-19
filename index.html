@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>DPA Software</title>
-    <script type="module" crossorigin src="./assets/index-Cy8HkzEL.js"></script>
+    <script type="module" crossorigin src="./assets/index-DnYDz68B.js"></script>
     <link rel="stylesheet" crossorigin href="./assets/index-OTq4YbGr.css">
   </head>
   <body>
@@ -65,8 +65,26 @@
           <label class="block">Bars (space maintainer / regainer), tooth to tooth across the gap <input id="dpa-bars" type="text" placeholder="e.g. 14-16, 34-36" /></label>
           <label class="block">Bite blocks (twin block / posterior bite plane) on teeth <input id="dpa-blocks" type="text" placeholder="e.g. 16, 17, 26, 27" /> raised
             <input id="dpa-block-h" type="number" min="0.5" max="8" step="0.5" value="2" style="width: 4.5em" /> mm above the cusps</label>
+          <label class="check"><input id="dpa-incline" type="checkbox" /> Twin block: give the bite blocks an inclined plane at
+            <input id="dpa-incline-deg" type="number" min="30" max="90" step="5" value="70" style="width: 4em" />° (upper: facing mesially, lower: facing distally)</label>
+          <label class="block">Mandibular advancement wings on teeth <input id="dpa-wings" type="text" placeholder="e.g. 14, 24 (upper) and 36, 46 (lower)" /> reaching
+            <input id="dpa-wing-h" type="number" min="2" max="8" step="0.5" value="4" style="width: 4.5em" /> mm past the cusps</label>
+          <label class="check"><input id="dpa-biteplane" type="checkbox" /> Anterior bite plane behind the upper incisors (deep bite), a flat table
+            <input id="dpa-biteplane-d" type="number" min="0" max="6" step="0.5" value="2" style="width: 4.5em" /> mm toward the gum from the incisal edges</label>
+          <label class="block">Occlusal cutouts (chewing surface left open) on teeth <input id="dpa-windows" type="text" placeholder="e.g. 16, 26" /></label>
+          <label class="block">Buttons printed on the aligner, on teeth <input id="dpa-knobs" type="text" placeholder="e.g. 13, 23, 36, 46" /></label>
+          <label class="check"><input id="dpa-pontics" type="checkbox" checked /> Pontics: fill the space of an extracted or missing tooth with a tooth in the aligner (from the plan's pontics)</label>
           <label class="check"><input id="dpa-plate" type="checkbox" /> Palatal plate joining both sides (expander body: the arch widens with the plan's stages),
             <input id="dpa-plate-t" type="number" min="0.8" max="3" step="0.1" value="1.5" style="width: 4.5em" /> mm thick</label>
+          <label class="check"><input id="dpa-plate-split" type="checkbox" /> Split the plate at the midline (for an expansion screw), gap
+            <input id="dpa-split-w" type="number" min="0.3" max="3" step="0.1" value="0.8" style="width: 4.5em" /> mm</label>
+          <label class="check"><input id="dpa-loop" type="checkbox" /> Space regainer bars with a loop toward the gum (can be opened to push the teeth apart)</label>
+        </details>
+        <details class="dpa-more"><summary>Tooth by tooth</summary>
+          <label class="block">Trimline height for some teeth <input id="dpa-trim-teeth" type="text" placeholder="e.g. 13:2, 23:2, 16:4" /></label>
+          <label class="block">Extra thickness over some teeth <input id="dpa-thick-teeth" type="text" placeholder="e.g. 16:0.2, 26:0.2" /></label>
+          <label class="check"><input id="dpa-pick-press" type="checkbox" /> Place pressure points by clicking on a tooth (Alt+click removes the nearest)</label>
+          <p class="muted small" id="dpa-picked"></p>
         </details>
         <div class="dpa-grid">
           <label>Aligner <span><input id="dpa-stage" type="number" min="1" step="1" value="1" /> <span id="dpa-of" class="muted"></span></span></label>
