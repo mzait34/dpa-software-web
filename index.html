@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>DPA Software</title>
-    <script type="module" crossorigin src="./assets/index-C28ZVKHF.js"></script>
+    <script type="module" crossorigin src="./assets/index-DRaHjsuB.js"></script>
     <link rel="stylesheet" crossorigin href="./assets/index-Bv0hGr3d.css">
   </head>
   <body>
@@ -82,8 +82,11 @@
         </details>
         <details class="dpa-more" open><summary>Design on the model</summary>
           <p class="muted small">Pick a tool, then click on the teeth or gum. Cutout and wire: click each point, then Done (or Enter). Drag any orange handle to move it. Everything moves with the teeth from aligner to aligner.</p>
-          <label class="block">Segmented aligner: caps, separated by <b>|</b> (teeth in none are left uncovered)
-            <input id="dpa-segments" type="text" placeholder="e.g. 13 | 14-17 | 23 | 24-27 | 12-22" /></label>
+          <div class="row dpa-tools"><button data-feature="tpl-split" title="Click two neighbouring teeth: the aligner is cut between them">Separate</button>
+            <label class="block" style="flex:1">between <input id="dpa-splits" type="text" placeholder="e.g. 13/14, 23/24" /></label></div>
+          <details><summary class="muted small">Advanced: caps by hand</summary>
+          <label class="block">Caps, separated by <b>|</b> (teeth in none are left uncovered)
+            <input id="dpa-segments" type="text" placeholder="e.g. 13 | 14-17 | 23 | 24-27 | 12-22" /></label></details>
           <label class="check">Gap between caps <input id="dpa-seg-gap" type="number" min="0.2" max="3" step="0.1" value="0.6" style="width: 4.5em" /> mm</label>
           <p class="muted small">Ready-made shapes: click the two teeth (one for a power arm), then drag the handles to shape them.</p>
           <div class="row dpa-tools">
