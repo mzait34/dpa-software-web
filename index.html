@@ -4,8 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>DPA Software</title>
-    <script type="module" crossorigin src="./assets/index-CdmlvuNz.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-DCxvmHsg.css">
+    <script type="module" crossorigin src="./assets/index-eeRyqKL7.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-BOAdnFT3.css">
   </head>
   <body>
     <header>
@@ -38,100 +38,112 @@
       <div id="occlusal-legend" class="legend" hidden></div>
       <div id="force-panel" class="legend force-panel" hidden></div>
       <div id="aligner-studio" class="float aligner-studio" hidden>
-        <h2>Aligners <span class="muted small">direct print</span><button class="close" id="aligner-close" aria-label="Close">✕</button></h2>
-        <p class="muted small">The aligner itself, for printing directly (Graphy TA-28 / TC-85 and similar): one closed, smooth surface per aligner, made from the cast of that aligner's stage. Aligner <i>n</i> is the shape of stage <i>n</i>.</p>
-        <div class="dpa-grid">
-          <label>Thickness <span><input id="dpa-thick" type="number" min="0.3" max="1.5" step="0.05" value="0.5" /> mm</span></label>
-          <label>Offset from the teeth <span><input id="dpa-offset" type="number" min="0" max="0.3" step="0.01" value="0.04" /> mm</span></label>
-          <label>Trimline over the gum <span><input id="dpa-trim" type="number" min="0" max="6" step="0.25" value="3" /> mm</span></label>
-          <label>Trimline <select id="dpa-trimtype"><option value="straight" selected>Straight</option><option value="scalloped">Scalloped (follows the gum)</option></select></label>
-          <label>Number on the aligner <select id="dpa-label"><option value="1" selected>Raised on a molar</option><option value="0">None</option></select></label>
-          <label>Mesh <select id="dpa-res"><option value="0.15">Standard (0.15 mm)</option><option value="0.12" selected>Fine (0.12 mm)</option><option value="0.1">Finest (0.10 mm, slow)</option><option value="0.25">Draft (0.25 mm)</option></select></label>
+        <header class="as-head">
+          <h2>Aligners</h2>
+          <button class="close" id="aligner-close" aria-label="Close">✕</button>
+        </header>
+        <nav class="as-tabs" role="tablist">
+          <button data-astab="shell" class="active">Shell</button>
+          <button data-astab="force">Force</button>
+          <button data-astab="design">Design</button>
+          <button data-astab="appl">Appliances</button>
+        </nav>
+        <div class="as-body">
+
+          <section data-aspane="shell">
+            <div class="as-row" title="Wall thickness of the aligner"><span>Thickness</span><span class="as-in"><input id="dpa-thick" type="number" min="0.3" max="1.5" step="0.05" value="0.5" /> mm</span></div>
+            <div class="as-row" title="Space between the teeth and the inside of the aligner"><span>Offset</span><span class="as-in"><input id="dpa-offset" type="number" min="0" max="0.3" step="0.01" value="0.04" /> mm</span></div>
+            <div class="as-row" title="Straight runs evenly from tooth to tooth; scalloped follows the gum"><span>Trimline</span><span class="as-in"><select id="dpa-trimtype"><option value="straight" selected>Straight</option><option value="scalloped">Scalloped</option></select></span></div>
+            <div class="as-row" title="How far over the gum the aligner reaches"><span>Trimline height</span><span class="as-in"><input id="dpa-trim" type="number" min="0" max="6" step="0.25" value="3" /> mm</span></div>
+            <div class="as-row" title="Finer is smoother and slower"><span>Mesh</span><span class="as-in"><select id="dpa-res"><option value="0.25">Draft</option><option value="0.15">Standard</option><option value="0.12" selected>Fine</option><option value="0.1">Finest</option></select></span></div>
+            <div class="as-row" title="The aligner's number, raised on the buccal of the last molar"><span>Number on aligner</span><span class="as-in"><select id="dpa-label"><option value="1" selected>On</option><option value="0">Off</option></select></span></div>
+            <details class="as-sub"><summary>Per tooth</summary>
+              <div class="as-row" title="e.g. 13:2, 23:2"><span>Trimline height</span><span class="as-in"><input id="dpa-trim-teeth" type="text" placeholder="13:2, 23:2" /></span></div>
+              <div class="as-row" title="Extra thickness over whole teeth, e.g. 16:0.2"><span>Extra thickness</span><span class="as-in"><input id="dpa-thick-teeth" type="text" placeholder="16:0.2" /></span></div>
+            </details>
+          </section>
+
+          <section data-aspane="force" hidden>
+            <label class="as-check" title="Thicker on the face each movement is pushed on"><input id="dpa-smart" type="checkbox" checked /> Thicker where it pushes <span class="as-in"><input id="dpa-push" type="number" min="0" max="0.6" step="0.05" value="0.25" /> mm</span></label>
+            <label class="as-check" title="A still tooth next to a moving one"><input id="dpa-anchor-on" type="checkbox" checked /> Thicker over anchor teeth <span class="as-in"><input id="dpa-anchor" type="number" min="0" max="0.6" step="0.05" value="0.15" /> mm</span></label>
+            <label class="as-check" title="Two points press the faces that turn a rotating tooth"><input id="dpa-press" type="checkbox" checked /> Pressure points, depth <span class="as-in"><input id="dpa-press-depth" type="number" min="0.05" max="0.6" step="0.05" value="0.3" /> mm</span></label>
+            <div class="as-row as-indent" title="Only on teeth turning at least this much on the aligner"><span>…on rotations from</span><span class="as-in"><input id="dpa-press-min" type="number" min="0" max="5" step="0.1" value="0.2" /> °</span></div>
+            <label class="as-check" title="Click a tooth to put a pressure point there; Alt+click removes the nearest"><input id="dpa-pick-press" type="checkbox" /> Place pressure points by click</label>
+            <p class="as-note" id="dpa-picked"></p>
+            <label class="as-check"><input id="dpa-colour" type="checkbox" checked /> Colour the preview by thickness</label>
+            <div class="dpa-legend">
+              <span><i style="background:#bfe3ff"></i>Base</span>
+              <span><i style="background:linear-gradient(90deg,#ffd34d,#ff7a1a,#d8343d)"></i>Pushed face</span>
+              <span><i style="background:#3fb37f"></i>Anchor</span>
+              <span><i style="background:#8e5bd8"></i>Pressure point</span>
+            </div>
+          </section>
+
+          <section data-aspane="design" hidden>
+            <h3 class="as-h">Separate</h3>
+            <div class="as-row"><button data-feature="tpl-split" title="Click two neighbouring teeth">Separate…</button><span class="as-in"><input id="dpa-splits" type="text" placeholder="13/14, 23/24" title="Teeth to cut between" /></span></div>
+            <div class="as-row" title="Open space between the parts"><span>Gap</span><span class="as-in"><input id="dpa-seg-gap" type="number" min="0.2" max="3" step="0.1" value="0.6" /> mm</span></div>
+            <details class="as-sub"><summary>Caps by hand</summary>
+              <div class="as-row" title="e.g. 13 | 14-17 | 23; teeth in none are left uncovered"><span>Caps</span><span class="as-in"><input id="dpa-segments" type="text" placeholder="13 | 14-17 | 23" /></span></div>
+            </details>
+            <h3 class="as-h">Ready-made <span class="as-hint">click the teeth, then drag handles</span></h3>
+            <div class="as-tools">
+              <button data-feature="tpl-loop" title="U loop toward the gum between two teeth">Closing loop</button>
+              <button data-feature="tpl-coil" title="Zigzag spring between two teeth">Coil spring</button>
+              <button data-feature="tpl-tpa" title="From molar to molar over the palate">TPA</button>
+              <button data-feature="tpl-lingual" title="Along the lingual between two molars">Lingual arch</button>
+              <button data-feature="tpl-arm" title="Arm toward the gum with a hook">Power arm</button>
+            </div>
+            <div class="as-row" title="Radius of new springs, loops and arches"><span>Wire thickness</span><span class="as-in"><input id="dpa-wire-r" type="number" min="0.3" max="1.5" step="0.05" value="0.7" /> mm</span></div>
+            <h3 class="as-h">Draw <span class="as-hint">click on the model</span></h3>
+            <div class="as-tools">
+              <button data-feature="cutout" title="Click round the area to open, then Done">Cutout</button>
+              <button data-feature="wire" title="Click the points, then Done">Wire</button>
+              <button data-feature="slot" title="Two clicks">Slot</button>
+              <button data-feature="button" title="One click">Button</button>
+              <button data-feature="hook" title="One click">Hook</button>
+            </div>
+            <div class="as-drawing" id="dpa-drawing" hidden><span id="dpa-draw-hint"></span><button id="dpa-draw-done" class="primary-inline">Done</button><button id="dpa-draw-cancel">Cancel</button></div>
+            <h3 class="as-h">On this case <button id="dpa-undo" class="as-mini" title="Undo the last change to the drawings (Ctrl+Z)">↶ Undo</button></h3>
+            <div id="dpa-feature-list"></div>
+          </section>
+
+          <section data-aspane="appl" hidden>
+            <label class="as-check" title="Round cutouts round the plan's bonded buttons"><input id="dpa-cutouts" type="checkbox" checked /> Button cutouts (from the plan)</label>
+            <label class="as-check" title="Where an elastic is on a tooth with no button"><input id="dpa-hooks" type="checkbox" checked /> Precision hooks for elastics</label>
+            <label class="as-check" title="A tooth in the aligner where one is missing"><input id="dpa-pontics" type="checkbox" checked /> Pontics</label>
+            <h3 class="as-h">Bite</h3>
+            <div class="as-row" title="Bite blocks on these teeth"><span>Bite blocks on</span><span class="as-in"><input id="dpa-blocks" type="text" placeholder="16, 26" /></span></div>
+            <div class="as-row" title="Height above the cusps"><span>…height</span><span class="as-in"><input id="dpa-block-h" type="number" min="0.5" max="8" step="0.5" value="2" /> mm</span></div>
+            <label class="as-check" title="Twin block: upper facing mesially, lower distally"><input id="dpa-incline" type="checkbox" /> Inclined plane <span class="as-in"><input id="dpa-incline-deg" type="number" min="30" max="90" step="5" value="70" /> °</span></label>
+            <div class="as-row" title="Mandibular advancement wings on these teeth"><span>Wings on</span><span class="as-in"><input id="dpa-wings" type="text" placeholder="14, 24, 36, 46" /></span></div>
+            <div class="as-row"><span>…past the cusps</span><span class="as-in"><input id="dpa-wing-h" type="number" min="2" max="8" step="0.5" value="4" /> mm</span></div>
+            <label class="as-check" title="Flat table behind the upper incisors"><input id="dpa-biteplane" type="checkbox" /> Anterior bite plane <span class="as-in"><input id="dpa-biteplane-d" type="number" min="0" max="6" step="0.5" value="2" /> mm</span></label>
+            <h3 class="as-h">On the teeth</h3>
+            <div class="as-row" title="Chewing surface left open"><span>Occlusal cutouts</span><span class="as-in"><input id="dpa-windows" type="text" placeholder="16, 26" /></span></div>
+            <div class="as-row" title="Buttons printed on the aligner"><span>Printed buttons</span><span class="as-in"><input id="dpa-knobs" type="text" placeholder="13, 23" /></span></div>
+            <h3 class="as-h">Palate and gaps</h3>
+            <label class="as-check" title="Joins both sides over the palate"><input id="dpa-plate" type="checkbox" /> Palatal plate <span class="as-in"><input id="dpa-plate-t" type="number" min="0.8" max="3" step="0.1" value="1.5" /> mm</span></label>
+            <label class="as-check as-indent" title="For an expansion screw"><input id="dpa-plate-split" type="checkbox" /> Split at midline <span class="as-in"><input id="dpa-split-w" type="number" min="0.3" max="3" step="0.1" value="0.8" /> mm</span></label>
+            <div class="as-row" title="Bar across a gap, tooth to tooth"><span>Space maintainer</span><span class="as-in"><input id="dpa-bars" type="text" placeholder="14-16" /></span></div>
+            <label class="as-check as-indent"><input id="dpa-loop" type="checkbox" /> With a loop (regainer)</label>
+          </section>
         </div>
-        <details class="dpa-more" open><summary>Thickness from the forces</summary>
-          <label class="check"><input id="dpa-smart" type="checkbox" checked /> Thicker where the aligner pushes (the surface each movement is pushed on: mesial of a tooth moving distally, occlusal for an intrusion, the leading faces of a turn), up to
-            <input id="dpa-push" type="number" min="0" max="0.6" step="0.05" value="0.25" style="width: 4.5em" /> mm more</label>
-          <label class="check"><input id="dpa-anchor-on" type="checkbox" checked /> Thicker over anchor teeth (still while a neighbour moves) by
-            <input id="dpa-anchor" type="number" min="0" max="0.6" step="0.05" value="0.15" style="width: 4.5em" /> mm</label>
-        </details>
-        <details class="dpa-more" open><summary>Pressure points</summary>
-          <label class="check"><input id="dpa-press" type="checkbox" checked /> On teeth turning on this aligner (rotation ≥
-            <input id="dpa-press-min" type="number" min="0" max="5" step="0.1" value="0.2" style="width: 4em" />°): two points pressing the faces that turn it, depth
-            <input id="dpa-press-depth" type="number" min="0.05" max="0.6" step="0.05" value="0.3" style="width: 4.5em" /> mm (light pressure)</label>
-        </details>
-        <details class="dpa-more" open><summary>Buttons, hooks and appliances</summary>
-          <label class="check"><input id="dpa-cutouts" type="checkbox" checked /> Cut out round bonded buttons (from the plan's buttons)</label>
-          <label class="check"><input id="dpa-hooks" type="checkbox" checked /> Precision hooks where an elastic is on a tooth with no button</label>
-          <label class="block">Bars (space maintainer / regainer), tooth to tooth across the gap <input id="dpa-bars" type="text" placeholder="e.g. 14-16, 34-36" /></label>
-          <label class="block">Bite blocks (twin block / posterior bite plane) on teeth <input id="dpa-blocks" type="text" placeholder="e.g. 16, 17, 26, 27" /> raised
-            <input id="dpa-block-h" type="number" min="0.5" max="8" step="0.5" value="2" style="width: 4.5em" /> mm above the cusps</label>
-          <label class="check"><input id="dpa-incline" type="checkbox" /> Twin block: give the bite blocks an inclined plane at
-            <input id="dpa-incline-deg" type="number" min="30" max="90" step="5" value="70" style="width: 4em" />° (upper: facing mesially, lower: facing distally)</label>
-          <label class="block">Mandibular advancement wings on teeth <input id="dpa-wings" type="text" placeholder="e.g. 14, 24 (upper) and 36, 46 (lower)" /> reaching
-            <input id="dpa-wing-h" type="number" min="2" max="8" step="0.5" value="4" style="width: 4.5em" /> mm past the cusps</label>
-          <label class="check"><input id="dpa-biteplane" type="checkbox" /> Anterior bite plane behind the upper incisors (deep bite), a flat table
-            <input id="dpa-biteplane-d" type="number" min="0" max="6" step="0.5" value="2" style="width: 4.5em" /> mm toward the gum from the incisal edges</label>
-          <label class="block">Occlusal cutouts (chewing surface left open) on teeth <input id="dpa-windows" type="text" placeholder="e.g. 16, 26" /></label>
-          <label class="block">Buttons printed on the aligner, on teeth <input id="dpa-knobs" type="text" placeholder="e.g. 13, 23, 36, 46" /></label>
-          <label class="check"><input id="dpa-pontics" type="checkbox" checked /> Pontics: fill the space of an extracted or missing tooth with a tooth in the aligner (from the plan's pontics)</label>
-          <label class="check"><input id="dpa-plate" type="checkbox" /> Palatal plate joining both sides (expander body: the arch widens with the plan's stages),
-            <input id="dpa-plate-t" type="number" min="0.8" max="3" step="0.1" value="1.5" style="width: 4.5em" /> mm thick</label>
-          <label class="check"><input id="dpa-plate-split" type="checkbox" /> Split the plate at the midline (for an expansion screw), gap
-            <input id="dpa-split-w" type="number" min="0.3" max="3" step="0.1" value="0.8" style="width: 4.5em" /> mm</label>
-          <label class="check"><input id="dpa-loop" type="checkbox" /> Space regainer bars with a loop toward the gum (can be opened to push the teeth apart)</label>
-        </details>
-        <details class="dpa-more" open><summary>Design on the model</summary>
-          <p class="muted small">Pick a tool, then click on the teeth or gum. Cutout and wire: click each point, then Done (or Enter). Drag any orange handle to move it. Everything moves with the teeth from aligner to aligner.</p>
-          <div class="row dpa-tools"><button data-feature="tpl-split" title="Click two neighbouring teeth: the aligner is cut between them">Separate</button>
-            <label class="block" style="flex:1">between <input id="dpa-splits" type="text" placeholder="e.g. 13/14, 23/24" /></label></div>
-          <details><summary class="muted small">Advanced: caps by hand</summary>
-          <label class="block">Caps, separated by <b>|</b> (teeth in none are left uncovered)
-            <input id="dpa-segments" type="text" placeholder="e.g. 13 | 14-17 | 23 | 24-27 | 12-22" /></label></details>
-          <label class="check">Gap between caps <input id="dpa-seg-gap" type="number" min="0.2" max="3" step="0.1" value="0.6" style="width: 4.5em" /> mm</label>
-          <p class="muted small">Ready-made shapes: click the two teeth (one for a power arm), then drag the handles to shape them.</p>
-          <div class="row dpa-tools">
-            <button data-feature="tpl-loop" title="A closing loop between two teeth on the buccal: a U toward the gum">Closing loop</button>
-            <button data-feature="tpl-coil" title="A zigzag spring between two teeth">Coil spring</button>
-            <button data-feature="tpl-tpa" title="A transpalatal arch from one molar to the other, with an omega loop in the middle">TPA</button>
-            <button data-feature="tpl-lingual" title="A lingual arch from one molar to the other, along the lingual of the teeth">Lingual arch</button>
-            <button data-feature="tpl-arm" title="A power arm from a tooth toward the gum, with a hook at its end">Power arm</button>
+
+        <footer class="as-foot">
+          <div class="as-checks" id="dpa-checks"></div>
+          <div class="as-row">
+            <span class="as-in"><span class="muted small">Aligner</span> <input id="dpa-stage" type="number" min="1" step="1" value="1" /> <span id="dpa-of" class="muted small"></span></span>
+            <span class="as-in"><select id="dpa-arch"><option value="both">Both</option><option value="upper">Upper</option><option value="lower">Lower</option></select></span>
           </div>
-          <label class="check">Thickness of springs, loops and arches <input id="dpa-wire-r" type="number" min="0.3" max="1.5" step="0.05" value="0.7" style="width: 4.5em" /> mm radius</label>
-          <p class="muted small">Free drawing:</p>
-          <div class="row dpa-tools">
-            <button data-feature="cutout" title="An opening of any outline: click round the area to open">Cutout</button>
-            <button data-feature="wire" title="A wire through the points you click: spring, loop, arm, palatal bar">Wire / spring</button>
-            <button data-feature="slot" title="A slot for an elastic, between two clicks">Slot</button>
-            <button data-feature="button" title="A button printed on the aligner, where you click">Button</button>
-            <button data-feature="hook" title="A hook printed on the aligner, where you click">Hook</button>
+          <div class="as-actions">
+            <button id="btn-dpa-preview" class="primary-inline">Preview</button>
+            <button id="btn-dpa-clear" hidden>Hide</button>
+            <button id="btn-dpa-export" title="Every aligner as STL, in a ZIP, with a quality report">Export all</button>
           </div>
-          <div class="row" id="dpa-drawing" hidden><span class="muted small" id="dpa-draw-hint"></span><button id="dpa-draw-done" class="primary-inline">Done</button><button id="dpa-draw-cancel">Cancel</button></div>
-          <div id="dpa-feature-list"></div>
-        </details>
-        <details class="dpa-more"><summary>Tooth by tooth</summary>
-          <label class="block">Trimline height for some teeth <input id="dpa-trim-teeth" type="text" placeholder="e.g. 13:2, 23:2, 16:4" /></label>
-          <label class="block">Extra thickness over some teeth <input id="dpa-thick-teeth" type="text" placeholder="e.g. 16:0.2, 26:0.2" /></label>
-          <label class="check"><input id="dpa-pick-press" type="checkbox" /> Place pressure points by clicking on a tooth (Alt+click removes the nearest)</label>
-          <p class="muted small" id="dpa-picked"></p>
-        </details>
-        <div class="dpa-grid">
-          <label>Aligner <span><input id="dpa-stage" type="number" min="1" step="1" value="1" /> <span id="dpa-of" class="muted"></span></span></label>
-          <label>Arch <select id="dpa-arch"><option value="both">Both</option><option value="upper">Upper</option><option value="lower">Lower</option></select></label>
-        </div>
-        <div class="row">
-          <button id="btn-dpa-preview" title="Make this aligner and show it over its model">Preview</button>
-          <button id="btn-dpa-clear" hidden>Hide preview</button>
-          <button id="btn-dpa-export" class="primary-inline">Export all aligners (STL ZIP)</button>
-        </div>
-        <p class="muted small" id="dpa-note"></p>
-        <label class="check"><input id="dpa-colour" type="checkbox" checked /> Colour the preview by why it is thick there</label>
-        <div class="dpa-legend">
-          <span><i style="background:#bfe3ff"></i>Base thickness</span>
-          <span><i style="background:linear-gradient(90deg,#ffd34d,#ff7a1a,#d8343d)"></i>Thicker where it pushes (more = redder)</span>
-          <span><i style="background:#3fb37f"></i>Anchor tooth</span>
-          <span><i style="background:#8e5bd8"></i>Pressure point (into the tooth)</span>
-        </div>
-        <table id="dpa-quality" class="dpa-quality"></table>
+          <p class="as-note" id="dpa-note"></p>
+          <details class="as-sub"><summary>Quality of what was made</summary><table id="dpa-quality" class="dpa-quality"></table></details>
+        </footer>
       </div>
 
       <div id="tooth-numbers"></div>
