@@ -4,8 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>DPA Software</title>
-    <script type="module" crossorigin src="./assets/index-DnYDz68B.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-OTq4YbGr.css">
+    <script type="module" crossorigin src="./assets/index-C8CgQ349.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-Bv0hGr3d.css">
   </head>
   <body>
     <header>
@@ -79,6 +79,18 @@
           <label class="check"><input id="dpa-plate-split" type="checkbox" /> Split the plate at the midline (for an expansion screw), gap
             <input id="dpa-split-w" type="number" min="0.3" max="3" step="0.1" value="0.8" style="width: 4.5em" /> mm</label>
           <label class="check"><input id="dpa-loop" type="checkbox" /> Space regainer bars with a loop toward the gum (can be opened to push the teeth apart)</label>
+        </details>
+        <details class="dpa-more" open><summary>Design on the model</summary>
+          <p class="muted small">Pick a tool, then click on the teeth or gum. Cutout and wire: click each point, then Done (or Enter). Drag any orange handle to move it. Everything moves with the teeth from aligner to aligner.</p>
+          <div class="row dpa-tools">
+            <button data-feature="cutout" title="An opening of any outline: click round the area to open">Cutout</button>
+            <button data-feature="wire" title="A wire through the points you click: spring, loop, arm, palatal bar">Wire / spring</button>
+            <button data-feature="slot" title="A slot for an elastic, between two clicks">Slot</button>
+            <button data-feature="button" title="A button printed on the aligner, where you click">Button</button>
+            <button data-feature="hook" title="A hook printed on the aligner, where you click">Hook</button>
+          </div>
+          <div class="row" id="dpa-drawing" hidden><span class="muted small" id="dpa-draw-hint"></span><button id="dpa-draw-done" class="primary-inline">Done</button><button id="dpa-draw-cancel">Cancel</button></div>
+          <div id="dpa-feature-list"></div>
         </details>
         <details class="dpa-more"><summary>Tooth by tooth</summary>
           <label class="block">Trimline height for some teeth <input id="dpa-trim-teeth" type="text" placeholder="e.g. 13:2, 23:2, 16:4" /></label>
