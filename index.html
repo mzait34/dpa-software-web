@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>DPA Software</title>
-    <script type="module" crossorigin src="./assets/index-C8CgQ349.js"></script>
+    <script type="module" crossorigin src="./assets/index-C28ZVKHF.js"></script>
     <link rel="stylesheet" crossorigin href="./assets/index-Bv0hGr3d.css">
   </head>
   <body>
@@ -46,7 +46,7 @@
           <label>Trimline over the gum <span><input id="dpa-trim" type="number" min="0" max="6" step="0.25" value="3" /> mm</span></label>
           <label>Trimline <select id="dpa-trimtype"><option value="straight" selected>Straight</option><option value="scalloped">Scalloped (follows the gum)</option></select></label>
           <label>Number on the aligner <select id="dpa-label"><option value="1" selected>Raised on a molar</option><option value="0">None</option></select></label>
-          <label>Mesh <select id="dpa-res"><option value="0.15">Standard (0.15 mm)</option><option value="0.12">Fine (0.12 mm)</option><option value="0.1">Finest (0.10 mm, slow)</option><option value="0.25">Draft (0.25 mm)</option></select></label>
+          <label>Mesh <select id="dpa-res"><option value="0.15">Standard (0.15 mm)</option><option value="0.12" selected>Fine (0.12 mm)</option><option value="0.1">Finest (0.10 mm, slow)</option><option value="0.25">Draft (0.25 mm)</option></select></label>
         </div>
         <details class="dpa-more" open><summary>Thickness from the forces</summary>
           <label class="check"><input id="dpa-smart" type="checkbox" checked /> Thicker where the aligner pushes (the surface each movement is pushed on: mesial of a tooth moving distally, occlusal for an intrusion, the leading faces of a turn), up to
@@ -82,6 +82,19 @@
         </details>
         <details class="dpa-more" open><summary>Design on the model</summary>
           <p class="muted small">Pick a tool, then click on the teeth or gum. Cutout and wire: click each point, then Done (or Enter). Drag any orange handle to move it. Everything moves with the teeth from aligner to aligner.</p>
+          <label class="block">Segmented aligner: caps, separated by <b>|</b> (teeth in none are left uncovered)
+            <input id="dpa-segments" type="text" placeholder="e.g. 13 | 14-17 | 23 | 24-27 | 12-22" /></label>
+          <label class="check">Gap between caps <input id="dpa-seg-gap" type="number" min="0.2" max="3" step="0.1" value="0.6" style="width: 4.5em" /> mm</label>
+          <p class="muted small">Ready-made shapes: click the two teeth (one for a power arm), then drag the handles to shape them.</p>
+          <div class="row dpa-tools">
+            <button data-feature="tpl-loop" title="A closing loop between two teeth on the buccal: a U toward the gum">Closing loop</button>
+            <button data-feature="tpl-coil" title="A zigzag spring between two teeth">Coil spring</button>
+            <button data-feature="tpl-tpa" title="A transpalatal arch from one molar to the other, with an omega loop in the middle">TPA</button>
+            <button data-feature="tpl-lingual" title="A lingual arch from one molar to the other, along the lingual of the teeth">Lingual arch</button>
+            <button data-feature="tpl-arm" title="A power arm from a tooth toward the gum, with a hook at its end">Power arm</button>
+          </div>
+          <label class="check">Thickness of springs, loops and arches <input id="dpa-wire-r" type="number" min="0.3" max="1.5" step="0.05" value="0.7" style="width: 4.5em" /> mm radius</label>
+          <p class="muted small">Free drawing:</p>
           <div class="row dpa-tools">
             <button data-feature="cutout" title="An opening of any outline: click round the area to open">Cutout</button>
             <button data-feature="wire" title="A wire through the points you click: spring, loop, arm, palatal bar">Wire / spring</button>
