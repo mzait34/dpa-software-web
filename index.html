@@ -4,8 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>DPA Software</title>
-    <script type="module" crossorigin src="./assets/index-DGIk4hTE.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-BAXuqJbc.css">
+    <script type="module" crossorigin src="./assets/index-DE1PE0he.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-je_SWuqm.css">
   </head>
   <body>
     <header>
@@ -155,8 +155,13 @@
             <span class="as-in"><select id="dpa-arch"><option value="both">Both</option><option value="upper">Upper</option><option value="lower">Lower</option></select></span>
           </div>
           <div class="as-actions">
-            <button id="btn-dpa-preview" class="primary-inline">Preview</button>
+            <button id="btn-dpa-preview" class="primary-inline" title="Make the aligner chosen above">Preview</button>
+            <button id="btn-dpa-make-all" title="Make every aligner of this arch at once, to look through and edit">Make all</button>
             <button id="btn-dpa-export" title="Every aligner as STL, in a ZIP, with a quality report">Export all</button>
+          </div>
+          <div id="dpa-pending" class="dpa-pending" hidden>
+            <span id="dpa-pending-text"></span>
+            <div class="row"><button id="btn-dpa-apply-this" class="primary-inline">Apply to this aligner</button><button id="btn-dpa-apply-all">Apply to all</button><button id="btn-dpa-discard" title="Put the edits back as they were">Discard</button></div>
           </div>
           <div id="dpa-made" class="dpa-made" hidden></div>
           <div id="dpa-result" class="dpa-result" hidden>
