@@ -4,8 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>DPA Software</title>
-    <script type="module" crossorigin src="./assets/index-rtO-y1v9.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-B689nI3y.css">
+    <script type="module" crossorigin src="./assets/index-D0_kD56B.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-DbIW8niz.css">
   </head>
   <body>
     <header>
@@ -150,6 +150,18 @@
           <p class="as-note" id="dpa-note"></p>
           <details class="as-sub"><summary>Quality of what was made</summary><table id="dpa-quality" class="dpa-quality"></table></details>
         </footer>
+      </div>
+
+      <div id="aligner-check" class="float aligner-studio aligner-check" hidden>
+        <header class="as-head">
+          <h2>Check aligner files</h2>
+          <button class="close" id="check-close" aria-label="Close">✕</button>
+        </header>
+        <div class="as-row"><label class="btn">Open STL files…<input id="file-check" type="file" accept=".stl,.ply,.obj" multiple hidden /></label></div>
+        <div class="as-row" title="Walls thinner than this are shown red and made up to it by Repair"><span>Minimum wall</span><span class="as-in"><input id="check-min" type="number" min="0.2" max="2" step="0.05" value="0.5" /> mm</span></div>
+        <div class="check-legend"><span style="background:#db2626"></span>thinner than the minimum <span style="background:#fa9e1f"></span>just under <span style="background:#40b859"></span>at it <span style="background:#3373e6"></span>thicker <span style="background:#bfbfc7"></span>not measured</div>
+        <table id="check-table" class="dpa-quality"><thead><tr><th>File</th><th>Mesh</th><th title="Wall measured from the inside straight through, away from the trim edge: p5 / median">Wall</th><th title="Share of the inside thinner than the minimum">Thin</th><th></th></tr></thead><tbody></tbody></table>
+        <p class="as-note" id="check-note">The inside (the side that fits the teeth) is found from the shape. Repair keeps the file as it is, joins overlapping pieces (hooks, buttons) into one closed piece and lays material on outward only where the wall is under the minimum; the inside does not move.</p>
       </div>
 
       <div id="tooth-numbers"></div>
@@ -623,6 +635,8 @@
               <button id="btn-demo" title="Upper and lower in occlusion, teeth already separate">Demo: two arches</button>
               <button id="btn-restore" hidden></button>
             </div>
+            <h3>Aligners made elsewhere</h3>
+            <div class="row"><button id="btn-home-check" title="Measure and repair aligner STLs from DAD or other programs">Check aligner files (STL)…</button></div>
           </section>
         </div>
       </div>
@@ -821,6 +835,8 @@
         <h3>Direct-print aligners</h3>
         <p class="muted small">The aligner shells themselves, for printing directly: thickness, offset, trimline, pressure points, buttons, hooks and appliances.</p>
         <div class="row"><button id="btn-open-aligners" class="primary-inline">Open the Aligners module</button></div>
+        <div class="row"><button id="btn-open-check">Check aligner files (STL)…</button></div>
+        <p class="muted small">Aligners made elsewhere (DAD and others): their mesh and wall measured, and repaired into one closed piece with a minimum wall, the inside left as it is.</p>
         <h3>Treatment video</h3>
         <div class="row video-views">
           <label class="check"><input type="checkbox" data-shot="front" checked /> Front</label>
