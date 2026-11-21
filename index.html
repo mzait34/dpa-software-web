@@ -4,8 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>DPA Software</title>
-    <script type="module" crossorigin src="./assets/index-CSCF0G7S.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-DbIW8niz.css">
+    <script type="module" crossorigin src="./assets/index-CsfOZUHP.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-BDnINyii.css">
   </head>
   <body>
     <header>
@@ -64,7 +64,9 @@
             </details>
             <div class="as-row" title="The aligner's number, raised on the last molar, on whichever side has more room"><span>Number on aligner</span><span class="as-in"><select id="dpa-label"><option value="1" selected>On</option><option value="0">Off</option></select></span></div>
             <details class="as-sub"><summary>Per tooth</summary>
-              <div class="as-row" title="e.g. 13:2, 23:2"><span>Trimline height</span><span class="as-in"><input id="dpa-trim-teeth" type="text" placeholder="13:2, 23:2" /></span></div>
+              <p class="muted small">Trimline height on single teeth; empty uses the arch's height.</p>
+              <div id="dpa-trim-grid" class="trim-grid"></div>
+              <input id="dpa-trim-teeth" type="hidden" />
               <div class="as-row" title="Extra thickness over whole teeth, e.g. 16:0.2"><span>Extra thickness</span><span class="as-in"><input id="dpa-thick-teeth" type="text" placeholder="16:0.2" /></span></div>
             </details>
           </section>
@@ -137,18 +139,33 @@
         </div>
 
         <footer class="as-foot">
-          <div class="as-checks" id="dpa-checks"></div>
           <div class="as-row">
             <span class="as-in"><span class="muted small">Aligner</span> <input id="dpa-stage" type="number" min="1" step="1" value="1" /> <span id="dpa-of" class="muted small"></span></span>
             <span class="as-in"><select id="dpa-arch"><option value="both">Both</option><option value="upper">Upper</option><option value="lower">Lower</option></select></span>
           </div>
           <div class="as-actions">
             <button id="btn-dpa-preview" class="primary-inline">Preview</button>
-            <button id="btn-dpa-clear" hidden>Hide</button>
             <button id="btn-dpa-export" title="Every aligner as STL, in a ZIP, with a quality report">Export all</button>
           </div>
-          <p class="as-note" id="dpa-note"></p>
-          <details class="as-sub"><summary>Quality of what was made</summary><table id="dpa-quality" class="dpa-quality"></table></details>
+          <div id="dpa-result" class="dpa-result" hidden>
+            <div class="seg" role="group" aria-label="What to show">
+              <button data-dpaview="both" class="active" title="The aligner over the model">Aligner + model</button>
+              <button data-dpaview="aligner" title="The aligner alone">Aligner only</button>
+              <button data-dpaview="model" title="The model alone (the aligner is kept, only hidden)">Model only</button>
+            </div>
+            <ul id="dpa-summary" class="dpa-summary"></ul>
+            <div class="dpa-adjust">
+              <div class="as-row" title="How far over the gum this aligner reaches, from the gingival margin"><span>Trimline height</span>
+                <span class="as-in"><button class="step" data-trimstep="-0.25" aria-label="Shorter">−</button><input id="dpa-trim-this" type="number" min="0" max="6" step="0.25" /> mm<button class="step" data-trimstep="0.25" aria-label="Longer">+</button></span></div>
+              <label class="as-check"><input id="dpa-trim-only" type="checkbox" checked /> This aligner only</label>
+              <div class="as-row"><span class="muted small" id="dpa-trim-note"></span><button id="btn-dpa-apply" class="primary-inline" disabled>Apply</button></div>
+            </div>
+            <p class="as-note" id="dpa-note"></p>
+            <details class="as-sub"><summary>Details for the lab</summary>
+              <div class="as-checks" id="dpa-checks"></div>
+              <table id="dpa-quality" class="dpa-quality"></table>
+            </details>
+          </div>
         </footer>
       </div>
 
