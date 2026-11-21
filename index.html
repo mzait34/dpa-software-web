@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>DPA Software</title>
-    <script type="module" crossorigin src="./assets/index-91FKmFji.js"></script>
+    <script type="module" crossorigin src="./assets/index-DX5PRC0C.js"></script>
     <link rel="stylesheet" crossorigin href="./assets/index-Ba2E_DRe.css">
   </head>
   <body>
@@ -88,6 +88,13 @@
           </section>
 
           <section data-aspane="design" hidden>
+            <h3 class="as-h" id="dpa-edit-tools">Edit the aligner <span class="as-hint">click on the model or the aligner</span></h3>
+            <div class="as-tools">
+              <button data-feature="pad" title="One click: material added there, outward only (to thicken a place or reach further over the gum)">Add material</button>
+              <button data-feature="cut" title="One click: a round piece cut away there (a notch in the edge, or a hole)">Cut</button>
+              <button data-feature="trim" title="Click along where the edge should run, then Done: the trimline goes through your points">Trimline points</button>
+            </div>
+            <p class="muted small">Each edit is on every aligner from the one it was made on, to the end; in the list below, set its first and last aligner to keep it to one aligner or some of them.</p>
             <h3 class="as-h">Separate</h3>
             <div class="as-row"><button data-feature="tpl-split" title="Click two neighbouring teeth">Separate…</button><span class="as-in"><input id="dpa-splits" type="text" placeholder="13/14, 23/24" title="Teeth to cut between" /></span></div>
             <div class="as-row" title="Open space between the parts"><span>Gap</span><span class="as-in"><input id="dpa-seg-gap" type="number" min="0.2" max="3" step="0.1" value="0.6" /> mm</span></div>
@@ -111,13 +118,6 @@
               <button data-feature="button" title="One click">Button</button>
               <button data-feature="hook" title="One click">Hook</button>
             </div>
-            <h3 class="as-h">Edit the aligner <span class="as-hint">click on the model or the aligner</span></h3>
-            <div class="as-tools">
-              <button data-feature="pad" title="One click: material added there, outward only (to thicken a place or reach further over the gum)">Add material</button>
-              <button data-feature="cut" title="One click: a round piece cut away there (a notch in the edge, or a hole)">Cut</button>
-              <button data-feature="trim" title="Click along where the edge should run, then Done: the trimline goes through your points">Trimline points</button>
-            </div>
-            <p class="muted small">Each edit is on every aligner from the one it was made on, to the end; in the list below, set its first and last aligner to keep it to one aligner or some of them.</p>
             <div class="as-drawing" id="dpa-drawing" hidden><span id="dpa-draw-hint"></span><button id="dpa-draw-done" class="primary-inline">Done</button><button id="dpa-draw-cancel">Cancel</button></div>
             <h3 class="as-h">On this case <button id="dpa-undo" class="as-mini" title="Undo the last change to the drawings (Ctrl+Z)">↶ Undo</button></h3>
             <div id="dpa-feature-list"></div>
@@ -162,7 +162,7 @@
               <button data-dpaview="model" title="The model alone (the aligner is kept, only hidden)">Model only</button>
             </div>
             <ul id="dpa-summary" class="dpa-summary"></ul>
-            <div class="row"><button id="btn-dpa-save-one" class="primary-inline" title="The aligner on screen, as STL, ready for the printer">Save this aligner (STL)</button></div>
+            <div class="row"><button id="btn-dpa-save-one" class="primary-inline" title="The aligner on screen, as STL, ready for the printer">Save this aligner (STL)</button><button id="btn-dpa-edit" title="Add material, cut, or draw the trimline by points">Edit this aligner…</button></div>
             <div class="dpa-adjust">
               <div class="as-row" title="How far over the gum this aligner reaches, from the gingival margin"><span>Trimline height</span>
                 <span class="as-in"><button class="step" data-trimstep="-0.25" aria-label="Shorter">−</button><input id="dpa-trim-this" type="number" min="0" max="6" step="0.25" /> mm<button class="step" data-trimstep="0.25" aria-label="Longer">+</button></span></div>
