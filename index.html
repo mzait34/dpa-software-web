@@ -4,8 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>DPA Software</title>
-    <script type="module" crossorigin src="./assets/index-BuAONAtt.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-BDnINyii.css">
+    <script type="module" crossorigin src="./assets/index-DAal7IrA.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-DXeOmvGW.css">
   </head>
   <body>
     <header>
@@ -727,7 +727,9 @@
           <label class="block">Clinic name
             <input id="clinic-name" type="text" placeholder="DPA · Direct Printed Aligners" />
           </label>
-          <p class="muted small">Printed on the patient's treatment video and on the IPR report, beside the logo.</p>
+          <label class="block">Website <input id="clinic-web" type="text" placeholder="www.example.com" /></label>
+          <label class="block">Phone <input id="clinic-phone" type="text" placeholder="0100 000 0000" /></label>
+          <p class="muted small">Printed on the patient's treatment video and on the reports, beside the logo; the website and phone in the head and foot of the progress report.</p>
           <div id="clinic-preview" class="clinic-preview"></div>
           <h3>Sending a viewer as a link</h3>
           <p class="muted small">To send a link instead of a file, the viewer has to be put on a web page of the clinic's own. Give a GitHub repository with Pages turned on, and a token that may write to it. Both stay in this browser and are never sent anywhere but GitHub.</p>
@@ -825,6 +827,24 @@
       </div>
     </div>
 
+    <div id="report-modal" class="modal" hidden>
+      <div class="modal-box report-box">
+        <h2>Progress report <button class="close" id="report-close">✕</button></h2>
+        <label class="block">Doctor <input id="rep-doctor" type="text" placeholder="Name of the treating doctor" /></label>
+        <label class="block">Result
+          <select id="rep-result">
+            <option value="good">Good – proceeding to the next stage</option>
+            <option value="behind">Slightly behind – keep the current aligner longer</option>
+            <option value="off">Off track – a new scan and a refinement</option>
+          </select>
+        </label>
+        <label class="block">What the report says <textarea id="rep-summary" rows="4"></textarea></label>
+        <label class="block">Your comment <span class="muted small">(optional, printed in the report)</span><textarea id="rep-comment" rows="4" placeholder="e.g. Please check the fit of aligner 10 on 13 and 23; chewies twice a day."></textarea></label>
+        <label class="check"><input id="rep-pictures" type="checkbox" checked /> Picture of each arch: the plan and the scan laid over each other</label>
+        <label class="check"><input id="rep-teeth" type="checkbox" checked /> Tooth-by-tooth readings on a second page</label>
+        <div class="row"><button id="btn-rep-save" class="primary-inline">Save the PDF</button><button id="btn-rep-cancel">Cancel</button></div>
+      </div>
+    </div>
     <div id="export-modal" class="modal" hidden>
       <div class="modal-box">
         <h2>Export <button class="close" id="export-close">✕</button></h2>
