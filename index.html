@@ -4,8 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>DPA Software</title>
-    <script type="module" crossorigin src="./assets/index-CATbP7yF.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-DXeOmvGW.css">
+    <script type="module" crossorigin src="./assets/index-c8msgL0O.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-Ba2E_DRe.css">
   </head>
   <body>
     <header>
@@ -111,6 +111,13 @@
               <button data-feature="button" title="One click">Button</button>
               <button data-feature="hook" title="One click">Hook</button>
             </div>
+            <h3 class="as-h">Edit the aligner <span class="as-hint">click on the model or the aligner</span></h3>
+            <div class="as-tools">
+              <button data-feature="pad" title="One click: material added there, outward only (to thicken a place or reach further over the gum)">Add material</button>
+              <button data-feature="cut" title="One click: a round piece cut away there (a notch in the edge, or a hole)">Cut</button>
+              <button data-feature="trim" title="Click along where the edge should run, then Done: the trimline goes through your points">Trimline points</button>
+            </div>
+            <p class="muted small">Each edit is on every aligner from the one it was made on, to the end; in the list below, set its first and last aligner to keep it to one aligner or some of them.</p>
             <div class="as-drawing" id="dpa-drawing" hidden><span id="dpa-draw-hint"></span><button id="dpa-draw-done" class="primary-inline">Done</button><button id="dpa-draw-cancel">Cancel</button></div>
             <h3 class="as-h">On this case <button id="dpa-undo" class="as-mini" title="Undo the last change to the drawings (Ctrl+Z)">↶ Undo</button></h3>
             <div id="dpa-feature-list"></div>
@@ -147,6 +154,7 @@
             <button id="btn-dpa-preview" class="primary-inline">Preview</button>
             <button id="btn-dpa-export" title="Every aligner as STL, in a ZIP, with a quality report">Export all</button>
           </div>
+          <div id="dpa-made" class="dpa-made" hidden></div>
           <div id="dpa-result" class="dpa-result" hidden>
             <div class="seg" role="group" aria-label="What to show">
               <button data-dpaview="both" class="active" title="The aligner over the model">Aligner + model</button>
