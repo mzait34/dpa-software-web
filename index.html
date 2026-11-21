@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>DPA Software</title>
-    <script type="module" crossorigin src="./assets/index-IZvgahtg.js"></script>
+    <script type="module" crossorigin src="./assets/index-CbOH4qlM.js"></script>
     <link rel="stylesheet" crossorigin href="./assets/index-BAXuqJbc.css">
   </head>
   <body>
@@ -53,8 +53,11 @@
           <section data-aspane="shell">
             <div class="as-row" title="Wall thickness of the aligner"><span>Thickness</span><span class="as-in"><input id="dpa-thick" type="number" min="0.3" max="1.5" step="0.05" value="0.5" /> mm</span></div>
             <div class="as-row" title="Space between the teeth and the inside of the aligner"><span>Offset</span><span class="as-in"><input id="dpa-offset" type="number" min="0" max="0.3" step="0.01" value="0.04" /> mm</span></div>
+            <div class="as-row" title="Space over the gum, more than over the teeth, so the aligner does not press on the gum"><span>Gum offset</span><span class="as-in"><input id="dpa-gum-offset" type="number" min="0" max="0.5" step="0.01" value="0.1" /> mm</span></div>
             <div class="as-row" title="Straight runs evenly from tooth to tooth; scalloped follows the gum"><span>Trimline</span><span class="as-in"><select id="dpa-trimtype"><option value="straight" selected>Straight</option><option value="scalloped">Scalloped</option></select></span></div>
             <div class="as-row" title="How far over the gum the aligner reaches"><span>Trimline height</span><span class="as-in"><input id="dpa-trim" type="number" min="0" max="6" step="0.25" value="3" /> mm</span></div>
+            <div class="as-row" title="How far past the crowns the aligner reaches on the tongue / palate side (straight trimline)"><span>Lingual margin</span><span class="as-in"><input id="dpa-lingual" type="number" min="0.5" max="6" step="0.25" value="2" /> mm</span></div>
+            <div class="as-row" title="Round: a full round bead along the edge. Chamfer: a 45-degree bevel."><span>Edge</span><span class="as-in"><select id="dpa-edge"><option value="round" selected>Round</option><option value="chamfer">Chamfer</option></select></span></div>
             <div class="as-row" title="Finer is smoother and slower"><span>Mesh</span><span class="as-in"><select id="dpa-res"><option value="0.25">Draft</option><option value="0.15" selected>Standard</option><option value="0.12">Fine</option><option value="0.1">Finest</option></select></span></div>
             <div class="as-row" title="Smooth: the finest surface, a larger file (about 40 MB at Standard). Smaller file: about half the size, a little less smooth."><span>Surface</span><span class="as-in"><select id="dpa-surface"><option value="smooth" selected>Smooth</option><option value="compact">Smaller file</option></select></span></div>
             <details class="as-sub"><summary>Printing</summary>
