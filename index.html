@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>DPA Software</title>
-    <script type="module" crossorigin src="./assets/index-DSV4XTSy.js"></script>
+    <script type="module" crossorigin src="./assets/index-CATbP7yF.js"></script>
     <link rel="stylesheet" crossorigin href="./assets/index-DXeOmvGW.css">
   </head>
   <body>
@@ -154,6 +154,7 @@
               <button data-dpaview="model" title="The model alone (the aligner is kept, only hidden)">Model only</button>
             </div>
             <ul id="dpa-summary" class="dpa-summary"></ul>
+            <div class="row"><button id="btn-dpa-save-one" class="primary-inline" title="The aligner on screen, as STL, ready for the printer">Save this aligner (STL)</button></div>
             <div class="dpa-adjust">
               <div class="as-row" title="How far over the gum this aligner reaches, from the gingival margin"><span>Trimline height</span>
                 <span class="as-in"><button class="step" data-trimstep="-0.25" aria-label="Shorter">−</button><input id="dpa-trim-this" type="number" min="0" max="6" step="0.25" /> mm<button class="step" data-trimstep="0.25" aria-label="Longer">+</button></span></div>
@@ -522,7 +523,7 @@
           </div>
           <div class="row"><button id="axes-reset" title="Undo the changes made in this session">Reset</button><button id="axes-cancel">Cancel</button><button id="axes-done" class="primary-inline">Done</button></div>
         </div>
-        <div class="pivot-row"><span class="muted small">Pivot</span><button data-pivot="centre" title="Turn about the crown centre">Crown</button><button data-pivot="resistance" title="Turn about the estimated centre of resistance">Resistance</button><button data-pivot="incisal" title="Turn about the incisal edge / cusp tips">Incisal</button><span id="pivot-offset" class="muted small" title="Shift+↑ / Shift+↓ move the pivot toward the root / the incisal edge"></span></div>
+        <div class="pivot-row"><span class="muted small">Pivot</span><button data-pivot="incisal" title="Turn about the incisal edge / cusp tips (click the dot on the tooth too)">Incisal</button><button data-pivot="resistance" title="Turn about the estimated centre of resistance (click the dot on the tooth too)">Resistance</button><button data-pivot="apex" title="Turn about the root apex (click the dot on the tooth too)">Apex</button><span id="pivot-offset" class="muted small" title="Shift+↑ / Shift+↓ move the pivot toward the root / the incisal edge"></span></div>
         <p id="goal-hint" class="goal-hint small" hidden></p>
         <div id="tooth-ipr"></div>
         <details id="root-panel">
