@@ -4,34 +4,40 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>DPA Software</title>
-    <script type="module" crossorigin src="./assets/index-BV-9e76d.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-vsyjCILn.css">
+    <script type="module" crossorigin src="./assets/index-BBJJK6Lm.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-B5_UGYYZ.css">
   </head>
   <body>
-    <header>
-      <div class="brand"><span class="logo" id="brand-mark"></span></div>
-      <button id="btn-home" title="Patients">⌂ Patients</button>
-      <button id="btn-case" class="case-name" title="Patient details"><span id="case-title">—</span></button>
-      <div class="hgroup">
-        <button id="btn-plan-undo" title="Undo (Ctrl+Z)">↶ Undo</button>
-        <button id="btn-plan-redo" title="Redo (Ctrl+Shift+Z / Ctrl+Y)">↷ Redo</button>
+    <header class="appbar">
+      <div class="appbar-start">
+        <div class="brand"><span class="logo" id="brand-mark"></span></div>
+        <button id="btn-home" class="ghost" title="All patients"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/></svg><span>Patients</span></button>
+        <span class="appbar-sep" aria-hidden="true"></span>
+        <button id="btn-case" class="case-name ghost" title="Patient details, photos and notes"><span id="case-title">—</span><svg class="ic" viewBox="0 0 24 24" aria-hidden="true" class="ic chev"><path d="M6 9l6 6 6-6"/></svg></button>
       </div>
-      <div id="stepbar">
-        <button id="btn-prev">← Back</button>
+      <nav id="stepbar" aria-label="Workflow">
+        <button id="btn-prev" class="ghost icon-only" title="Previous step" aria-label="Previous step"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button>
         <ol>
-          <li data-goto="home"><span>1</span>Patient</li>
-          <li data-goto="scans"><span>2</span>Scans</li>
-          <li data-goto="markers"><span>3</span>Segmentation</li>
-          <li data-goto="boundaries"><span>4</span>Editing</li>
-          <li data-goto="verify"><span>5</span>Tooth numbers</li>
-          <li data-goto="plan"><span>6</span>Planning</li>
+          <li data-goto="home" title="Patient"><span>1</span>Patient</li>
+          <li data-goto="scans" title="Scans"><span>2</span>Scans</li>
+          <li data-goto="markers" title="Segmentation"><span>3</span>Segmentation</li>
+          <li data-goto="boundaries" title="Tooth outlines"><span>4</span>Outlines</li>
+          <li data-goto="verify" title="Tooth numbering"><span>5</span>Numbering</li>
+          <li data-goto="plan" title="Treatment planning"><span>6</span>Planning</li>
         </ol>
         <button id="btn-next" class="primary-inline">Next →</button>
+      </nav>
+      <div class="appbar-end">
+        <div class="hgroup" role="group" aria-label="History">
+          <button id="btn-plan-undo" class="ghost icon-only" title="Undo (Ctrl+Z)" aria-label="Undo"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 14L4 9l5-5"/><path d="M4 9h11a5 5 0 010 10h-3"/></svg></button>
+          <button id="btn-plan-redo" class="ghost icon-only" title="Redo (Ctrl+Shift+Z / Ctrl+Y)" aria-label="Redo"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 14l5-5-5-5"/><path d="M20 9H9a5 5 0 000 10h3"/></svg></button>
+        </div>
+        <span class="appbar-sep" aria-hidden="true"></span>
+        <button id="btn-level" class="level" title="Show advanced options" aria-pressed="false"><i class="sw" aria-hidden="true"></i>Advanced</button>
+        <button id="btn-settings" class="ghost icon-only" title="Settings (? for the keyboard shortcuts)" aria-label="Settings"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 00.3 1.8l.1.1a2 2 0 11-2.8 2.8l-.1-.1a1.7 1.7 0 00-1.8-.3 1.7 1.7 0 00-1 1.5V21a2 2 0 11-4 0v-.1a1.7 1.7 0 00-1.1-1.5 1.7 1.7 0 00-1.8.3l-.1.1a2 2 0 11-2.8-2.8l.1-.1a1.7 1.7 0 00.3-1.8 1.7 1.7 0 00-1.5-1H3a2 2 0 110-4h.1a1.7 1.7 0 001.5-1.1 1.7 1.7 0 00-.3-1.8l-.1-.1a2 2 0 112.8-2.8l.1.1a1.7 1.7 0 001.8.3H9a1.7 1.7 0 001-1.5V3a2 2 0 114 0v.1a1.7 1.7 0 001 1.5 1.7 1.7 0 001.8-.3l.1-.1a2 2 0 112.8 2.8l-.1.1a1.7 1.7 0 00-.3 1.8V9a1.7 1.7 0 001.5 1H21a2 2 0 110 4h-.1a1.7 1.7 0 00-1.5 1z"/></svg></button>
+        <button id="btn-save" title="Download the whole case as one .dpa file"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11"/><path d="M7 10l5 5 5-5"/><path d="M5 20h14"/></svg><span>Save</span></button>
+        <button id="btn-export-open" class="primary-inline"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20V9"/><path d="M7 13l5-5 5 5"/><path d="M5 4h14"/></svg><span>Export</span></button>
       </div>
-      <button id="btn-level" class="level" title="Show advanced options">Simple</button>
-      <button id="btn-settings" title="Settings">⚙ Settings</button>
-      <button id="btn-save" title="Download the whole case as one .dpa file">Save file</button>
-      <button id="btn-export-open" class="primary-inline">Export</button>
     </header>
 
     <main id="viewport">
@@ -43,29 +49,34 @@
           <button class="close" id="aligner-close" aria-label="Close">✕</button>
         </header>
         <nav class="as-tabs" role="tablist">
-          <button data-astab="shell" class="active">Shell</button>
-          <button data-astab="force">Force</button>
-          <button data-astab="design">Design</button>
-          <button data-astab="appl">Appliances</button>
+          <button data-astab="shell" class="active" title="Thickness, trimline height, and how the aligner is built">1 · Shell</button>
+          <button data-astab="design" title="The trimline (automatic, drawn by hand or by points), added material and cuts">2 · Trimline</button>
+          <button data-astab="force" title="Thicker where a tooth is pushed, anchor teeth, pressure points">3 · Force</button>
+          <button data-astab="appl" title="Cutouts, hooks, bite blocks, wings, a palatal plate, space maintainers">4 · Extras</button>
         </nav>
         <div class="as-body">
 
           <section data-aspane="shell">
+            <div class="as-row" title="Fast: an aligner in about half a minute, on a 0.3 mm grid (a plain aligner; one with a plate, blocks or wires is made in full detail anyway). Full detail: the finest surface, a few minutes."><span>Build</span><span class="as-in"><select id="dpa-speed"><option value="fast" selected>Fast</option><option value="full">Full detail</option></select></span></div>
             <div class="as-row" title="Wall thickness of the aligner"><span>Thickness</span><span class="as-in"><input id="dpa-thick" type="number" min="0.3" max="1.5" step="0.05" value="0.5" /> mm</span></div>
-            <div class="as-row" title="Space between the teeth and the inside of the aligner"><span>Offset</span><span class="as-in"><input id="dpa-offset" type="number" min="0" max="0.3" step="0.01" value="0.04" /> mm</span></div>
-            <div class="as-row" title="Space over the gum, more than over the teeth, so the aligner does not press on the gum"><span>Gum offset</span><span class="as-in"><input id="dpa-gum-offset" type="number" min="0" max="0.5" step="0.01" value="0.1" /> mm</span></div>
             <div class="as-row" title="Straight runs evenly from tooth to tooth; scalloped follows the gum"><span>Trimline</span><span class="as-in"><select id="dpa-trimtype"><option value="straight" selected>Straight</option><option value="scalloped">Scalloped</option></select></span></div>
-            <div class="as-row" title="How far over the gum the aligner reaches"><span>Trimline height</span><span class="as-in"><input id="dpa-trim" type="number" min="0" max="6" step="0.25" value="3" /> mm</span></div>
-            <div class="as-row" title="How far past the crowns the aligner reaches on the tongue / palate side (straight trimline)"><span>Lingual margin</span><span class="as-in"><input id="dpa-lingual" type="number" min="0.5" max="6" step="0.25" value="2" /> mm</span></div>
-            <div class="as-row" title="Round: a full round bead along the edge. Chamfer: a 45-degree bevel."><span>Edge</span><span class="as-in"><select id="dpa-edge"><option value="round" selected>Round</option><option value="chamfer">Chamfer</option></select></span></div>
-            <div class="as-row" title="Finer is smoother and slower"><span>Mesh</span><span class="as-in"><select id="dpa-res"><option value="0.25">Draft</option><option value="0.15" selected>Standard</option><option value="0.12">Fine</option><option value="0.1">Finest</option></select></span></div>
-            <div class="as-row" title="Smooth: the finest surface, a larger file (about 40 MB at Standard). Smaller file: about half the size, a little less smooth."><span>Surface</span><span class="as-in"><select id="dpa-surface"><option value="smooth" selected>Smooth</option><option value="compact">Smaller file</option></select></span></div>
+            <div class="as-row" title="How far past the gum line the aligner reaches (straight trimline: measured from the crowns, all the way round)"><span>Trimline height</span><span class="as-in"><input id="dpa-trim" type="number" min="0" max="6" step="0.25" value="2" /> mm</span></div>
+            <details class="as-sub"><summary>More settings</summary>
+              <div class="as-row" title="Space between the teeth and the inside of the aligner"><span>Offset</span><span class="as-in"><input id="dpa-offset" type="number" min="0" max="0.3" step="0.01" value="0.04" /> mm</span></div>
+              <div class="as-row" title="Fast build: pits and crevices of the model narrower than twice this are bridged, and the crease where a crown meets the gum is rounded to this radius, before the aligner is laid on it, as a lab blocks out a model. The crowns' own surfaces are not changed. 0 turns it off."><span>Block-out</span><span class="as-in"><input id="dpa-blockout" type="number" min="0" max="0.5" step="0.05" value="0.4" /> mm</span></div>
+              <div class="as-row" title="Where two neighbouring crowns come closer than this, the space between them is filled before the aligner is laid on the model: an aligner can only run into a space that narrow as a thin fin. Lower, and the aligner follows the teeth further in between them. 0 fills nothing."><span>Contact gap</span><span class="as-in"><input id="dpa-gap" type="number" min="0" max="1.5" step="0.1" value="0.4" /> mm</span></div>
+              <div class="as-row" title="Space over the gum, more than over the teeth, so the aligner does not press on the gum"><span>Gum offset</span><span class="as-in"><input id="dpa-gum-offset" type="number" min="0" max="0.5" step="0.01" value="0.1" /> mm</span></div>
+              <div class="as-row" title="How far past the crowns the aligner reaches on the tongue / palate side (straight trimline)"><span>Lingual margin</span><span class="as-in"><input id="dpa-lingual" type="number" min="0.5" max="6" step="0.25" value="2" /> mm</span></div>
+              <div class="as-row" title="Tapered: the aligner built as one smooth surface, its wall thinning to a small round at the edge (takes longer). Round: a full round bead along the edge. Flat: the wall cut square along one smooth trim line. Chamfer: a 45-degree bevel."><span>Edge</span><span class="as-in"><select id="dpa-edge"><option value="tapered" selected>Tapered</option><option value="round">Round</option><option value="flat">Flat</option><option value="chamfer">Chamfer</option></select></span></div>
+              <div class="as-row" title="Finer is smoother and slower"><span>Mesh</span><span class="as-in"><select id="dpa-res"><option value="0.25">Draft</option><option value="0.15" selected>Standard</option><option value="0.12">Fine</option><option value="0.1">Finest</option></select></span></div>
+              <div class="as-row" title="Smooth: the finest surface, a larger file (about 40 MB at Standard). Smaller file: about half the size, a little less smooth."><span>Surface</span><span class="as-in"><select id="dpa-surface"><option value="smooth" selected>Smooth</option><option value="compact">Smaller file</option></select></span></div>
+              <div class="as-row" title="The aligner's number, raised on the last molar, on whichever side has more room"><span>Number on aligner</span><span class="as-in"><select id="dpa-label"><option value="1" selected>On</option><option value="0">Off</option></select></span></div>
+            </details>
             <details class="as-sub"><summary>Printing</summary>
               <div class="as-row" title="The printer's layer height. Recorded with the export; thin walls need fine layers."><span>Layer</span><span class="as-in"><select id="dpa-layer"><option value="25">25 µm</option><option value="50" selected>50 µm</option><option value="100">100 µm</option></select></span></div>
               <div class="as-row" title="Resin, recorded with the export"><span>Resin</span><span class="as-in"><input id="dpa-resin" type="text" value="Graphy TA-28" /></span></div>
               <div class="as-row" title="How much thicker your printed aligners measure than designed (from your own calipers or scans). The wall is designed thinner by this much so it prints at the thickness asked for. Leave 0 until measured."><span>Prints thicker by</span><span class="as-in"><input id="dpa-thickcomp" type="number" min="0" max="30" step="1" value="0" /> %</span></div>
             </details>
-            <div class="as-row" title="The aligner's number, raised on the last molar, on whichever side has more room"><span>Number on aligner</span><span class="as-in"><select id="dpa-label"><option value="1" selected>On</option><option value="0">Off</option></select></span></div>
             <details class="as-sub"><summary>Per tooth</summary>
               <p class="muted small">Trimline height on single teeth; empty uses the arch's height.</p>
               <div id="dpa-trim-grid" class="trim-grid"></div>
@@ -78,9 +89,11 @@
             <label class="as-check" title="Thicker on the face each movement is pushed on"><input id="dpa-smart" type="checkbox" checked /> Thicker where it pushes <span class="as-in"><input id="dpa-push" type="number" min="0" max="0.6" step="0.05" value="0.25" /> mm</span></label>
             <label class="as-check" title="A still tooth next to a moving one"><input id="dpa-anchor-on" type="checkbox" checked /> Thicker over anchor teeth <span class="as-in"><input id="dpa-anchor" type="number" min="0" max="0.6" step="0.05" value="0.15" /> mm</span></label>
             <label class="as-check" title="Two points press the faces that turn a rotating tooth"><input id="dpa-press" type="checkbox" checked /> Pressure points, depth <span class="as-in"><input id="dpa-press-depth" type="number" min="0.05" max="0.6" step="0.05" value="0.3" /> mm</span></label>
-            <div class="as-row as-indent" title="Only on teeth turning at least this much on the aligner"><span>…on rotations from</span><span class="as-in"><input id="dpa-press-min" type="number" min="0" max="5" step="0.1" value="0.2" /> °</span></div>
-            <label class="as-check" title="Click a tooth to put a pressure point there; Alt+click removes the nearest"><input id="dpa-pick-press" type="checkbox" /> Place pressure points by click</label>
-            <p class="as-note" id="dpa-picked"></p>
+            <details class="as-sub"><summary>Pressure point options</summary>
+              <div class="as-row as-indent" title="Only on teeth turning at least this much on the aligner"><span>…on rotations from</span><span class="as-in"><input id="dpa-press-min" type="number" min="0" max="5" step="0.1" value="0.2" /> °</span></div>
+              <label class="as-check" title="Click a tooth to put a pressure point there; Alt+click removes the nearest"><input id="dpa-pick-press" type="checkbox" /> Place pressure points by click</label>
+              <p class="as-note" id="dpa-picked"></p>
+            </details>
             <label class="as-check"><input id="dpa-colour" type="checkbox" checked /> Colour the preview by thickness</label>
             <div class="dpa-legend">
               <span><i style="background:#bfe3ff"></i>Base</span>
@@ -91,13 +104,24 @@
           </section>
 
           <section data-aspane="design" hidden>
-            <h3 class="as-h" id="dpa-edit-tools">Edit the aligner <span class="as-hint">click on the model or the aligner</span></h3>
+            <h3 class="as-h" id="dpa-edit-tools">1 · Trimline <span class="as-hint">the aligner's edge</span></h3>
+            <div class="as-tools">
+              <button id="btn-dpa-trimline" title="Puts the trimline on the model as a green line, cheek and tongue side, with a point at each tooth (from what it learned of your corrections)">Automatic</button>
+              <button id="btn-dpa-trim-draw" title="Press and draw along the model: the stretch you draw replaces the green line there">Draw by hand</button>
+              <button data-feature="trim" title="Click point after point where the edge should run, then Done">Click points</button>
+            </div>
+            <ul class="as-howto muted small">
+              <li><b>Add a point:</b> click on the green line, between two points (keep pressing to drag it).</li>
+              <li><b>Move a point:</b> drag it.</li>
+              <li><b>Remove a point:</b> double-click it.</li>
+              <li><b>Undo / Redo:</b> the buttons at the top, or Ctrl+Z / Ctrl+Shift+Z.</li>
+              <li>Which aligners it is on: the list on the right.</li>
+            </ul>
+            <h3 class="as-h">2 · Shape <span class="as-hint">one click on the model</span></h3>
             <div class="as-tools">
               <button data-feature="pad" title="One click: material added there, outward only (to thicken a place or reach further over the gum)">Add material</button>
               <button data-feature="cut" title="One click: a round piece cut away there (a notch in the edge, or a hole)">Cut</button>
-              <button data-feature="trim" title="Click along where the edge should run, then Done: the trimline goes through your points">Trimline points</button>
             </div>
-            <div class="row"><button id="btn-dpa-trimline" class="primary-inline" title="Shows the trimline as a green line on the model, cheek and tongue side, with a point at each tooth: drag the points">Edit trimline</button><span class="muted small">drag the green line's points</span></div>
             <p class="muted small">Each edit is on every aligner from the one it was made on, to the end; in the list below, set its first and last aligner to keep it to one aligner or some of them.</p>
             <h3 class="as-h">Separate</h3>
             <div class="as-row"><button data-feature="tpl-split" title="Click two neighbouring teeth">Separate…</button><span class="as-in"><input id="dpa-splits" type="text" placeholder="13/14, 23/24" title="Teeth to cut between" /></span></div>
@@ -131,21 +155,24 @@
             <label class="as-check" title="Round cutouts round the plan's bonded buttons"><input id="dpa-cutouts" type="checkbox" checked /> Button cutouts (from the plan)</label>
             <label class="as-check" title="Where an elastic is on a tooth with no button"><input id="dpa-hooks" type="checkbox" checked /> Precision hooks for elastics</label>
             <label class="as-check" title="A tooth in the aligner where one is missing"><input id="dpa-pontics" type="checkbox" checked /> Pontics</label>
-            <h3 class="as-h">Bite</h3>
+            <details class="as-sub"><summary>Bite: blocks, wings, bite plane</summary>
             <div class="as-row" title="Bite blocks on these teeth"><span>Bite blocks on</span><span class="as-in"><input id="dpa-blocks" type="text" placeholder="16, 26" /></span></div>
             <div class="as-row" title="Height above the cusps"><span>…height</span><span class="as-in"><input id="dpa-block-h" type="number" min="0.5" max="8" step="0.5" value="2" /> mm</span></div>
             <label class="as-check" title="Twin block: upper facing mesially, lower distally"><input id="dpa-incline" type="checkbox" /> Inclined plane <span class="as-in"><input id="dpa-incline-deg" type="number" min="30" max="90" step="5" value="70" /> °</span></label>
             <div class="as-row" title="Mandibular advancement wings on these teeth"><span>Wings on</span><span class="as-in"><input id="dpa-wings" type="text" placeholder="14, 24, 36, 46" /></span></div>
             <div class="as-row"><span>…past the cusps</span><span class="as-in"><input id="dpa-wing-h" type="number" min="2" max="8" step="0.5" value="4" /> mm</span></div>
             <label class="as-check" title="Flat table behind the upper incisors"><input id="dpa-biteplane" type="checkbox" /> Anterior bite plane <span class="as-in"><input id="dpa-biteplane-d" type="number" min="0" max="6" step="0.5" value="2" /> mm</span></label>
-            <h3 class="as-h">On the teeth</h3>
+            </details>
+            <details class="as-sub"><summary>On the teeth: occlusal cutouts, printed buttons</summary>
             <div class="as-row" title="Chewing surface left open"><span>Occlusal cutouts</span><span class="as-in"><input id="dpa-windows" type="text" placeholder="16, 26" /></span></div>
             <div class="as-row" title="Buttons printed on the aligner"><span>Printed buttons</span><span class="as-in"><input id="dpa-knobs" type="text" placeholder="13, 23" /></span></div>
-            <h3 class="as-h">Palate and gaps</h3>
+            </details>
+            <details class="as-sub"><summary>Palate and gaps: plate, space maintainer</summary>
             <label class="as-check" title="Joins both sides over the palate"><input id="dpa-plate" type="checkbox" /> Palatal plate <span class="as-in"><input id="dpa-plate-t" type="number" min="0.8" max="3" step="0.1" value="1.5" /> mm</span></label>
             <label class="as-check as-indent" title="For an expansion screw"><input id="dpa-plate-split" type="checkbox" /> Split at midline <span class="as-in"><input id="dpa-split-w" type="number" min="0.3" max="3" step="0.1" value="0.8" /> mm</span></label>
             <div class="as-row" title="Bar across a gap, tooth to tooth"><span>Space maintainer</span><span class="as-in"><input id="dpa-bars" type="text" placeholder="14-16" /></span></div>
             <label class="as-check as-indent"><input id="dpa-loop" type="checkbox" /> With a loop (regainer)</label>
+            </details>
           </section>
         </div>
 
@@ -155,7 +182,7 @@
             <span class="as-in"><select id="dpa-arch"><option value="both">Both</option><option value="upper">Upper</option><option value="lower">Lower</option></select></span>
           </div>
           <div class="as-actions">
-            <button id="btn-dpa-preview" class="primary-inline" title="Make the aligner chosen above">Preview</button>
+            <button id="btn-dpa-preview" class="primary-inline" title="Make the aligner chosen above and show it on the model">Make this aligner</button>
             <button id="btn-dpa-make-all" title="Make every aligner of this arch at once, to look through and edit">Make all</button>
             <button id="btn-dpa-export" title="Every aligner as STL, in a ZIP, with a quality report">Export all</button>
           </div>
@@ -187,16 +214,46 @@
         </footer>
       </div>
 
+      <div id="made-list" class="float trim-stages made-list" hidden>
+        <div class="ts-head"><h3>Aligners made</h3></div>
+        <div class="ts-quick"><button id="ml-all" title="Tick every aligner made">All</button><button id="ml-none" title="Untick all">None</button></div>
+        <div id="ml-list" class="ts-list"></div>
+        <button id="btn-dpa-export-selected" class="primary-inline" disabled title="The ticked aligners as STL files, as they were made (a ZIP when more than one)">Export selected</button>
+        <p class="muted small">Click a name to show that aligner. Tick the ones to export.</p>
+      </div>
+      <div id="trim-stages" class="float trim-stages" hidden>
+        <div class="ts-head"><h3>Trimline on aligners</h3><select id="ts-arch" aria-label="Arch"></select></div>
+        <div class="ts-quick"><button data-ts="all">All</button><button data-ts="none">None</button><span class="ts-first">First <input id="ts-first" type="number" min="1" step="1" value="5" aria-label="How many" /></span><button data-ts="first">Tick</button></div>
+        <div id="ts-list" class="ts-list"></div>
+        <p class="muted small" id="ts-note"></p>
+        <div class="row"><button id="ts-make" class="primary-inline">Make ticked aligners</button></div>
+        <div class="ts-learn"><span class="muted small" id="ts-learned"></span><button id="ts-forget" title="Forget the heights learned from your corrections">Forget</button></div>
+      </div>
       <div id="aligner-check" class="float aligner-studio aligner-check" hidden>
         <header class="as-head">
-          <h2>Check aligner files</h2>
+          <h2>Aligner files</h2>
           <button class="close" id="check-close" aria-label="Close">✕</button>
         </header>
-        <div class="as-row"><label class="btn">Open STL files…<input id="file-check" type="file" accept=".stl,.ply,.obj" multiple hidden /></label></div>
+        <h3 class="as-h">1 · Open <span class="as-hint">aligner files made here or by another program</span></h3>
+        <div class="as-row"><label class="btn">Open STL files…<input id="file-check" type="file" accept=".stl,.ply,.obj" multiple hidden /></label> <button id="check-add-made" class="btn" title="Put the aligners made in the Aligners panel in the list, to cut through them (Cross-section), colour their wall and measure them">Add aligners made here</button></div>
+        <h3 class="as-h">2 · Analyse and add thickness <span class="as-hint">more wall where the plan pushes a tooth; the inside is not touched</span></h3>
+        <label class="as-check" title="More where a tooth is pushed toward its next place, and on anchor teeth: the rules of the Aligners panel's Force tab, with the case open"><input id="thick-force" type="checkbox" checked /> Where the plan needs it (force analysis of the open case)</label>
+        <div class="as-row" title="Used when the file's name does not say which aligner it is (…_3u_… is upper, aligner 3)"><span class="muted small">If the name does not say: aligner</span><span class="as-in"><input id="thick-stage" type="number" min="1" step="1" value="1" /><select id="thick-arch"><option value="upper">Upper</option><option value="lower">Lower</option></select></span></div>
+        <div class="row"><button id="btn-thicken" class="primary-inline">Analyse and add thickness</button></div>
+        <div class="check-legend thick-legend" title="Colour on the aligner: how much was added there"><span class="ramp"></span><i>0</i><i>0.1</i><i>0.2</i><i>0.3 mm added</i></div>
+        <details class="as-sub" id="thick-more"><summary>Extra on the whole aligner (optional)</summary>
+        <div class="as-row" title="Added to the outside everywhere"><span>Added everywhere, besides</span><span class="as-in"><input id="thick-uniform" type="number" min="0" max="1" step="0.05" value="0" /> mm</span></div>
+        </details>
+        <p class="as-note" id="thick-note"></p>
+        <h3 class="as-h">3 · Check and save <span class="as-hint">Show, Repair or Save each file</span></h3>
         <div class="as-row" title="Walls thinner than this are shown red and made up to it by Repair"><span>Minimum wall</span><span class="as-in"><input id="check-min" type="number" min="0.2" max="2" step="0.05" value="0.5" /> mm</span></div>
-        <div class="check-legend"><span style="background:#db2626"></span>thinner than the minimum <span style="background:#fa9e1f"></span>just under <span style="background:#40b859"></span>at it <span style="background:#3373e6"></span>thicker <span style="background:#bfbfc7"></span>not measured</div>
+        <label class="as-check" title="Colour each aligner by how thick its wall is, against the minimum"><input id="check-wallcolor" type="checkbox" /> Colour by wall thickness</label>
+        <label class="as-check" title="Cut through the aligners on screen and see the cut: the wall, and where thickness was added. Move the cut with the slider."><input id="check-section-on" type="checkbox" /> Cross-section</label>
+        <div class="check-legend" id="wall-legend" hidden><span style="background:#db2626"></span>thinner than the minimum <span style="background:#fa9e1f"></span>just under <span style="background:#40b859"></span>at it <span style="background:#3373e6"></span>thicker <span style="background:#bfbfc7"></span>not measured</div>
         <table id="check-table" class="dpa-quality"><thead><tr><th>File</th><th>Mesh</th><th title="Wall measured from the inside straight through, away from the trim edge: p5 / median">Wall</th><th title="Share of the inside thinner than the minimum">Thin</th><th></th></tr></thead><tbody></tbody></table>
-        <p class="as-note" id="check-note">The inside (the side that fits the teeth) is found from the shape. Repair keeps the file as it is, joins overlapping pieces (hooks, buttons) into one closed piece and lays material on outward only where the wall is under the minimum; the inside does not move.</p>
+        <details class="as-sub"><summary>How the check and the repair work</summary>
+          <p class="as-note" id="check-note">The inside (the side that fits the teeth) is found from the shape. Repair keeps the file as it is, joins overlapping pieces (hooks, buttons) into one closed piece and lays material on outward only where the wall is under the minimum; the inside does not move.</p>
+        </details>
       </div>
 
       <div id="tooth-numbers"></div>
@@ -291,7 +348,7 @@
           <div class="row auto-seg">
             <button id="btn-auto-segment" class="primary" title="Finds the teeth on both arches and draws their outlines">⚡ Auto-segment both arches</button>
           </div>
-          <p class="muted small">One click: finds every tooth, draws its outline, and opens Editing so you can check the result. Everything below is for correcting it by hand.</p>
+          <p class="muted small">One click: finds every tooth, draws its outline, and opens Outlines so you can check the result. Everything below is for correcting it by hand.</p>
           <div class="choice">
             <div>
               <b>Automatic</b> <span class="tag">beta</span>
@@ -317,13 +374,13 @@
         </section>
 
         <section class="step-panel" data-step="boundaries" hidden>
-          <h2>4 · Editing</h2>
+          <h2>4 · Tooth outlines</h2>
           <div class="tabs mk-tabs">
             <button data-editarch="upper">Upper</button>
             <button data-editarch="lower">Lower</button>
           </div>
-          <p class="muted small">Select: click a tooth on the model to pick it, drag to turn the model. Brush / Eraser: drag to paint. Sculpt / Smooth: drag the circle along the selected tooth's margin to move it or even it out. With any tool, right-drag turns the model and Alt+click picks a tooth.</p>
-          <div class="seg-tools row">
+          <h3>Tool</h3>
+          <div class="seg-tools" role="toolbar" aria-label="Outline tools">
             <button data-tool="select" class="active" title="Click a tooth to select it, drag to turn the model (S)">Select</button>
             <button data-tool="brush" title="Paint faces onto the chosen tooth (B)">Brush</button>
             <button data-tool="erase" title="Paint back to gingiva (E)">Eraser</button>
@@ -332,29 +389,35 @@
             <button data-tool="curve" title="Drag the circle along the selected tooth's margin to push it in or out (C)">Sculpt</button>
             <button data-tool="smooth" title="Hold the circle over a ragged part of the margin to even it out (M)">Smooth</button>
           </div>
-          <label class="check"><input id="show-outlines" type="checkbox" checked /> Tooth outlines</label>
-          <label class="check" title="Tints the scan by how concave it is: the deepest line is the free gingival margin, where the crown turns into the gum"><input id="show-crease" type="checkbox" /> Show the gingival crease</label>
-          <label class="slider">Border width <input id="outline-width" type="range" min="0.04" max="0.5" step="0.02" value="0.18" /><output></output> mm</label>
-          <div class="row"><button data-scheme="arch" class="active" title="Every tooth of an arch in one colour, as ArchForm shows it: the border tells them apart">One colour per arch</button><button data-scheme="tooth" title="Each tooth its own colour">Colour per tooth</button></div>
-          <p id="outline-note" class="muted small" hidden></p>
+          <p class="muted small">Select: click a tooth on the model to pick it, drag to turn the model. Brush / Eraser: drag to paint. Sculpt / Smooth: drag the circle along the selected tooth's margin to move it or even it out. With any tool, right-drag turns the model and Alt+click picks a tooth.</p>
           <label class="slider">Brush size <input id="brush-radius" type="range" min="0.3" max="5" step="0.1" value="1.2" /><output></output> mm</label>
           <label class="slider adv">Fill edge angle <input id="fill-angle" type="range" min="5" max="80" step="1" value="35" /><output></output>°</label>
           <label class="check adv"><input id="brush-protect" type="checkbox" checked /> Don't overwrite other teeth</label>
+          <h3>Tooth</h3>
           <div id="tooth-grid"></div>
           <div class="row">
             <button id="btn-undo" title="Ctrl+Z">Undo</button>
             <button id="btn-clear-tooth">Clear tooth</button>
             <button id="btn-holes" title="Fill small unlabeled islands inside a crown">Close holes</button>
-            <button id="btn-teach" class="primary-inline" title="Store this arch as a lesson: what the software proposed, what you made of it, and above all where you disagreed">Teach from my corrections</button>
-            <button id="btn-follow-crease" title="Re-route every gingival border along the deepest crease beside it. On a clean scan this changes little; on a noisy one it may help. Undo puts it back.">Follow the crease</button>
           </div>
+          <details class="drawer"><summary>Display</summary>
+          <label class="check"><input id="show-outlines" type="checkbox" checked /> Tooth outlines</label>
+          <label class="check" title="Tints the scan by how concave it is: the deepest line is the free gingival margin, where the crown turns into the gum"><input id="show-crease" type="checkbox" /> Show the gingival crease</label>
+          <label class="slider">Border width <input id="outline-width" type="range" min="0.04" max="0.5" step="0.02" value="0.18" /><output></output> mm</label>
+          <div class="seg scheme-seg" role="group" aria-label="Colours"><button data-scheme="arch" class="active" title="Every tooth of an arch in one colour, as ArchForm shows it: the border tells them apart">One colour per arch</button><button data-scheme="tooth" title="Each tooth its own colour">Colour per tooth</button></div>
+          <p id="outline-note" class="muted small" hidden></p>
+          </details>
+          <details class="drawer"><summary>Whole arch</summary>
           <div class="row">
+            <button id="btn-follow-crease" title="Re-route every gingival border along the deepest crease beside it. On a clean scan this changes little; on a noisy one it may help. Undo puts it back.">Follow the crease</button>
             <button id="btn-reseg" title="Segment again from the markers (discards brush edits)">Re-run segmentation</button>
+            <button id="btn-teach" title="Store this arch as a lesson: what the software proposed, what you made of it, and above all where you disagreed">Teach from my corrections</button>
           </div>
+          </details>
         </section>
 
         <section class="step-panel" data-step="verify" hidden>
-          <h2>5 · Tooth numbers</h2>
+          <h2>5 · Numbering</h2>
           <p class="small">Check the numbers on the crowns. If a tooth is missing, click its place in the chart (✕) and the teeth behind it renumber.</p>
           <div id="verify-chart"></div>
           <button id="btn-build" class="primary">Accept · go to planning</button>
@@ -362,22 +425,25 @@
 
         <section class="step-panel" data-step="plan" hidden>
           <h2>6 · Planning</h2>
-          <div class="toolmenu">
+          <div class="toolmenu" role="toolbar" aria-label="Planning tools" aria-orientation="vertical">
             <h6>Plan</h6>
-            <button data-toolpanel="staging"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="14" width="4" height="7" rx="1"/><rect x="10" y="9" width="4" height="12" rx="1"/><rect x="17" y="4" width="4" height="17" rx="1"/></svg><span>Staging</span></button>
-            <button data-toolpanel="align"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 18c0-8 3.5-12 8-12s8 4 8 12"/><circle cx="6" cy="13" r="1.3"/><circle cx="12" cy="6.5" r="1.3"/><circle cx="18" cy="13" r="1.3"/></svg><span>Auto align</span></button>
-            <button data-toolpanel="bite"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9c3-3 13-3 16 0M4 15c3 3 13 3 16 0"/><path d="M9 12h6M13 10l2 2-2 2"/></svg><span>Bite shift</span></button>
-            <button id="btn-table-view" title="Movement of every tooth at this stage (T)"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M3 15h18M9 4v16"/></svg><span>Table view</span></button>
+            <button data-toolpanel="staging" title="Staging: How many aligners each tooth needs"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="14" width="4" height="7" rx="1"/><rect x="10" y="9" width="4" height="12" rx="1"/><rect x="17" y="4" width="4" height="17" rx="1"/></svg><span>Staging</span></button>
+            <button data-toolpanel="align" title="Auto align: Straighten the arch toward an ideal arch form"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 18c0-8 3.5-12 8-12s8 4 8 12"/><circle cx="6" cy="13" r="1.3"/><circle cx="12" cy="6.5" r="1.3"/><circle cx="18" cy="13" r="1.3"/></svg><span>Auto align</span></button>
+            <button data-toolpanel="bite" title="Bite shift: Move the whole lower arch to correct the bite"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9c3-3 13-3 16 0M4 15c3 3 13 3 16 0"/><path d="M9 12h6M13 10l2 2-2 2"/></svg><span>Bite shift</span></button>
+            <button id="btn-table-view" title="Table view: Movement of every tooth at this stage (T)"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M3 15h18M9 4v16"/></svg><span>Table view</span></button>
+            <h6>Aligners</h6>
+            <button id="btn-tool-aligners" title="Aligners: Make the aligners, look at them on the model, and edit the trimline"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 15c0-6 3.6-10 8-10s8 4 8 10"/><path d="M7 15c0-4 2.2-7 5-7s5 3 5 7"/></svg><span>Aligners</span></button>
+            <button id="btn-tool-check" title="View STLs: Open aligner STL files (made here or elsewhere) and check them"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h10l6 6v10H4z"/><path d="M14 4v6h6"/><path d="M8 15l2.5 2.5L16 12"/></svg><span>View STLs</span></button>
             <h6>Teeth</h6>
-            <button data-toolpanel="attachments"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3c3-1.5 7-1.5 10 0 2 4 2 9 0 14-1 3-2.5 4-5 4s-4-1-5-4C5 12 5 7 7 3z"/><rect x="10" y="8" width="4" height="5" rx="1" fill="currentColor" stroke="none"/></svg><span>Attachments</span></button>
-            <button data-toolpanel="contacts"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4v16M20 4v16"/><path d="M8 12h8M8 12l3-3M8 12l3 3M16 12l-3-3M16 12l-3 3"/></svg><span>Contacts &amp; IPR</span></button>
-            <button data-toolpanel="extract"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 4c2.5-1 5.5-1 8 0 1.5 4 1 8 0 11-.8 2-1.8 5-4 5s-3.2-3-4-5C7 12 6.5 8 8 4z"/><path d="M9.5 9l5 5M14.5 9l-5 5"/></svg><span>Extraction</span></button>
-            <button data-toolpanel="aux"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="7" cy="12" r="3.5"/><circle cx="17" cy="12" r="3.5"/></svg><span>Elastics</span></button>
+            <button data-toolpanel="attachments" title="Attachments on every tooth, and the clinic's own shapes"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3c3-1.5 7-1.5 10 0 2 4 2 9 0 14-1 3-2.5 4-5 4s-4-1-5-4C5 12 5 7 7 3z"/><rect x="10" y="8" width="4" height="5" rx="1" fill="currentColor" stroke="none"/></svg><span>Attachments</span></button>
+            <button data-toolpanel="contacts" title="Contacts &amp; IPR: Contacts between teeth, and where to strip (IPR)"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4v16M20 4v16"/><path d="M8 12h8M8 12l3-3M8 12l3 3M16 12l-3-3M16 12l-3 3"/></svg><span>Contacts &amp; IPR</span></button>
+            <button data-toolpanel="extract" title="Extraction: Take teeth out of the plan and add pontics"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 4c2.5-1 5.5-1 8 0 1.5 4 1 8 0 11-.8 2-1.8 5-4 5s-3.2-3-4-5C7 12 6.5 8 8 4z"/><path d="M9.5 9l5 5M14.5 9l-5 5"/></svg><span>Extraction</span></button>
+            <button data-toolpanel="aux" title="Elastics, buttons and cut-outs"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="7" cy="12" r="3.5"/><circle cx="17" cy="12" r="3.5"/></svg><span>Elastics</span></button>
             <h6>Check</h6>
-            <button data-toolpanel="review"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12l5 5L20 6"/></svg><span>Review</span></button>
-            <button data-toolpanel="tracking" title="Lay a follow-up scan on the plan and see which teeth are where they should be"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg><span>Progress check</span></button>
-            <button data-toolpanel="bolton"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 5H7l6 7-6 7h10"/></svg><span>Bolton</span></button>
-            <button data-toolpanel="analysis"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19c0-9 3.5-14 8-14s8 5 8 14"/><path d="M7 19h10" stroke-dasharray="2 2"/></svg><span>Arch analysis</span></button>
+            <button data-toolpanel="review" title="Review: Checks on the plan before it is made"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12l5 5L20 6"/></svg><span>Review</span></button>
+            <button data-toolpanel="tracking" title="Progress check: Lay a follow-up scan on the plan and see which teeth are where they should be"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg><span>Progress check</span></button>
+            <button data-toolpanel="bolton" title="Bolton: Tooth-size discrepancy (Bolton)"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 5H7l6 7-6 7h10"/></svg><span>Bolton</span></button>
+            <button data-toolpanel="analysis" title="Arch analysis: Arch width, length and form"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19c0-9 3.5-14 8-14s8 5 8 14"/><path d="M7 19h10" stroke-dasharray="2 2"/></svg><span>Arch analysis</span></button>
           </div>
         </section>
       </div>
@@ -576,13 +642,25 @@
       </div>
 
       <!-- ===================== bottom: steps / timeline ===================== -->
-      <div id="layers" class="float">
-          <div class="row archview seg">
-            <button data-arch="both" class="active">Both</button>
-            <button data-arch="upper">Upper occlusal</button>
-            <button data-arch="lower">Lower occlusal</button>
+      <div id="layers" class="float viewbar" role="toolbar" aria-label="View">
+          <div class="archview seg" role="group" aria-label="Arches shown">
+            <button data-arch="both" class="active" title="Both arches">Both</button>
+            <button data-arch="upper" title="Upper arch only, from below">Upper</button>
+            <button data-arch="lower" title="Lower arch only, from above">Lower</button>
           </div>
-          <details class="drawer" id="layers-drawer"><summary>Layers</summary>
+          <span class="vb-sep" aria-hidden="true"></span>
+          <div class="views" role="group" aria-label="Camera">
+            <button data-view="home" title="Home view (Alt+H)">Home</button>
+            <button data-view="front" title="Front (Alt+1)">Front</button>
+            <button data-view="back" title="Back (Alt+2)">Back</button>
+            <button data-view="right" title="Patient right (Alt+3)">Right</button>
+            <button data-view="left" title="Patient left (Alt+4)">Left</button>
+            <button data-view="upper" title="Upper occlusal (Alt+Q)">Upper</button>
+            <button data-view="lower" title="Lower occlusal (Alt+E)">Lower</button>
+          </div>
+          <span class="vb-sep" aria-hidden="true"></span>
+          <details class="drawer" id="layers-drawer"><summary title="What is shown on the model">Layers</summary>
+          <div class="popover" role="group" aria-label="Display">
           <label class="check"><input id="show-ipr" type="checkbox" checked /> IPR pins</label>
           <label class="check"><input id="show-numbers" type="checkbox" /> Tooth numbers</label>
           <label class="check"><input id="show-ghost" type="checkbox" /> Initial position of moved teeth</label>
@@ -596,20 +674,20 @@
           <label class="check" title="Every crown where it started (blue), over the current aligner (Alt+O)"><input id="show-super" type="checkbox" /> Superimposition</label>
           <label class="check" title="Arch curves through the incisal edges and cusp tips, now (solid) and at the start (faint) (Alt+R)"><input id="show-curves" type="checkbox" /> Curves</label>
           <label class="check" title="Cut through upper and lower at one tooth to see the bite (Alt+X)"><input id="show-section" type="checkbox" /> Cross section</label>
+          </div>
           </details>
       </div>
       <div id="check-list" class="float check-list" hidden></div>
+      <div id="check-section" class="float check-section" hidden>
+        <div class="cs-head"><b>Cross-section</b><span class="cs-legend"><i style="background:#d23c3c"></i>as opened <i style="background:#0c7c89"></i>now</span><button class="close" id="check-section-close" aria-label="Close">✕</button></div>
+        <canvas id="check-section-canvas" width="792" height="500" title="Wheel: zoom. Drag: move. Double-click: fit."></canvas>
+        <div class="cs-row"><span>Cut</span><input id="check-section-pos" type="range" min="0" max="1000" value="500" aria-label="Where the cut is" /><output id="check-section-at"></output></div>
+        <div class="cs-read" id="check-section-read" aria-live="polite"></div>
+        <div class="cs-row"><span>Across</span><div class="seg" id="check-section-axis"><button data-cs-axis="depth" class="active" title="Cuts across the arch: a tooth seen from its side">Front to back</button><button data-cs-axis="width" title="Cuts along the arch">Side to side</button><button data-cs-axis="height" title="A level cut, seen from above">Level</button></div><button id="check-section-fit" title="Fit the cut to the window">Fit</button></div>
+        <p class="as-note" id="check-section-note"></p>
+      </div>
       <div id="viewpad" class="float">
         <div class="cube" id="view-cube" title="Click a face to look from that side"><div><s data-face="front">Front</s><s data-face="back">Back</s><s data-face="left">L</s><s data-face="right">R</s><s data-face="lower">Lower</s><s data-face="upper">Upper</s></div></div>
-        <div class="views">
-        <button data-view="upper" title="Upper occlusal (Alt+Q)">Upper</button>
-        <button data-view="front" title="Front (Alt+1)">Front</button>
-        <button data-view="home" title="Home (Alt+H)">Home</button>
-        <button data-view="back" title="Back (Alt+2)">Back</button>
-        <button data-view="lower" title="Lower occlusal (Alt+E)">Lower</button>
-        <button data-view="right" title="Patient right (Alt+3)">Right</button>
-        <button data-view="left" title="Patient left (Alt+4)">Left</button>
-        </div>
       </div>
       <div id="bottom" class="float bottom">
         <div id="adv-staging" class="adv-staging" hidden></div>
@@ -625,11 +703,12 @@
       <div id="table-view" hidden></div>
     </main>
     <footer id="status">Ready</footer>
+    <span id="app-version" class="app-version" hidden></span>
 
     <!-- ===================== home: patients ===================== -->
     <div id="home" class="page">
       <div class="home-wrap">
-        <div class="home-brand"><span class="logo" id="home-logo"></span><span>clear aligner planning · research build</span></div>
+        <div class="home-brand"><span class="logo" id="home-logo"></span><span>clear aligner planning and design</span></div>
         <div class="home-grid">
           <section class="card">
             <h2>Patients</h2>
@@ -738,7 +817,15 @@
           <button data-settab="shortcuts">Shortcuts</button>
           <button data-settab="clinic">Clinic</button>
           <button data-settab="learning">Learning</button>
+          <button data-settab="about">About</button>
         </div>
+        <section data-setpanel="about" hidden>
+          <h3>DPA Software</h3>
+          <p>Clear aligner planning and design. <span id="about-version" class="muted"></span></p>
+          <div class="row" id="about-update-row" hidden><button id="btn-check-update">Check for updates</button><span class="muted small" id="about-update-note"></span></div>
+          <p class="muted small">Cases, the aligners made and what the program has learned are kept on this computer only; nothing is sent anywhere. Use Save file for a backup of a case.</p>
+          <p class="muted small">This program is a planning and design tool. It is not a certified medical device: check every plan and every aligner before it is used on a patient.</p>
+        </section>
         <section data-setpanel="clinic" hidden>
           <div class="muted small">Appearance</div>
           <div class="row"><button data-theme-pick="light" class="active">Light</button><button data-theme-pick="dark">Dark</button></div>
@@ -831,6 +918,7 @@
             <tr><th>Panels</th><td>Table View</td><td><kbd>T</kbd></td></tr>
             <tr><th></th><td>Arrows & rings on / off</td><td><kbd>G</kbd></td></tr>
             <tr><th>General</th><td>Undo / Redo</td><td><kbd>Ctrl+Z / Ctrl+Shift+Z or Ctrl+Y</kbd></td></tr>
+            <tr><th></th><td>This list of shortcuts</td><td><kbd>?</kbd></td></tr>
             <tr><th>Segmentation</th><td>Select, Fill, Brush, Erase</td><td><kbd>S, F, B, E</kbd></td></tr>
             <tr><th></th><td>Brush size</td><td><kbd>[ / ]</kbd></td></tr>
           </table>
@@ -865,51 +953,67 @@
       </div>
     </div>
     <div id="export-modal" class="modal" hidden>
-      <div class="modal-box">
-        <h2>Export <button class="close" id="export-close">✕</button></h2>
+      <div class="modal-box export-box" role="dialog" aria-modal="true" aria-labelledby="export-title">
+        <h2 id="export-title">Export <button class="close" id="export-close" aria-label="Close">✕</button></h2>
         <div id="preflight" class="preflight"></div>
-        <div class="row">
-          <button id="btn-export-all" class="primary-inline">All stages (ZIP)</button>
-          <button id="btn-export-current">Current stage STL</button>
-          <button id="btn-export-retainer" title="The last aligner's model with the attachments left off, for printing a retainer">Retainer STL</button>
-        </div>
-        <div class="row">
-          <button id="btn-export-csv">Movement table (CSV)</button>
-          <button id="btn-export-ipr-pdf">IPR report (PDF)</button>
-          <button id="btn-report-pdf" title="The whole plan in one PDF: before and after, arch measurements, every tooth's movement, face and smile analysis, aligner forces, IPR and attachments">Treatment report (PDF)</button>
-          <button id="btn-export-ipr">IPR report (CSV)</button>
-          <button id="btn-screenshot">Screenshot</button>
-        </div>
-        <label class="check"><input id="one-shell" type="checkbox" checked /> One shell: join gum, teeth and attachments into one closed surface (for printing)</label>
-        <label class="check"><input id="base-on" type="checkbox" checked /> Give the model a flat base
+        <section class="ex-sec">
+          <h3>Models for printing</h3>
+          <div class="row">
+            <button id="btn-export-all" class="primary-inline">All stages (ZIP)</button>
+            <button id="btn-export-current">Current stage STL</button>
+            <button id="btn-export-retainer" title="The last aligner's model with the attachments left off, for printing a retainer">Retainer STL</button>
+          </div>
+          <p class="muted small">All stages re-measures contacts first and includes the IPR report; unresolved collisions are listed in it.</p>
+          <details class="drawer"><summary>Print options</summary>
+            <label class="check"><input id="one-shell" type="checkbox" checked /> One shell: join gum, teeth and attachments into one closed surface (for printing)</label>
+            <label class="check"><input id="base-on" type="checkbox" checked /> Give the model a flat base
           <input id="base-mm" type="number" min="1" max="20" step="0.5" value="4" style="width: 5em" /> mm deep</label>
-        <label class="check"><input id="hollow-on" type="checkbox" checked /> Hollow the model, open through the base, leaving a wall of
+            <label class="check"><input id="hollow-on" type="checkbox" checked /> Hollow the model, open through the base, leaving a wall of
           <input id="hollow-wall" type="number" min="0.5" max="5" step="0.1" value="3" style="width: 5em" /> mm</label>
-        <p class="muted small" id="hollow-note">The base closes the model off at a flat plane it can be printed standing on. It is built here, at export, so the segmentation is untouched — unlike Create base in Scans, which changes the scan itself. Hollowing then empties the inside to save resin and opens it through the base, the way a lab's model builder does, so the resin drains out and nothing is sealed in. Without a base there is nothing to empty but the wall, and the model comes out a shell. Both need One shell, which is what joins the parts into one surface. Anywhere the model is thinner than twice the wall stays solid.</p>
-        <p class="muted small">All stages re-measures contacts first and includes the IPR report; unresolved collisions are listed in it.</p>
-        <div class="row"><label class="btn">Make one shell from a file (STL/PLY/OBJ)…<input id="file-oneshell" type="file" accept=".stl,.ply,.obj" hidden /></label></div>
-        <h3>Direct-print aligners</h3>
-        <p class="muted small">The aligner shells themselves, for printing directly: thickness, offset, trimline, pressure points, buttons, hooks and appliances.</p>
-        <div class="row"><button id="btn-open-aligners" class="primary-inline">Open the Aligners module</button></div>
-        <div class="row"><button id="btn-open-check">Check aligner files (STL)…</button></div>
-        <p class="muted small">Aligners made elsewhere (DAD and others): their mesh and wall measured, and repaired into one closed piece with a minimum wall, the inside left as it is.</p>
-        <h3>Treatment video</h3>
-        <div class="row video-views">
+            <p class="muted small" id="hollow-note">The base closes the model off at a flat plane it can be printed standing on. It is built here, at export, so the segmentation is untouched — unlike Create base in Scans, which changes the scan itself. Hollowing then empties the inside to save resin and opens it through the base, the way a lab's model builder does, so the resin drains out and nothing is sealed in. Without a base there is nothing to empty but the wall, and the model comes out a shell. Both need One shell, which is what joins the parts into one surface. Anywhere the model is thinner than twice the wall stays solid.</p>
+            <div class="row"><label class="btn">Make one shell from a file (STL/PLY/OBJ)…<input id="file-oneshell" type="file" accept=".stl,.ply,.obj" hidden /></label></div>
+          </details>
+        </section>
+        <section class="ex-sec">
+          <h3>Direct-print aligners</h3>
+          <p class="muted small">The aligner shells themselves: thickness, trimline, pressure points, buttons and appliances.</p>
+          <div class="row">
+            <button id="btn-open-aligners" class="primary-inline">Open the Aligners module</button>
+            <button id="btn-open-check">Check aligner files (STL)…</button>
+          </div>
+          <p class="muted small">Aligners made elsewhere (DAD and others): their mesh and wall measured, and repaired into one closed piece with a minimum wall, the inside left as it is.</p>
+        </section>
+        <section class="ex-sec">
+          <h3>Reports</h3>
+          <div class="row">
+            <button id="btn-report-pdf" title="The whole plan in one PDF: before and after, arch measurements, every tooth's movement, face and smile analysis, aligner forces, IPR and attachments">Treatment report (PDF)</button>
+            <button id="btn-export-ipr-pdf">IPR report (PDF)</button>
+            <button id="btn-export-ipr">IPR report (CSV)</button>
+            <button id="btn-export-csv">Movement table (CSV)</button>
+            <button id="btn-screenshot">Screenshot</button>
+          </div>
+        </section>
+        <section class="ex-sec">
+          <h3>For the patient</h3>
+          <p class="muted small">One HTML file with the whole plan in 3D: the patient opens it on a phone or computer (no app, works offline), plays it aligner by aligner and turns the model. Send it by WhatsApp or e-mail, or upload it to a web host to get a link.</p>
+          <div class="row"><button id="btn-viewer" class="primary-inline">Export 3D viewer</button><button id="btn-viewer-link">Create a link</button></div>
+          <p class="muted small" id="viewer-link-out"></p>
+          <details class="drawer"><summary>Treatment video</summary>
+            <div class="row video-views">
           <label class="check"><input type="checkbox" data-shot="front" checked /> Front</label>
           <label class="check"><input type="checkbox" data-shot="right" checked /> Right</label>
           <label class="check"><input type="checkbox" data-shot="left" checked /> Left</label>
           <label class="check"><input type="checkbox" data-shot="upper" checked /> Upper occlusal</label>
           <label class="check"><input type="checkbox" data-shot="lower" checked /> Lower occlusal</label>
         </div>
-        <div class="row"><button id="btn-video" class="primary-inline">Record video</button><span id="video-note" class="muted small"></span></div>
-        <h3>Training data for AI segmentation</h3>
-        <p class="muted small">Each scan with its checked tooth outlines, in the Teeth3DS format (OBJ + per-vertex FDI labels), named by the case serial, never the patient's name. Collected cases are what an AI model for this clinic's scans is trained on.</p>
-        <div class="row"><button id="btn-export-training">Export training data</button></div>
-        <h3>3D viewer for the patient</h3>
-        <p class="muted small">One HTML file with the whole plan in 3D: the patient opens it on a phone or computer (no app, works offline), plays it aligner by aligner and turns the model. Send it by WhatsApp or e-mail, or upload it to a web host to get a link.</p>
-        <div class="row"><button id="btn-viewer" class="primary-inline">Export 3D viewer</button><button id="btn-viewer-link">Create a link</button></div>
-        <p class="muted small" id="viewer-link-out"></p>
-        <label class="check"><input id="video-name" type="checkbox" checked /> Show the patient's name (video and viewer)</label>
+            <div class="row"><button id="btn-video">Record video</button><span id="video-note" class="muted small"></span></div>
+          </details>
+          <label class="check"><input id="video-name" type="checkbox" checked /> Show the patient's name (video and viewer)</label>
+        </section>
+        <details class="drawer ex-training"><summary>Training data for AI segmentation</summary>
+          <p class="muted small">Each scan with its checked tooth outlines, in the Teeth3DS format (OBJ + per-vertex FDI labels), named by the case serial, never the patient's name. Collected cases are what an AI model for this clinic's scans is trained on.</p>
+          <div class="row"><button id="btn-export-training">Export training data</button></div>
+        </details>
       </div>
     </div>
 
